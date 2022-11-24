@@ -1,13 +1,19 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {BoardingScreenProps} from '../../types';
 
-type Props = {};
+const BoardingScreen = ({navigation}: BoardingScreenProps) => {
+  const moveToHomeHandler = () => {
+    navigation.navigate('HomeNavigator');
+  };
 
-const BoardingScreen = (props: Props) => {
   return (
     <View>
       <Text>BoardingScreen</Text>
       <Text>BoardingScreen</Text>
+      <TouchableOpacity onPress={moveToHomeHandler}>
+        <Text>Move to Home Screen</Text>
+      </TouchableOpacity>
     </View>
   );
 };

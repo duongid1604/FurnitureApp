@@ -1,5 +1,14 @@
-export {default as TestScreen} from './TestScreen/';
+export {default as TestScreen} from './TestScreen';
 export {default as LoginScreen} from './LoginScreen';
+export {default as SignupScreen} from './SignupScreen';
 export {default as BoardingScreen} from './BoardingScreen';
 export {default as CartScreen} from './CartScreen';
 export {default as PaymentScreen} from './PaymentScreen';
+export {default as HomeScreen} from './HomeScreen';
+export {default as FavoriteScreen} from './FavoriteScreen';
+export {default as NotificationScreen} from './NotificationScreen';
+export {default as ProfileScreen} from './ProfileScreen';
+export {default as ProductScreen} from './ProductScreen';
+export {default as CheckoutScreen} from './CheckoutScreen';
+export {default as CongratsScreen} from './CongratsScreen';
+export {default as OrderScreen} from './OrderScreen';
