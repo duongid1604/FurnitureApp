@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
 import {useTestScreen} from '../../hooks';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -11,7 +12,7 @@ const TestScreen = ({}: Props) => {
   return (
     <View style={styles.screen}>
       <TouchableOpacity onPress={onIncrease}>
-        <Text>Increase</Text>
+        <Text style={styles.text}>Increase</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onDecrease}>
         <Text>Decrease</Text>
@@ -20,6 +21,12 @@ const TestScreen = ({}: Props) => {
       <View style={styles.icon}>
         <MaterialIcons name="file-download" size={50} color="#900" />
       </View>
+
+      <Text style={styles.para}>
+        Nice Furniture with good delivery. The delivery time is very fast. Then
+        products look like exactly the picture in the app. Besides, color is
+        also the same and quality is very good despite very cheap price
+      </Text>
     </View>
   );
 };
@@ -35,5 +42,15 @@ const styles = StyleSheet.create({
   icon: {
     height: 100,
     width: 100,
+  text: {
+    fontSize: FONT_SIZE.LABEL,
+    color: COLORS.DANGER,
+    fontFamily: FONTS.POPPINS,
+    fontWeight: FONT_WEIGHT.REGULAR,
+  },
+  para: {
+    fontSize: FONT_SIZE.LABEL,
+    fontWeight: FONT_WEIGHT.REGULAR,
+    color: COLORS.SUB,
   },
 });
