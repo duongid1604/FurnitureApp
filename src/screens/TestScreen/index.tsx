@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
   icon: {
     height: 100,
     width: 100,
+  },
   text: {
     fontSize: FONT_SIZE.LABEL,
     color: COLORS.DANGER,
@@ -103,9 +104,5 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.LABEL,
     fontWeight: FONT_WEIGHT.REGULAR,
     color: COLORS.SUB,
-  },
-  icon: {
-    width: 50,
-    height: 50,
   },
 });
