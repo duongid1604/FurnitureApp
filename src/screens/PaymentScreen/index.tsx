@@ -1,18 +1,15 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-
 type Props = {};
 
-const CartScreen = (props: Props) => {
-console.log('hello')
-
+const PaymentScreen = (props: Props) => {
   return (
     <View>
-      <Text>CartScreen</Text>
+      <Text>PaymentScreen</Text>
     </View>
   );
 };
 
-export default CartScreen;
+export default PaymentScreen;
 
 const styles = StyleSheet.create({});
