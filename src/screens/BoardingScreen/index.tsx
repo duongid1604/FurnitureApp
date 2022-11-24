@@ -7,6 +7,7 @@ const BoardingScreen = (props: Props) => {
   return (
     <View>
       <Text>BoardingScreen</Text>
+      <Text>BoardingScreen</Text>
     </View>
   );
 };
