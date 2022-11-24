@@ -1,21 +1,11 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {useAppSelector, useAppDispatch} from '../../hooks';
-import {increase, decrease} from '../../redux/reducers/exampleSlice';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useTestScreen} from '../../hooks';
 
 type Props = {};
 
-const TestScreen = (props: Props) => {
-  const dispatch = useAppDispatch();
-  const count = useAppSelector(state => state.example.value);
-
-  const onIncrease = () => {
-    dispatch(increase());
-  };
-
-  const onDecrease = () => {
-    dispatch(decrease());
-  };
+const TestScreen = ({}: Props) => {
+  const {count, onDecrease, onIncrease} = useTestScreen();
 
   return (
     <View style={styles.screen}>
