@@ -15,6 +15,7 @@ import {
   StyleSheet,
   useColorScheme,
 } from 'react-native';
+import 'react-native-gesture-handler';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
