@@ -20,8 +20,16 @@ const RootNavigator = () => {
     <NavigationContainer>
       <RootStack.Navigator initialRouteName="Boarding">
         <RootStack.Screen name="Boarding" component={BoardingScreen} />
-        <RootStack.Screen name="Signup" component={SignupScreen} />
-        <RootStack.Screen name="Login" component={LoginScreen} />
+        <RootStack.Screen
+          name="Signup"
+          component={SignupScreen}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
         <RootStack.Screen
           name="HomeNavigator"
           component={HomeNavigator}

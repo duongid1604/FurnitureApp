@@ -7,12 +7,19 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
     navigation.navigate('HomeNavigator');
   };
 
+  const moveToLoginScreenHandler = () => {
+    navigation.navigate('Login');
+  };
+
   return (
     <View>
       <Text>BoardingScreen</Text>
       <Text>BoardingScreen</Text>
       <TouchableOpacity onPress={moveToHomeHandler}>
         <Text>Move to Home Screen</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={moveToLoginScreenHandler}>
+        <Text>Move to Login Screen</Text>
       </TouchableOpacity>
     </View>
   );
