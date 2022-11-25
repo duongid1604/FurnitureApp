@@ -3,16 +3,18 @@ import {Pressable, StyleSheet, Text} from 'react-native';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
 import {scaleUI} from '../../utils';
 
-interface Props {
-  children: String | undefined;
-}
+type Props = {
+  children: String;
+  onPress?: () => void;
+};
 
-const NormalCustomButton: React.FC<Props> = ({children}) => {
+const NormalCustomButton = ({children, onPress}: Props) => {
   return (
     <Pressable
       style={({pressed}) =>
         pressed ? [styles.button, styles.pressed] : styles.button
-      }>
+      }
+      onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );
