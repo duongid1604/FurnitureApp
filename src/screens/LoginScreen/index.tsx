@@ -17,7 +17,20 @@ const LoginScreen = (props: Props) => {
       </View>
       {/* Form */}
       <View style={styles.form}>
-        <CustomInput label="Email" />
+        <CustomInput
+          label="Email"
+          placeholder="Ex: hello@gmail.com"
+          inputProps={{
+            maxLength: 20,
+          }}
+        />
+        <CustomInput
+          label="Email"
+          placeholder="Ex: hello@gmail.com"
+          inputProps={{
+            maxLength: 20,
+          }}
+        />
       </View>
     </CustomScreenContainer>
   );
