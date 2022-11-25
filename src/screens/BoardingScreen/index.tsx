@@ -1,8 +1,9 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, Text, View, StatusBar} from 'react-native';
+import {ImageBackground, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {CustomScreenContainer} from '../../components';
+import BigCustomButton from '../../components/BigCustomButton';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
 import {BoardingScreenProps} from '../../types';
-import BigCustomButton from '../components/BigCustomButton';
 
 const BoardingScreen = ({navigation}: BoardingScreenProps) => {
   const moveToLoginHandler = () => {
@@ -20,7 +21,7 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
         source={require('../../assets/images/bg.jpg')}
         resizeMode="stretch"
         style={styles.image}>
-        <View style={styles.container}>
+        <CustomScreenContainer>
           <Text style={styles.heading}>MAKE YOUR {'\n'}HOME BEAUTIFUL</Text>
           <Text style={styles.description}>
             The best simple place where you discovery most wonderful furniture
@@ -32,7 +33,7 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
               Get Started
             </BigCustomButton>
           </View>
-        </View>
+        </CustomScreenContainer>
       </ImageBackground>
     </>
   );
@@ -41,10 +42,6 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
 export default BoardingScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 24,
-  },
   image: {
     flex: 1,
   },

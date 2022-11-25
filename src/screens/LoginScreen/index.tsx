@@ -1,13 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import CustomInput from '../components/CustomInput';
+import {StyleSheet, Text, View} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = {};
 
 const LoginScreen = (props: Props) => {
   return (
     <View style={styles.screen}>
-      {/* <CustomInput label="Email" placeholder="Ex: bruno203@gmail.com" /> */}
+      {/* Header */}
+      <MaterialCommunityIcons name="sofa-single-outline" size={24} />
       <Text>Hello!</Text>
       <Text>Welcome Back</Text>
     </View>

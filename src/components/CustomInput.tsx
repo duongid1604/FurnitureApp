@@ -1,9 +1,7 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Controller, UseControllerProps} from 'react-hook-form';
-import {CustomInputProps} from '../../types';
+import {StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import {COLORS} from '../../constants';
+import {COLORS} from '../constants';
 
 type Props = {
   label: string;
