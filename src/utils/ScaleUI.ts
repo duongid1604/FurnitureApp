@@ -2,7 +2,7 @@ import {Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
-export const scaleUI = (param: number, isHeight: boolean) => {
+export const scaleUI = (param: number, isHeight?: boolean) => {
   const widthDesign = 375;
 
   const heightDesign = 812;

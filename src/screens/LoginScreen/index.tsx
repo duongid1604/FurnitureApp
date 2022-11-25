@@ -1,22 +1,60 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {CustomInput, CustomScreenContainer} from '../../components';
+import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
+import {scaleUI} from '../../utils';
+import AuthHeader from './components/AuthHeader';
 
 type Props = {};
 
 const LoginScreen = (props: Props) => {
   return (
-    <View style={styles.screen}>
-      {/* Header */}
-      <MaterialCommunityIcons name="sofa-single-outline" size={24} />
-      <Text>Hello!</Text>
-      <Text>Welcome Back</Text>
-    </View>
+    <CustomScreenContainer>
+      <AuthHeader />
+      <View style={styles.title}>
+        <Text style={styles.titleText}>Hello!</Text>
+        <Text style={styles.titleTextBold}>Welcome Back</Text>
+      </View>
+      {/* Form */}
+      <View style={styles.form}>
+        <CustomInput label="Email" />
+      </View>
+    </CustomScreenContainer>
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  screen: {},
+  title: {
+    alignItems: 'center',
+    marginTop: scaleUI(32, true),
+  },
+  titleText: {
+    fontSize: FONT_SIZE.H3,
+    fontFamily: FONTS.POPPINS,
+    color: COLORS.MAIN,
+    lineHeight: 38.4,
+  },
+  titleTextBold: {
+    fontSize: FONT_SIZE.H3,
+    fontFamily: FONTS.POPPINS_BOLD,
+    color: COLORS.MAIN,
+    textTransform: 'uppercase',
+    fontWeight: FONT_WEIGHT.BOLD,
+    lineHeight: 38.4,
+  },
+  form: {
+    shadowColor: COLORS.MAIN,
+    shadowOffset: {
+      width: 0,
+      height: 11,
+    },
+    shadowOpacity: 0.57,
+    shadowRadius: 15.19,
+    elevation: 23,
+    backgroundColor: COLORS.WHITE,
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+  },
 });
