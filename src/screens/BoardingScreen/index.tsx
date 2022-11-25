@@ -9,6 +9,9 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
   const moveToLoginHandler = () => {
     navigation.navigate('Login');
   };
+  const moveToHome = () => {
+    navigation.navigate('HomeNavigator');
+  };
 
   return (
     <>
@@ -21,7 +24,7 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
         source={require('../../assets/images/bg.jpg')}
         resizeMode="stretch"
         style={styles.image}>
-        <CustomScreenContainer>
+        <CustomScreenContainer style={styles.backGroundColor}>
           <Text style={styles.heading}>MAKE YOUR {'\n'}HOME BEAUTIFUL</Text>
           <Text style={styles.description}>
             The best simple place where you discovery most wonderful furniture
@@ -32,6 +35,7 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
             <BigCustomButton onPress={moveToLoginHandler}>
               Get Started
             </BigCustomButton>
+            <BigCustomButton onPress={moveToHome}>Go to home</BigCustomButton>
           </View>
         </CustomScreenContainer>
       </ImageBackground>
@@ -73,5 +77,9 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 0,
     right: 0,
+    marginHorizontal: 24,
+  },
+  backGroundColor: {
+    backgroundColor: 'transparent',
   },
 });
