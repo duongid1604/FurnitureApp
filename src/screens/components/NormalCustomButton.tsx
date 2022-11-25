@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
+import {scaleUI} from '../../utils';
 
 interface Props {
   children: String | undefined;
@@ -21,8 +22,8 @@ export default NormalCustomButton;
 
 const styles = StyleSheet.create({
   button: {
-    width: 127,
-    height: 36,
+    width: scaleUI(127, false),
+    height: scaleUI(36, false),
     paddingVertical: 6,
     paddingHorizontal: 16,
     borderRadius: 8,
