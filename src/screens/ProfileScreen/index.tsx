@@ -1,12 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {ProfileScreenProps} from '../../types';
 
-type Props = {};
-
-const ProfileScreen = (props: Props) => {
+const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   return (
     <View>
       <Text>ProfileScreen</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('PaymentMethod')}>
+        <Text> Go to Payment Method</Text>
+      </TouchableOpacity>
     </View>
   );
 };
