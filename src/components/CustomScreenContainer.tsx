@@ -1,13 +1,14 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 import {COLORS} from '../constants';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
+  style?: ViewStyle;
 };
 
-const CustomScreenContainer = ({children}: Props) => {
-  return <View style={styles.screen}>{children}</View>;
+const CustomScreenContainer = ({children, style}: Props) => {
+  return <View style={[styles.screen, style]}>{children}</View>;
 };
 
 export default CustomScreenContainer;
