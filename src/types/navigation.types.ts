@@ -43,3 +43,8 @@ export type CongratsScreenProps = CompositeScreenProps<
   StackScreenProps<RootStackParamList, 'Congrats'>,
   StackScreenProps<ProfileStackParamList>
 >;
+
+export type ProfileScreenProps = StackScreenProps<
+  ProfileStackParamList,
+  'Profile'
+>;
