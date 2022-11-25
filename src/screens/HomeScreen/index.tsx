@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {HomeScreenProps} from '../../types';
-import {TestButton} from '../components';
+import {TestButton} from '../../components';
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
   const moveToProductScreenHandler = () => {

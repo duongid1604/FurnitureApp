@@ -24,8 +24,16 @@ const RootNavigator = () => {
           component={BoardingScreen}
           options={{headerShown: false}}
         />
-        <RootStack.Screen name="Signup" component={SignupScreen} />
-        <RootStack.Screen name="Login" component={LoginScreen} />
+        <RootStack.Screen
+          name="Signup"
+          component={SignupScreen}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
         <RootStack.Screen
           name="HomeNavigator"
           component={HomeNavigator}

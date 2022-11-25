@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
-import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
+import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../constants';
 
 type Props = {
   children: String | undefined;
