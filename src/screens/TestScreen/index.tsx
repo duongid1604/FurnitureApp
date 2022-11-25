@@ -10,8 +10,8 @@ import {
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, ICON} from '../../constants';
 import {useTestScreen} from '../../hooks';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import BigCustomButton from '../components/BigCustomButton';
-import NormalCustomButton from '../components/NormalCustomButton';
+import BigCustomButton from '../../components/BigCustomButton';
+import NormalCustomButton from '../../components/NormalCustomButton';
 
 type Props = {};
 
