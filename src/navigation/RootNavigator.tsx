@@ -19,7 +19,11 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator initialRouteName="Boarding">
-        <RootStack.Screen name="Boarding" component={BoardingScreen} />
+        <RootStack.Screen
+          name="Boarding"
+          component={BoardingScreen}
+          options={{headerShown: false}}
+        />
         <RootStack.Screen
           name="Signup"
           component={SignupScreen}

@@ -1,18 +1,19 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
-import {scaleUI} from '../../utils';
 
-interface Props {
+type Props = {
   children: String | undefined;
-}
+  onPress?: () => void;
+};
 
-const BigCustomButton: React.FC<Props> = ({children}) => {
+const BigCustomButton = ({children, onPress}: Props) => {
   return (
     <Pressable
       style={({pressed}) =>
         pressed ? [styles.button, styles.pressed] : styles.button
-      }>
+      }
+      onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );
@@ -22,10 +23,7 @@ export default BigCustomButton;
 
 const styles = StyleSheet.create({
   button: {
-    width: scaleUI(159, false),
-    height: scaleUI(56, false),
-    paddingVertical: 16,
-    paddingHorizontal: 32,
+    width: '100%',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -35,10 +33,11 @@ const styles = StyleSheet.create({
     opacity: 0.25,
   },
   text: {
+    paddingVertical: 16,
+    paddingHorizontal: 32,
     fontFamily: FONTS.POPPINS,
     fontWeight: FONT_WEIGHT.REGULAR,
-    fontSize: FONT_SIZE.BODY,
+    fontSize: FONT_SIZE.H5,
     color: COLORS.WHITE,
-    lineHeight: 24,
   },
 });
