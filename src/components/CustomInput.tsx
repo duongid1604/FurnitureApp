@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import {COLORS} from '../constants';
+import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../constants';
 
 type Props = {
   label: string;
@@ -11,8 +11,8 @@ type Props = {
 const CustomInput = ({label, placeholder}: Props) => {
   return (
     <View style={styles.inputContainer}>
-      <Text>{label}</Text>
-      <TextInput placeholder={placeholder} />
+      <Text style={styles.label}>{label}</Text>
+      <TextInput placeholder={placeholder} style={styles.textInput} />
     </View>
   );
 };
@@ -34,5 +34,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     borderColor: COLORS.SECONDARY,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  label: {
+    fontSize: FONT_SIZE.LABEL,
+    color: COLORS.SUB,
+    fontFamily: FONTS.POPPINS,
+    lineHeight: 18,
+  },
+  textInput: {
+    fontFamily: FONTS.POPPINS,
+    fontSize: FONT_SIZE.BODY,
+    lineHeight: 24,
   },
 });
