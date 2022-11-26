@@ -28,6 +28,10 @@ export type ProfileStackParamList = {
   Setting: undefined;
   PaymentMethod: undefined;
 };
+export type PaymentMethodStackParamList = {
+  PaymentMethod: undefined;
+  AddPayment: undefined;
+};
 
 export type BoardingScreenProps = StackScreenProps<
   RootStackParamList,
@@ -47,4 +51,9 @@ export type CongratsScreenProps = CompositeScreenProps<
 export type ProfileScreenProps = StackScreenProps<
   ProfileStackParamList,
   'Profile'
+>;
+
+export type PaymentScreenProps = StackScreenProps<
+  PaymentMethodStackParamList,
+  'PaymentMethod'
 >;

@@ -12,11 +12,11 @@ import {
 
 type Props = {};
 
-const ActiveCreditCard = (props: Props) => {
+const DefaultCard = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.infoView}>
-        <Image source={ICON.MASTERCARD} style={styles.mastercard} />
+        <Image source={ICON.VISA} style={styles.visacard} />
         <Text style={styles.cardnum}>* * * * * * * * * * * * 3947</Text>
         <View style={styles.detail}>
           <View style={styles.username}>
@@ -34,23 +34,23 @@ const ActiveCreditCard = (props: Props) => {
   );
 };
 
-export default ActiveCreditCard;
+export default DefaultCard;
 
 const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
     width: scaleUI(333, false),
     height: scaleUI(180, false),
-    backgroundColor: COLORS.MAIN,
+    backgroundColor: COLORS.DEFAULT,
     borderRadius: 10,
   },
   infoView: {
     marginHorizontal: 20,
     marginVertical: 20,
   },
-  mastercard: {
-    width: 30,
-    height: 24,
+  visacard: {
+    width: 50,
+    height: 16,
     marginBottom: 20,
   },
   cardnum: {
