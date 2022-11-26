@@ -48,3 +48,12 @@ export type ProfileScreenProps = StackScreenProps<
   ProfileStackParamList,
   'Profile'
 >;
+
+export type ProductScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Product'
+>;
+
+export type ProductNavigationProp = ProductScreenProps['navigation'];
+
+export type ProductRouteProp = ProductScreenProps['route'];
