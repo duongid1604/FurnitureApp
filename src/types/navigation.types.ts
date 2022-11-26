@@ -28,6 +28,10 @@ export type ProfileStackParamList = {
   Setting: undefined;
   PaymentMethod: undefined;
 };
+export type PaymentMethodStackParamList = {
+  PaymentMethod: undefined;
+  AddPayment: undefined;
+};
 
 export type BoardingScreenProps = StackScreenProps<
   RootStackParamList,
