@@ -53,7 +53,11 @@ export type ProfileScreenProps = StackScreenProps<
   'Profile'
 >;
 
-export type PaymentScreenProps = StackScreenProps<
-  PaymentMethodStackParamList,
-  'PaymentMethod'
+export type ProductScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Product'
 >;
+
+export type ProductNavigationProp = ProductScreenProps['navigation'];
+
+export type ProductRouteProp = ProductScreenProps['route'];
