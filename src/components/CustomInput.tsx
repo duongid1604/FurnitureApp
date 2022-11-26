@@ -1,22 +1,52 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, TextInputProps} from 'react-native';
-import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, LINE_HEIGHT} from '../constants';
+import {Controller} from 'react-hook-form';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 
-type Props = {
-  label: string;
-  placeholder?: string;
-  inputProps?: TextInputProps;
-};
+import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../constants';
+import {CustomInputProps} from '../types';
+import CustomIconButton from './CustomIconButton';
 
-const CustomInput = ({label, placeholder, inputProps}: Props) => {
+const CustomInput = <TFormValues extends Record<string, unknown>>({
+  label,
+  textInputProps,
+  hasIcon,
+  icon,
+  activeIcon,
+  onPress,
+  error,
+  field,
+  control,
+  rules,
+}: CustomInputProps<TFormValues>) => {
+  const errorMessage =
+    error?.[field as keyof typeof error]?.message?.toString();
+
   return (
-    <View style={styles.inputContainer}>
+    <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        placeholder={placeholder}
-        style={styles.textInput}
-        {...inputProps}
-      />
+      <View style={styles.inputContainer}>
+        <Controller
+          name={field}
+          control={control}
+          rules={rules}
+          render={({field: {onChange, value}}) => (
+            <TextInput
+              style={styles.textInput}
+              {...textInputProps}
+              onChangeText={onChange}
+              value={value?.toString()}
+            />
+          )}
+        />
+        {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
+        {hasIcon && (
+          <CustomIconButton
+            activeIcon={activeIcon}
+            icon={icon}
+            onPress={onPress}
+          />
+        )}
+      </View>
     </View>
   );
 };
@@ -24,7 +54,7 @@ const CustomInput = ({label, placeholder, inputProps}: Props) => {
 export default CustomInput;
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  container: {
     width: '100%',
     backgroundColor: COLORS.WHITE,
     borderWidth: 1,
@@ -32,6 +62,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.SECONDARY,
     paddingHorizontal: 12,
     paddingVertical: 8,
+    marginBottom: 20,
   },
   label: {
     fontSize: FONT_SIZE.LABEL,
@@ -39,9 +70,16 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.POPPINS,
     lineHeight: LINE_HEIGHT.LABEL,
   },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   textInput: {
     fontFamily: FONTS.POPPINS,
     fontSize: FONT_SIZE.BODY,
     lineHeight: LINE_HEIGHT.BODY,
+    flex: 1,
   },
+  error: {},
 });

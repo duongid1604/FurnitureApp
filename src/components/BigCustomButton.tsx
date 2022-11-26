@@ -1,20 +1,29 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {Pressable, StyleSheet, Text, TextStyle, ViewStyle} from 'react-native';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../constants';
 
 type Props = {
   children: String | undefined;
   onPress?: () => void;
+  extraStyle?: ViewStyle;
+  extraTextStyle?: TextStyle;
 };
 
-const BigCustomButton = ({children, onPress}: Props) => {
+const BigCustomButton = ({
+  children,
+  onPress,
+  extraStyle,
+  extraTextStyle,
+}: Props) => {
   return (
     <Pressable
       style={({pressed}) =>
-        pressed ? [styles.button, styles.pressed] : styles.button
+        pressed
+          ? [styles.button, styles.pressed, extraStyle]
+          : [styles.button, extraStyle]
       }
       onPress={onPress}>
-      <Text style={styles.text}>{children}</Text>
+      <Text style={[styles.text, extraTextStyle]}>{children}</Text>
     </Pressable>
   );
 };
