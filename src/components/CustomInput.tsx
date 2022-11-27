@@ -1,18 +1,59 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
-import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../constants';
+import {Controller} from 'react-hook-form';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 
-type Props = {
-  label: string;
-  placeholder?: string;
-};
+import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../constants';
+import {CustomInputProps} from '../types';
+import CustomIconButton from './CustomIconButton';
 
-const CustomInput = ({label, placeholder}: Props) => {
+const CustomInput = <TFormValues extends Record<string, unknown>>({
+  label,
+  textInputProps,
+  hasIcon,
+  icon,
+  activeIcon,
+  onPress,
+  error,
+  field,
+  control,
+  rules,
+}: CustomInputProps<TFormValues>) => {
+  const errorMessage =
+    error?.[field as keyof typeof error]?.message?.toString();
+
   return (
-    <View style={styles.inputContainer}>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput placeholder={placeholder} style={styles.textInput} />
+    <View style={styles.outerContainer}>
+      <View
+        style={
+          errorMessage
+            ? [styles.container, styles.hasErrorContainer]
+            : styles.container
+        }>
+        <Text style={styles.label}>{label}</Text>
+        <View style={styles.inputContainer}>
+          <Controller
+            name={field}
+            control={control}
+            rules={rules}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                style={styles.textInput}
+                {...textInputProps}
+                onChangeText={onChange}
+                value={value?.toString()}
+              />
+            )}
+          />
+          {hasIcon && (
+            <CustomIconButton
+              activeIcon={activeIcon}
+              icon={icon}
+              onPress={onPress}
+            />
+          )}
+        </View>
+      </View>
+      {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
     </View>
   );
 };
@@ -20,32 +61,42 @@ const CustomInput = ({label, placeholder}: Props) => {
 export default CustomInput;
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  outerContainer: {
+    width: '100%',
+  },
+  container: {
     width: '100%',
     backgroundColor: COLORS.WHITE,
-    shadowColor: COLORS.BLACK_O2,
-    shadowOffset: {
-      width: 0,
-      height: 15,
-    },
-    shadowOpacity: 0.24,
-    shadowRadius: 17.43,
-    elevation: 21,
     borderWidth: 1,
     borderRadius: 4,
     borderColor: COLORS.SECONDARY,
     paddingHorizontal: 12,
     paddingVertical: 8,
+    marginBottom: 20,
+  },
+  hasErrorContainer: {
+    marginBottom: 10,
   },
   label: {
     fontSize: FONT_SIZE.LABEL,
     color: COLORS.SUB,
     fontFamily: FONTS.POPPINS,
-    lineHeight: 18,
+    lineHeight: LINE_HEIGHT.LABEL,
+    textTransform: 'capitalize',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   textInput: {
     fontFamily: FONTS.POPPINS,
     fontSize: FONT_SIZE.BODY,
-    lineHeight: 24,
+    lineHeight: LINE_HEIGHT.BODY,
+    flex: 1,
+  },
+  error: {
+    color: COLORS.DANGER,
+    marginBottom: 20,
   },
 });

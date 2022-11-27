@@ -71,3 +71,15 @@ export type AddPaymentProps = StackScreenProps<
   PaymentMethodStackParamList,
   'AddPayment'
 >;
+
+export type SignupScreenProps = StackScreenProps<RootStackParamList, 'Signup'>;
+
+export type SignupNavigationProp = SignupScreenProps['navigation'];
+
+export type SignupRouteProp = SignupScreenProps['route'];
+
+export type LoginScreenProps = StackScreenProps<RootStackParamList, 'Login'>;
+
+export type LoginNavigationProp = LoginScreenProps['navigation'];
+
+export type LoginRouteProp = LoginScreenProps['route'];
