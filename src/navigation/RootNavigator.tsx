@@ -39,7 +39,11 @@ const RootNavigator = () => {
           component={HomeNavigator}
           options={{headerShown: false}}
         />
-        <RootStack.Screen name="Product" component={ProductScreen} />
+        <RootStack.Screen
+          name="Product"
+          component={ProductScreen}
+          options={{headerShown: false}}
+        />
         <RootStack.Screen name="Cart" component={CartScreen} />
         <RootStack.Screen name="Checkout" component={CheckoutScreen} />
         <RootStack.Screen name="Congrats" component={CongratsScreen} />
