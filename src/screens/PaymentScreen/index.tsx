@@ -11,7 +11,6 @@ import {
 } from '../../constants';
 import DefaultCard from '../../components/DefaultCard';
 import {PaymentScreenProps} from '../../types';
-type Props = {};
 
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   return (

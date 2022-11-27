@@ -1,12 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {AddPaymentProps} from '../../types';
+import {TestButton} from '../../components';
 
-type Props = {};
-
-const AddPaymentScreen = (props: Props) => {
+const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
   return (
     <View>
       <Text>AddPaymentScreen</Text>
+      <TestButton
+        name="back to payment method"
+        onPress={() => navigation.navigate('PaymentMethod')}
+      />
     </View>
   );
 };

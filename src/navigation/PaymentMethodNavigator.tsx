@@ -3,11 +3,9 @@ import React from 'react';
 import {AddPaymentScreen, PaymentScreen} from '../screens';
 import {PaymentMethodStackParamList} from '../types';
 
-type Props = {};
-
 const PaymentStack = createStackNavigator<PaymentMethodStackParamList>();
 
-const PaymentMethodNavigator = (props: Props) => {
+const PaymentMethodNavigator = () => {
   return (
     <PaymentStack.Navigator initialRouteName="PaymentMethod">
       <PaymentStack.Screen name="PaymentMethod" component={PaymentScreen} />
