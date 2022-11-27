@@ -1,8 +1,9 @@
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
-import {SignupFormFields, SignupNavigationProp} from '../../types';
+import {SignupFormFields, SignupNavigationProp, UserType} from '../../types';
 
 const useSignupScreen = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(false);
@@ -15,7 +16,30 @@ const useSignupScreen = () => {
       .createUserWithEmailAndPassword(data.email, data.password)
       .then(() => {
         console.log('User account created & signed in!');
+        const currentUser = auth().currentUser;
+
+        if (!currentUser) {
+          return;
+        }
+
+        const newUser: UserType = {
+          id: currentUser.uid,
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          cart: [],
+          orders: [],
+          paymentMethods: [],
+          reviews: [],
+          shippingAddress: [],
+        };
+
+        return firestore()
+          .collection('users')
+          .doc(currentUser.uid)
+          .set(newUser);
       })
+      .then(() => console.log('User added!'))
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
