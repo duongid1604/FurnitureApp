@@ -16,7 +16,11 @@ const HomeNavigator = () => {
       />
       <HomeTab.Screen name="Favorite" component={FavoriteScreen} />
       <HomeTab.Screen name="Notification" component={NotificationScreen} />
-      <HomeTab.Screen name="ProfileNavigator" component={ProfileNavigator} />
+      <HomeTab.Screen
+        name="ProfileNavigator"
+        component={ProfileNavigator}
+        options={{headerShown: false}}
+      />
     </HomeTab.Navigator>
   );
 };

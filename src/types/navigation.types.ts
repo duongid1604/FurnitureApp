@@ -26,7 +26,11 @@ export type ProfileStackParamList = {
   ShippingAddress: undefined;
   MyReviews: undefined;
   Setting: undefined;
+  PaymentNavigator: undefined;
+};
+export type PaymentMethodStackParamList = {
   PaymentMethod: undefined;
+  AddPayment: undefined;
 };
 
 export type BoardingScreenProps = StackScreenProps<
@@ -47,4 +51,23 @@ export type CongratsScreenProps = CompositeScreenProps<
 export type ProfileScreenProps = StackScreenProps<
   ProfileStackParamList,
   'Profile'
+>;
+
+export type ProductScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Product'
+>;
+
+export type ProductNavigationProp = ProductScreenProps['navigation'];
+
+export type ProductRouteProp = ProductScreenProps['route'];
+
+export type PaymentScreenProps = StackScreenProps<
+  PaymentMethodStackParamList,
+  'PaymentMethod'
+>;
+
+export type AddPaymentProps = StackScreenProps<
+  PaymentMethodStackParamList,
+  'AddPayment'
 >;

@@ -1,9 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {ProductScreenProps} from '../../types';
 
-type Props = {};
-
-const ProductScreen = (props: Props) => {
+const ProductScreen = (props: ProductScreenProps) => {
   return (
     <View>
       <Text>ProductScreen</Text>

@@ -37,4 +37,8 @@ export default {
   SHOPPING_BAG: require('../assets/icons/shopping_bagicon.png'),
   SHOPPING_BAG_DISABLE: require('../assets/icons/shopping_bagicon-1.png'),
   BELL: require('../assets/icons/Vector.png'),
+  MASTERCARD: require('../assets/icons/mastercard.png'),
+  CHECKBOX: require('../assets/icons/checkbox.png'),
+  UNCHECKBOX: require('../assets/icons/uncheckbox.png'),
+  VISA: require('../assets/icons/visa.png'),
 };

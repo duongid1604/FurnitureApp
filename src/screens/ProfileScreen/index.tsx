@@ -6,7 +6,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   return (
     <View>
       <Text>ProfileScreen</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('PaymentMethod')}>
+      <TouchableOpacity onPress={() => navigation.navigate('PaymentNavigator')}>
         <Text> Go to Payment Method</Text>
       </TouchableOpacity>
     </View>
