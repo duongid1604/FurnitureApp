@@ -1,7 +1,13 @@
-export type UserType = {
-  name: String;
-  email: String;
-  password: String;
+export type ProductType = {
+  name: string;
+  price: number;
+};
+
+export type PaymentCardType = {
+  cardHolderName: string;
+  cardNumber: string;
+  cvv: number;
+  expirationDate: string;
 };
 
 export type ShippingAddressType = {
@@ -13,9 +19,22 @@ export type ShippingAddressType = {
   district: string;
 };
 
-export type PaymentCardType = {
-  cardHolderName: string;
-  cardNumber: string;
-  cvv: number;
-  expirationDate: string;
+export type OrderType = {
+  name: string;
+};
+
+export type ReviewType = {
+  name: string;
+};
+
+export type UserType = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  cart: ProductType[];
+  paymentMethods: PaymentCardType[];
+  orders: OrderType[];
+  reviews: ReviewType[];
+  shippingAddress: ShippingAddressType[];
 };
