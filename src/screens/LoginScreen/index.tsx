@@ -1,41 +1,52 @@
+import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
+import * as yup from 'yup';
+
 import {
+  AuthHeader,
   BigCustomButton,
   CustomInput,
   CustomScreenContainer,
   CustomTextButton,
 } from '../../components';
-import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
+import {COLORS} from '../../constants';
 import {useLoginScreen} from '../../hooks';
-import {LoginFormFields} from '../../types';
-import {scaleUI} from '../../utils';
-import AuthHeader from './components/AuthHeader';
+import {LoginFormFields, LoginScreenProps} from '../../types';
 
-type Props = {};
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email('Email is invalid!')
+      .required('Email is required!'),
+    password: yup
+      .string()
+      .min(8, 'Your password must be at least 8 characters.')
+      .required('Password is required!'),
+  })
+  .required();
 
-const LoginScreen = (props: Props) => {
+const LoginScreen = ({}: LoginScreenProps) => {
   const {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm<LoginFormFields>();
+  } = useForm<LoginFormFields>({resolver: yupResolver(schema)});
 
-  const {onLogin} = useLoginScreen();
+  const {onLogin, onToggleShowPassword, isPasswordHidden, onGoToSingup} =
+    useLoginScreen();
 
   return (
     <CustomScreenContainer>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContainer}>
-        <AuthHeader />
-        <View style={styles.title}>
-          <Text style={styles.titleText}>Hello!</Text>
-          <Text style={styles.titleTextBold}>Welcome Back</Text>
-        </View>
+        <AuthHeader title="Hello" titleBold="Welcome back!" />
+
         {/* Form */}
         <View style={styles.form}>
           <CustomInput<LoginFormFields>
@@ -45,6 +56,7 @@ const LoginScreen = (props: Props) => {
             error={errors}
             textInputProps={{
               maxLength: 30,
+              placeholder: 'Please enter your email!',
             }}
           />
           <CustomInput<LoginFormFields>
@@ -54,11 +66,13 @@ const LoginScreen = (props: Props) => {
             error={errors}
             textInputProps={{
               maxLength: 20,
-              secureTextEntry: true,
+              secureTextEntry: !isPasswordHidden,
+              placeholder: 'Please enter your password!',
             }}
             hasIcon
             activeIcon={<Entypo name="eye" size={20} color={COLORS.MAIN} />}
             icon={<Entypo name="eye-with-line" size={20} color={COLORS.MAIN} />}
+            onPress={onToggleShowPassword}
           />
           <CustomTextButton
             name="Forgot Password"
@@ -67,7 +81,11 @@ const LoginScreen = (props: Props) => {
           <BigCustomButton onPress={handleSubmit(onLogin)}>
             Log in
           </BigCustomButton>
-          <CustomTextButton name="Sign up" extraStyle={styles.singup} />
+          <CustomTextButton
+            name="Sign up"
+            extraStyle={styles.singup}
+            onPress={onGoToSingup}
+          />
         </View>
       </ScrollView>
     </CustomScreenContainer>
@@ -83,24 +101,7 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     padding: 20,
   },
-  title: {
-    alignItems: 'center',
-    marginVertical: scaleUI(32, true),
-  },
-  titleText: {
-    fontSize: FONT_SIZE.H3,
-    fontFamily: FONTS.POPPINS,
-    color: COLORS.MAIN,
-    lineHeight: 38.4,
-  },
-  titleTextBold: {
-    fontSize: FONT_SIZE.H3,
-    fontFamily: FONTS.POPPINS_BOLD,
-    color: COLORS.MAIN,
-    textTransform: 'uppercase',
-    fontWeight: FONT_WEIGHT.BOLD,
-    lineHeight: 38.4,
-  },
+
   form: {
     shadowColor: COLORS.MAIN,
     shadowOffset: {

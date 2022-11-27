@@ -22,31 +22,38 @@ const CustomInput = <TFormValues extends Record<string, unknown>>({
     error?.[field as keyof typeof error]?.message?.toString();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputContainer}>
-        <Controller
-          name={field}
-          control={control}
-          rules={rules}
-          render={({field: {onChange, value}}) => (
-            <TextInput
-              style={styles.textInput}
-              {...textInputProps}
-              onChangeText={onChange}
-              value={value?.toString()}
+    <View style={styles.outerContainer}>
+      <View
+        style={
+          errorMessage
+            ? [styles.container, styles.hasErrorContainer]
+            : styles.container
+        }>
+        <Text style={styles.label}>{label}</Text>
+        <View style={styles.inputContainer}>
+          <Controller
+            name={field}
+            control={control}
+            rules={rules}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                style={styles.textInput}
+                {...textInputProps}
+                onChangeText={onChange}
+                value={value?.toString()}
+              />
+            )}
+          />
+          {hasIcon && (
+            <CustomIconButton
+              activeIcon={activeIcon}
+              icon={icon}
+              onPress={onPress}
             />
           )}
-        />
-        {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
-        {hasIcon && (
-          <CustomIconButton
-            activeIcon={activeIcon}
-            icon={icon}
-            onPress={onPress}
-          />
-        )}
+        </View>
       </View>
+      {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
     </View>
   );
 };
@@ -54,6 +61,9 @@ const CustomInput = <TFormValues extends Record<string, unknown>>({
 export default CustomInput;
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    width: '100%',
+  },
   container: {
     width: '100%',
     backgroundColor: COLORS.WHITE,
@@ -64,11 +74,15 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginBottom: 20,
   },
+  hasErrorContainer: {
+    marginBottom: 10,
+  },
   label: {
     fontSize: FONT_SIZE.LABEL,
     color: COLORS.SUB,
     fontFamily: FONTS.POPPINS,
     lineHeight: LINE_HEIGHT.LABEL,
+    textTransform: 'capitalize',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -81,5 +95,8 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT.BODY,
     flex: 1,
   },
-  error: {},
+  error: {
+    color: COLORS.DANGER,
+    marginBottom: 20,
+  },
 });

@@ -25,3 +25,10 @@ export type LoginFormFields = {
   email: string;
   password: string;
 };
+
+export type SignupFormFields = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
