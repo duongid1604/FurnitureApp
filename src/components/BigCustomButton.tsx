@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingVertical: 16,
-    paddingHorizontal: 32,
     fontFamily: FONTS.POPPINS,
     fontWeight: FONT_WEIGHT.REGULAR,
     fontSize: FONT_SIZE.H5,
