@@ -32,3 +32,9 @@ export type SignupFormFields = {
   password: string;
   confirmPassword: string;
 };
+export type AddPaymentField = {
+  cardHolderName: string;
+  cardNumber: string;
+  cvv: string;
+  expirationDate: string;
+};
