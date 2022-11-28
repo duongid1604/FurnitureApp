@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {ProductType} from './data.types';
+import {ProductType, UserType} from './data.types';
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -13,6 +13,7 @@ export type AuthStateProps = {
   userUid: string;
   isSignedIn: boolean;
   isLoading: boolean;
+  user: UserType | undefined;
 };
 
 export type ProductStateProps = {
