@@ -14,3 +14,8 @@ export {default as CongratsScreen} from './CongratsScreen';
 export {default as OrderScreen} from './OrderScreen';
 export {default as AddPaymentScreen} from './AddPaymentScreen';
 export {default as LoadingScreen} from './LoadingScreen';
+export {default as SettingScreen} from './SettingScreen';
+export {default as ShippingAddressScreen} from './ShippingAddressScreen';
+export {default as AddShippingAddressScreen} from './AddShippingAddressScreen';
+export {default as MyReviewsScreen} from './MyReviewsScreen';
+export {default as ReviewScreen} from './ReviewScreen';
