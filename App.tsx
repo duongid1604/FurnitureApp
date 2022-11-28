@@ -21,7 +21,6 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import RootNavigator from './src/navigation/RootNavigator';
 import store from './src/redux/store';
-import {TestScreen} from './src/screens';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
