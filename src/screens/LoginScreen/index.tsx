@@ -14,7 +14,7 @@ import {
   CustomTextButton,
 } from '../../components';
 import {COLORS} from '../../constants';
-import {useLoginScreen} from '../../hooks';
+import {useAppSelector, useLoginScreen} from '../../hooks';
 import {LoginFormFields, LoginScreenProps} from '../../types';
 
 const schema = yup
@@ -39,6 +39,8 @@ const LoginScreen = ({}: LoginScreenProps) => {
 
   const {onLogin, onToggleShowPassword, isPasswordHidden, onGoToSingup} =
     useLoginScreen();
+
+  const {isLoading} = useAppSelector(state => state.auth);
 
   return (
     <CustomScreenContainer>
@@ -78,7 +80,7 @@ const LoginScreen = ({}: LoginScreenProps) => {
             name="Forgot Password"
             extraStyle={styles.forgotPassword}
           />
-          <BigCustomButton onPress={handleSubmit(onLogin)}>
+          <BigCustomButton onPress={handleSubmit(onLogin)} disable={isLoading}>
             Log in
           </BigCustomButton>
           <CustomTextButton

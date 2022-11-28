@@ -13,3 +13,4 @@ export {default as CheckoutScreen} from './CheckoutScreen';
 export {default as CongratsScreen} from './CongratsScreen';
 export {default as OrderScreen} from './OrderScreen';
 export {default as AddPaymentScreen} from './AddPaymentScreen';
+export {default as LoadingScreen} from './LoadingScreen';
