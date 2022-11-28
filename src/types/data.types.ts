@@ -1,6 +1,13 @@
 export type ProductType = {
   name: string;
   price: number;
+  category: string;
+  description: string;
+  image: string;
+  isFavourite: boolean;
+  popular: number;
+  rate: number;
+  review: number;
 };
 
 export type PaymentCardType = {

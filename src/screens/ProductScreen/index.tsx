@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {BigCustomButton} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, ICON} from '../../constants';
 import {ProductNavigationProp} from '../../types';
+import {StatusBar} from 'react-native';
+
 const ProductScreen = () => {
   const navigation = useNavigation<ProductNavigationProp>();
 
@@ -31,6 +33,11 @@ const ProductScreen = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent={true}
+      />
       <Image
         source={require('../../assets/images/product1.jpg')}
         style={styles.image}
