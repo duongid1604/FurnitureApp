@@ -13,9 +13,10 @@ import {
   LoginScreen,
   OrderScreen,
   ProductScreen,
+  SettingScreen,
   SignupScreen,
 } from '../screens';
-import SettingScreen from '../screens/SettingScreen';
+
 import {RootStackParamList} from '../types';
 import HomeNavigator from './HomeNavigator';
 import PaymentMethodNavigator from './PaymentMethodNavigator';
