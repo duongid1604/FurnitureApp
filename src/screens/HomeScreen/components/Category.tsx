@@ -46,7 +46,11 @@ const Category = () => {
             }>
             <MaterialCommunityIcons
               name={category.name}
-              style={styles.categoryItem}
+              style={
+                index === isActive
+                  ? [styles.categoryItem, styles.active]
+                  : styles.categoryItem
+              }
             />
           </Pressable>
 
@@ -90,7 +94,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   active: {
-    backgroundColor: COLORS.SUB,
+    backgroundColor: COLORS.MAIN,
+    color: COLORS.WHITE,
   },
   titleContainer: {
     flexDirection: 'row',
