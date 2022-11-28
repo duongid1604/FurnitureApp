@@ -34,12 +34,17 @@ const RootNavigator = () => {
   useEffect(() => {
     const getUid = async () => {
       try {
-        const data = await AsyncStorage.getItem('userUid');
-        if (!data) {
+        const [newUserUid, newUser] = await Promise.all([
+          AsyncStorage.getItem('userUid'),
+          AsyncStorage.getItem('user'),
+        ]);
+
+        if (!newUserUid || !newUser) {
           setInitializing(false);
           return;
         }
-        dispatch(addUid(data));
+        const newUserObj = JSON.parse(newUser);
+        dispatch(addUid({newUserUid, newUserObj}));
         setInitializing(false);
       } catch (error) {}
     };
