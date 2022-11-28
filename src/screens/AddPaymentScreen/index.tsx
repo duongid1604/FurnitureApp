@@ -8,6 +8,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {COLORS} from '../../constants';
 import {scaleUI} from '../../utils';
+import firestore from '@react-native-firebase/firestore';
 
 const schema = yup
   .object({
@@ -33,6 +34,9 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
     handleSubmit,
     formState: {errors},
   } = useForm<AddPaymentField>({resolver: yupResolver(schema)});
+  // const update = () => {
+  //   firestore().collection
+  // };
   return (
     <View style={styles.container}>
       {/* <TestButton
