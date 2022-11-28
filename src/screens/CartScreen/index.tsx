@@ -1,10 +1,17 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {fetchProducts} from '../../redux/reducers/productSlice';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
-type Props = {};
+const CartScreen = () => {
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(state => state.products.products);
 
-const CartScreen = (props: Props) => {
-console.log('hello')
+  console.log(products, 'products');
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <View>

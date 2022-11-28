@@ -16,5 +16,8 @@ export const loginWithEmail = async (data: LoginFormFields) => {
     if ((error as ErrorException).code === 'auth/wrong-password') {
       throw new Error('The password is invalid.');
     }
+    if ((error as ErrorException).code === 'auth/too-many-requests') {
+      throw new Error('Too many requests from this device. Try again later!');
+    }
   }
 };
