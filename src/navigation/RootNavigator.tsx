@@ -3,11 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../hooks';
-import {
-  addUid,
-  disableLoading,
-  enableLoading,
-} from '../redux/reducers/authSlice';
+import {addUid} from '../redux/reducers/authSlice';
 import {
   BoardingScreen,
   CartScreen,
@@ -15,11 +11,16 @@ import {
   CongratsScreen,
   LoadingScreen,
   LoginScreen,
+  OrderScreen,
   ProductScreen,
   SignupScreen,
 } from '../screens';
+import SettingScreen from '../screens/SettingScreen';
 import {RootStackParamList} from '../types';
 import HomeNavigator from './HomeNavigator';
+import PaymentMethodNavigator from './PaymentMethodNavigator';
+import ReviewNavigator from './ReviewNavigator';
+import ShippingNavigator from './ShippingNavigator';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -72,6 +73,29 @@ const RootNavigator = () => {
                 <RootStack.Screen name="Cart" component={CartScreen} />
                 <RootStack.Screen name="Checkout" component={CheckoutScreen} />
                 <RootStack.Screen name="Congrats" component={CongratsScreen} />
+                <RootStack.Screen
+                  name="PaymentNavigator"
+                  component={PaymentMethodNavigator}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <RootStack.Screen name="MyOrders" component={OrderScreen} />
+                <RootStack.Screen name="Setting" component={SettingScreen} />
+                <RootStack.Screen
+                  name="ShippingNavigator"
+                  component={ShippingNavigator}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <RootStack.Screen
+                  name="ReviewNavigator"
+                  component={ReviewNavigator}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
               </>
             ) : (
               <>

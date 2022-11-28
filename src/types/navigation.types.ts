@@ -12,26 +12,33 @@ export type RootStackParamList = {
   Checkout: undefined;
   Congrats: undefined;
   Loading: undefined;
+  PaymentNavigator: undefined;
+  MyOrders: undefined;
+  ShippingNavigator: undefined;
+  ReviewNavigator: undefined;
+  Setting: undefined;
 };
 
 export type HomeTabParamList = {
   Home: undefined;
   Favorite: undefined;
   Notification: undefined;
-  ProfileNavigator: undefined;
+  Profile: undefined;
 };
 
-export type ProfileStackParamList = {
-  Profile: undefined;
-  Order: undefined;
+export type ShippingAddressStackParamList = {
   ShippingAddress: undefined;
-  MyReviews: undefined;
-  Setting: undefined;
-  PaymentNavigator: undefined;
+  AddShippingAddress: undefined;
 };
+
 export type PaymentMethodStackParamList = {
   PaymentMethod: undefined;
   AddPayment: undefined;
+};
+
+export type ReviewStackParamList = {
+  MyReview: undefined;
+  Review: undefined;
 };
 
 export type BoardingScreenProps = StackScreenProps<
@@ -44,13 +51,13 @@ export type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<RootStackParamList>
 >;
 
-export type CongratsScreenProps = CompositeScreenProps<
-  StackScreenProps<RootStackParamList, 'Congrats'>,
-  StackScreenProps<ProfileStackParamList>
+export type CongratsScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Congrats'
 >;
 
 export type ProfileScreenProps = CompositeScreenProps<
-  StackScreenProps<ProfileStackParamList, 'Profile'>,
+  BottomTabScreenProps<HomeTabParamList, 'Profile'>,
   StackScreenProps<RootStackParamList>
 >;
 
