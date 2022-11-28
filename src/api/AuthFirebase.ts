@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import {Alert} from 'react-native';
 import {ErrorException, LoginFormFields} from '../types';
 
 export const loginWithEmail = async (data: LoginFormFields) => {

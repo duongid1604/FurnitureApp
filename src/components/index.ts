@@ -6,3 +6,4 @@ export {default as CustomScreenContainer} from './CustomScreenContainer';
 export {default as CustomIconButton} from './CustomIconButton';
 export {default as CustomTextButton} from './CustomTextButton';
 export {default as AuthHeader} from './AuthHeader';
+export {default as LoadingSpinner} from './LoadingSpinner';

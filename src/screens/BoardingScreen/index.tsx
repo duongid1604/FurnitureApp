@@ -4,13 +4,11 @@ import {CustomScreenContainer} from '../../components';
 import BigCustomButton from '../../components/BigCustomButton';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
 import {BoardingScreenProps} from '../../types';
+import {scaleUI} from '../../utils';
 
 const BoardingScreen = ({navigation}: BoardingScreenProps) => {
   const moveToLoginHandler = () => {
     navigation.navigate('Login');
-  };
-  const moveToHome = () => {
-    navigation.navigate('HomeNavigator');
   };
 
   return (
@@ -35,7 +33,6 @@ const BoardingScreen = ({navigation}: BoardingScreenProps) => {
             <BigCustomButton onPress={moveToLoginHandler}>
               Get Started
             </BigCustomButton>
-            <BigCustomButton onPress={moveToHome}>Go to home</BigCustomButton>
           </View>
         </CustomScreenContainer>
       </ImageBackground>
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 10,
+    bottom: scaleUI(40, true),
     left: 0,
     right: 0,
     marginHorizontal: 24,
