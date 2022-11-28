@@ -1,22 +1,22 @@
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
-import auth from '@react-native-firebase/auth';
-import {Alert, ToastAndroid} from 'react-native';
+import {Alert} from 'react-native';
 
-import {LoginFormFields, LoginNavigationProp} from '../../types';
 import {loginWithEmail} from '../../api';
+import {addUid, toggleLoading} from '../../redux/reducers/authSlice';
+import {loginThunk} from '../../redux/thunks/auth.thunks';
+import {LoginFormFields, LoginNavigationProp} from '../../types';
+import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 
 const useLoginScreen = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(false);
   const navigation = useNavigation<LoginNavigationProp>();
+  const dispatch = useAppDispatch();
+  const {isSignedIn} = useAppSelector(state => state.auth);
 
+  console.log(isSignedIn);
   const onLogin = async (data: LoginFormFields) => {
-    try {
-      const res = await loginWithEmail(data);
-      console.log(res?.user.uid);
-    } catch (error) {
-      Alert.alert('Sign in failed', (error as Error).message);
-    }
+    dispatch(loginThunk(data));
   };
 
   const onToggleShowPassword = () => {
