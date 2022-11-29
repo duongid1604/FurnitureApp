@@ -1,7 +1,13 @@
 import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {loginWithEmail, signupWithEmail} from '../../api';
+import {
+  createUserWithUid,
+  getUserByUid,
+  loginWithEmail,
+  signinWithGoogle,
+  signupWithEmail,
+} from '../../api';
 import {LoginFormFields, SignupFormFields, UserType} from '../../types';
 
 export const loginThunk = createAsyncThunk(
@@ -14,7 +20,7 @@ export const loginThunk = createAsyncThunk(
         return undefined;
       }
 
-      const userRes = await firestore().collection('users').doc(userUid).get();
+      const userRes = await getUserByUid(userUid);
 
       return {userUid, user: userRes.data() as UserType};
     } catch (error) {
@@ -38,7 +44,7 @@ export const signupThunk = createAsyncThunk(
         id: userUid,
         name: data.name,
         email: data.email,
-        password: data.password,
+        // password: data.password,
         cart: [],
         orders: [],
         paymentMethods: [],
@@ -46,9 +52,48 @@ export const signupThunk = createAsyncThunk(
         shippingAddress: [],
       };
 
-      await firestore().collection('users').doc(userUid).set(newUser);
+      await createUserWithUid(userUid, newUser);
 
       return {userUid, newUser};
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
+export const loginWithGoogleThunk = createAsyncThunk(
+  'auth/loginWithGoogle',
+  async (_, {rejectWithValue}) => {
+    try {
+      const res = await signinWithGoogle();
+      if (!res) {
+        return undefined;
+      }
+      const googleUser = res.user;
+      const userUid = googleUser.uid;
+      if (!userUid) {
+        return undefined;
+      }
+      const userRes = await getUserByUid(userUid);
+      const userData = userRes.data() as UserType;
+      console.log(userData);
+      let user: UserType;
+      if (userData) {
+        user = userData;
+      } else {
+        user = {
+          id: userUid,
+          name: googleUser.displayName || 'Noname',
+          email: googleUser.email || 'no email',
+          cart: [],
+          orders: [],
+          paymentMethods: [],
+          reviews: [],
+          shippingAddress: [],
+        };
+        await createUserWithUid(userUid, user);
+      }
+      return {userUid, user};
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
