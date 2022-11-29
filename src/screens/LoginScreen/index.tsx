@@ -12,6 +12,7 @@ import {
   CustomInput,
   CustomScreenContainer,
   CustomTextButton,
+  TestButton,
 } from '../../components';
 import {COLORS} from '../../constants';
 import {useAppSelector, useLoginScreen} from '../../hooks';
@@ -37,8 +38,13 @@ const LoginScreen = ({}: LoginScreenProps) => {
     formState: {errors},
   } = useForm<LoginFormFields>({resolver: yupResolver(schema)});
 
-  const {onLogin, onToggleShowPassword, isPasswordHidden, onGoToSingup} =
-    useLoginScreen();
+  const {
+    onLogin,
+    onToggleShowPassword,
+    isPasswordHidden,
+    onGoToSingup,
+    onLoginWithGoogle,
+  } = useLoginScreen();
 
   const {isLoading} = useAppSelector(state => state.auth);
 
@@ -58,7 +64,7 @@ const LoginScreen = ({}: LoginScreenProps) => {
             error={errors}
             textInputProps={{
               maxLength: 30,
-              placeholder: 'Please enter your email!',
+              placeholder: 'Enter your email!',
             }}
           />
           <CustomInput<LoginFormFields>
@@ -69,7 +75,7 @@ const LoginScreen = ({}: LoginScreenProps) => {
             textInputProps={{
               maxLength: 20,
               secureTextEntry: !isPasswordHidden,
-              placeholder: 'Please enter your password!',
+              placeholder: 'Enter your password!',
             }}
             hasIcon
             activeIcon={<Entypo name="eye" size={20} color={COLORS.MAIN} />}
@@ -88,6 +94,10 @@ const LoginScreen = ({}: LoginScreenProps) => {
             extraStyle={styles.singup}
             onPress={onGoToSingup}
           />
+          {/* Social login */}
+          <View style={styles.socialLogin}>
+            <TestButton name="Login with Google" onPress={onLoginWithGoogle} />
+          </View>
         </View>
       </ScrollView>
     </CustomScreenContainer>
@@ -124,4 +134,5 @@ const styles = StyleSheet.create({
   singup: {
     marginTop: 20,
   },
+  socialLogin: {},
 });

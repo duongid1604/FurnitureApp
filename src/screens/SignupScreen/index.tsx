@@ -109,7 +109,7 @@ const SignupScreen = ({}: SignupScreenProps) => {
             textInputProps={{
               maxLength: 20,
               secureTextEntry: !isConfirmPasswordHidden,
-              placeholder: ' Confirm your password!',
+              placeholder: 'Confirm your password!',
             }}
             hasIcon
             activeIcon={<Entypo name="eye" size={20} color={COLORS.MAIN} />}

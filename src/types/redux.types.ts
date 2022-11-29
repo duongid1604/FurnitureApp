@@ -13,7 +13,7 @@ export type AuthStateProps = {
   userUid: string;
   isSignedIn: boolean;
   isLoading: boolean;
-  user: UserType | undefined;
+  user: UserType | null;
 };
 
 export type ProductStateProps = {
