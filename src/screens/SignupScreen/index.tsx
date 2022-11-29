@@ -15,6 +15,7 @@ import {
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../constants';
 import useSignupScreen from '../../hooks/screens/useSignupScreen';
 import {SignupFormFields, SignupScreenProps} from '../../types';
+import {useAppSelector} from '../../hooks';
 
 const schema = yup
   .object({
@@ -52,6 +53,8 @@ const SignupScreen = ({}: SignupScreenProps) => {
     onToggleShowPassword,
     onToggleShowConfirmPassword,
   } = useSignupScreen();
+
+  const {isLoading} = useAppSelector(state => state.auth);
 
   return (
     <CustomScreenContainer>
@@ -99,7 +102,7 @@ const SignupScreen = ({}: SignupScreenProps) => {
             onPress={onToggleShowPassword}
           />
           <CustomInput<SignupFormFields>
-            label="Password"
+            label="Confirm Password"
             field="confirmPassword"
             control={control}
             error={errors}
@@ -113,7 +116,7 @@ const SignupScreen = ({}: SignupScreenProps) => {
             icon={<Entypo name="eye-with-line" size={20} color={COLORS.MAIN} />}
             onPress={onToggleShowConfirmPassword}
           />
-          <BigCustomButton onPress={handleSubmit(onSignup)}>
+          <BigCustomButton disable={isLoading} onPress={handleSubmit(onSignup)}>
             Sign up
           </BigCustomButton>
           <View style={styles.signinContainer}>
