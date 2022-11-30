@@ -1,7 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 
-import {loginThunk, loginWithGoogleThunk} from '../../redux/thunks/auth.thunks';
+import {
+  loginThunk,
+  loginWithFacebookThunk,
+  loginWithGoogleThunk,
+} from '../../redux/thunks/auth.thunks';
 import {LoginFormFields, LoginNavigationProp} from '../../types';
 import {useAppDispatch} from '../redux/useRedux';
 
@@ -14,6 +18,14 @@ const useLoginScreen = () => {
     dispatch(loginThunk(data));
   };
 
+  const onLoginWithGoogle = () => {
+    dispatch(loginWithGoogleThunk());
+  };
+
+  const onLoginWithFacebook = () => {
+    dispatch(loginWithFacebookThunk());
+  };
+
   const onToggleShowPassword = () => {
     setIsPasswordHidden(!isPasswordHidden);
   };
@@ -22,16 +34,18 @@ const useLoginScreen = () => {
     navigation.navigate('Signup');
   };
 
-  const onLoginWithGoogle = () => {
-    dispatch(loginWithGoogleThunk());
+  const onGotoForgotPassword = () => {
+    navigation.navigate('ForgotPassword');
   };
 
   return {
-    onLogin,
-    onToggleShowPassword,
     isPasswordHidden,
-    onGoToSingup,
+    onLogin,
     onLoginWithGoogle,
+    onLoginWithFacebook,
+    onToggleShowPassword,
+    onGoToSingup,
+    onGotoForgotPassword,
   };
 };
 

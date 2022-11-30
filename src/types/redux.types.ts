@@ -14,6 +14,7 @@ export type AuthStateProps = {
   isSignedIn: boolean;
   isLoading: boolean;
   user: UserType | null;
+  isResetEmailSent: boolean;
 };
 
 export type ProductStateProps = {
