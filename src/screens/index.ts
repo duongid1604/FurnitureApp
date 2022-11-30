@@ -19,3 +19,4 @@ export {default as ShippingAddressScreen} from './ShippingAddressScreen';
 export {default as AddShippingAddressScreen} from './AddShippingAddressScreen';
 export {default as MyReviewsScreen} from './MyReviewsScreen';
 export {default as ReviewScreen} from './ReviewScreen';
+export {default as ForgotPasswordScreen} from './ForgotPasswordScreen';

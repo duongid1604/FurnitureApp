@@ -4,6 +4,8 @@ import {
   createUserWithUid,
   getUserByUid,
   loginWithEmail,
+  resetPasswordWithEmail,
+  signinWithFacebook,
   signinWithGoogle,
   signupWithEmail,
 } from '../../api';
@@ -93,6 +95,57 @@ export const loginWithGoogleThunk = createAsyncThunk(
         await createUserWithUid(userUid, user);
       }
       return {userUid, user};
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
+export const loginWithFacebookThunk = createAsyncThunk(
+  'auth/loginWithFacebook',
+  async (_, {rejectWithValue}) => {
+    try {
+      const res = await signinWithFacebook();
+      if (!res) {
+        return undefined;
+      }
+      const facebookUser = res.user;
+      const userUid = facebookUser.uid;
+      if (!userUid) {
+        return undefined;
+      }
+      const userRes = await getUserByUid(userUid);
+      const userData = userRes.data() as UserType;
+      console.log('userData: ', userData);
+      let user: UserType;
+      if (userData) {
+        user = userData;
+      } else {
+        user = {
+          id: userUid,
+          name: facebookUser.displayName || 'Noname',
+          email: facebookUser.email || 'no email',
+          cart: [],
+          orders: [],
+          paymentMethods: [],
+          reviews: [],
+          shippingAddress: [],
+        };
+        await createUserWithUid(userUid, user);
+      }
+      return {userUid, user};
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
+export const resetPasswordWithEmailThunk = createAsyncThunk(
+  'auth/resetPasswordWithEmail',
+  async (email: string, {rejectWithValue}) => {
+    try {
+      const res = await resetPasswordWithEmail(email);
+      return res;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
