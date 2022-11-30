@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {Alert} from 'react-native';
 
 import {PaymentStateProp} from '../../types';
-import {updatethunk} from '../thunks/payment.thunk';
+import {updatePaymentThunk} from '../thunks/payment.thunk';
 
 const initialState: PaymentStateProp = {
   userId: '',
@@ -37,11 +37,11 @@ export const paymentSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(updatethunk.pending, state => {
+      .addCase(updatePaymentThunk.pending, state => {
         state.isLoading = true;
         state.isAdd = false;
       })
-      .addCase(updatethunk.fulfilled, (state, action) => {
+      .addCase(updatePaymentThunk.fulfilled, (state, action) => {
         if (action.payload) {
           state.userId = action.payload.userUid;
           state.payment = action.payload.newPayment;
@@ -54,7 +54,7 @@ export const paymentSlice = createSlice({
         }
         state.isLoading = false;
       })
-      .addCase(updatethunk.rejected, (state, action) => {
+      .addCase(updatePaymentThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.isAdd = false;
         Alert.alert('Upload Credit Card failed', action.payload as string);

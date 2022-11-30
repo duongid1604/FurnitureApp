@@ -3,14 +3,13 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {useAppSelector} from '../../hooks';
 import {AddPaymentField, PaymentCardType} from '../../types';
 
-export const updatethunk = createAsyncThunk(
+export const updatePaymentThunk = createAsyncThunk(
   'auth/payment',
   async (data: AddPaymentField, {rejectWithValue}) => {
     try {
+      console.log('updatePaymentThunk');
       const userUid = useAppSelector(state => state.auth.userUid);
-      if (!userUid) {
-        return undefined;
-      }
+
       const newPayment: PaymentCardType = {
         userId: userUid,
         cardHolderName: data.cardHolderName,
@@ -18,7 +17,10 @@ export const updatethunk = createAsyncThunk(
         cvv: +data.cvv,
         expirationDate: data.expirationDate,
       };
-      await firestore().collection('users').doc(userUid).set(newPayment);
+      await firestore()
+        .collection('users')
+        .doc(userUid)
+        .update({paymentMethods: newPayment});
       return {userUid, newPayment};
     } catch (error) {
       return rejectWithValue((error as Error).message);

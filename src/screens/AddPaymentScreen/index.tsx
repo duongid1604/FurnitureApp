@@ -23,7 +23,7 @@ const schema = yup
       .required('Cvv is required!'),
     expirationDate: yup
       .string()
-      .min(8, 'Your password must be at least 8 characters.')
+      .min(5, 'Validate Date')
       .required('Expiration Date is required!'),
   })
   .required();
@@ -118,7 +118,6 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
     </View>
   );
 };
-
 export default AddPaymentScreen;
 
 const styles = StyleSheet.create({
