@@ -32,3 +32,7 @@ export type SignupFormFields = {
   password: string;
   confirmPassword: string;
 };
+
+export type ForgotPasswordFormFields = {
+  email: string;
+};
