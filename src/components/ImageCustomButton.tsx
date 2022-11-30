@@ -1,21 +1,34 @@
+import React from 'react';
 import {
   Image,
   ImageSourcePropType,
   ImageStyle,
   StyleProp,
   StyleSheet,
-  Text,
-  View,
+  TouchableOpacity,
+  ViewStyle,
 } from 'react-native';
-import React from 'react';
 
 type Props = {
   source: ImageSourcePropType;
-  extraStyle?: StyleProp<ImageStyle>;
+  extraStyle?: StyleProp<ViewStyle>;
+  extraImageStyle?: StyleProp<ImageStyle>;
+  onPress?: () => void;
 };
 
-const ImageCustomButton = ({source, extraStyle}: Props) => {
-  return <Image source={source} style={[styles.image, extraStyle]} />;
+const ImageCustomButton = ({
+  source,
+  extraStyle,
+  extraImageStyle,
+  onPress,
+}: Props) => {
+  return !onPress ? (
+    <Image source={source} style={[styles.image, extraImageStyle]} />
+  ) : (
+    <TouchableOpacity onPress={onPress} style={extraStyle}>
+      <Image source={source} style={[styles.image, extraImageStyle]} />
+    </TouchableOpacity>
+  );
 };
 
 export default ImageCustomButton;
