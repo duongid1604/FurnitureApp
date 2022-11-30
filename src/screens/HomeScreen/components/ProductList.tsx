@@ -1,84 +1,66 @@
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
 import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
   StyleSheet,
   Text,
   View,
-  Image,
-  ScrollView,
-  Pressable,
 } from 'react-native';
-import React from 'react';
 import {COLORS, FONTS, FONT_SIZE} from '../../../constants';
-import {useNavigation} from '@react-navigation/native';
-import {ProductNavigationProp} from '../../../types';
+import {useAppDispatch, useAppSelector} from '../../../hooks';
+import {fetchProducts} from '../../../redux/reducers/productSlice';
+import {ProductNavigationProp, ProductType} from '../../../types';
 
 const ProductList = () => {
   const navigation = useNavigation<ProductNavigationProp>();
+  const dispatch = useAppDispatch();
+
+  const {products, field, type, condition, loading} = useAppSelector(
+    state => state.products,
+  );
+
+  useEffect(() => {
+    dispatch(fetchProducts({field, condition, type}));
+  }, [dispatch, field, condition, type]);
 
   const moveToProductScreenHandler = () => {
     navigation.navigate('Product');
   };
 
+  const renderBottom = () => {
+    if (loading) {
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color="#333" />
+        </View>
+      );
+    }
+  };
+
+  const renderProducts = ({item}: {item: ProductType}) => (
+    <Pressable
+      style={styles.imageContainer}
+      onPress={moveToProductScreenHandler}>
+      <Image source={{uri: item.image}} style={styles.image} />
+      <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.price}>$ {item.price}.00</Text>
+    </Pressable>
+  );
+
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.row}>
-        <Pressable
-          style={styles.imageContainer}
-          onPress={moveToProductScreenHandler}>
-          <Image
-            source={require('../../../assets/images/product1.jpg')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Black Simple</Text>
-          <Text style={styles.price}>$ 12.00</Text>
-        </Pressable>
-        <Pressable style={styles.imageContainer}>
-          <Image
-            source={require('../../../assets/images/product3.jpg')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Black Simple</Text>
-          <Text style={styles.price}>$ 12.00</Text>
-        </Pressable>
-      </View>
-
-      <View style={styles.row}>
-        <Pressable style={styles.imageContainer}>
-          <Image
-            source={require('../../../assets/images/lamp1.jpg')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Black Simple</Text>
-          <Text style={styles.price}>$ 12.00</Text>
-        </Pressable>
-        <Pressable style={styles.imageContainer}>
-          <Image
-            source={require('../../../assets/images/lamp2.jpg')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Black Simple</Text>
-          <Text style={styles.price}>$ 12.00</Text>
-        </Pressable>
-      </View>
-
-      <View style={styles.row}>
-        <Pressable style={styles.imageContainer}>
-          <Image
-            source={require('../../../assets/images/product1.jpg')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Black Simple</Text>
-          <Text style={styles.price}>$ 12.00</Text>
-        </Pressable>
-        <Pressable style={styles.imageContainer}>
-          <Image
-            source={require('../../../assets/images/product3.jpg')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Black Simple</Text>
-          <Text style={styles.price}>$ 12.00</Text>
-        </Pressable>
-      </View>
-    </ScrollView>
+    <FlatList
+      data={products}
+      keyExtractor={item => item.id}
+      renderItem={renderProducts}
+      horizontal={false}
+      numColumns={2}
+      showsVerticalScrollIndicator={false}
+      columnWrapperStyle={styles.container}
+      ListFooterComponent={renderBottom()}
+    />
   );
 };
 
@@ -86,17 +68,14 @@ export default ProductList;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 16,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginHorizontal: -10,
   },
   imageContainer: {
     marginVertical: 10,
+    flex: 1,
+    marginHorizontal: 10,
   },
   image: {
-    width: 160,
     height: 200,
     borderRadius: 16,
   },
@@ -110,5 +89,11 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.POPPINS_BOLD,
     fontSize: FONT_SIZE.SMALL,
     color: COLORS.MAIN,
+  },
+  loading: {
+    width: '100%',
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

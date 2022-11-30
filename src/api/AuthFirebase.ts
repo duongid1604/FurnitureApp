@@ -1,5 +1,12 @@
 import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
 import {ErrorException, LoginFormFields, SignupFormFields} from '../types';
+
+GoogleSignin.configure({
+  webClientId:
+    '32210294035-ago7t1vjss2ok8darkicgdj6rr49d32l.apps.googleusercontent.com',
+});
 
 export const loginWithEmail = async (data: LoginFormFields) => {
   try {
@@ -35,6 +42,25 @@ export const signupWithEmail = async (data: SignupFormFields) => {
 
     if ((error as ErrorException).code === 'auth/invalid-email') {
       throw new Error('That email address is invalid!');
+    }
+  }
+};
+
+export const signinWithGoogle = async () => {
+  try {
+    // Check if your device supports Google Play
+    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
     }
   }
 };
