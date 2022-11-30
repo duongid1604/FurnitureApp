@@ -23,4 +23,19 @@ export type ProductStateProps = {
   isFavourite: boolean;
   error?: string;
   nextPage: number;
+  field: string;
+  type: string | number;
+  condition: WhereFilterOp;
 };
+
+export type WhereFilterOp =
+  | '<'
+  | '<='
+  | '=='
+  | '>'
+  | '>='
+  | '!='
+  | 'array-contains'
+  | 'array-contains-any'
+  | 'in'
+  | 'not-in';
