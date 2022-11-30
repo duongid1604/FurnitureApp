@@ -3,13 +3,17 @@ import {createSlice} from '@reduxjs/toolkit';
 import {Alert} from 'react-native';
 
 import {AuthStateProps} from '../../types';
-import {loginThunk, signupThunk} from '../thunks/auth.thunks';
+import {
+  loginThunk,
+  loginWithGoogleThunk,
+  signupThunk,
+} from '../thunks/auth.thunks';
 
 const initialState: AuthStateProps = {
   userUid: '',
   isSignedIn: false,
   isLoading: false,
-  user: undefined,
+  user: null,
 };
 
 export const authSlice = createSlice({
@@ -27,6 +31,7 @@ export const authSlice = createSlice({
       AsyncStorage.removeItem('userUid');
       AsyncStorage.removeItem('user');
       state.userUid = '';
+      state.user = null;
       state.isSignedIn = false;
       state.isLoading = false;
     },
@@ -79,6 +84,27 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSignedIn = false;
         Alert.alert('Sign up failed', action.payload as string);
+      });
+    builder
+      .addCase(loginWithGoogleThunk.pending, state => {
+        state.isLoading = true;
+        state.isSignedIn = false;
+      })
+      .addCase(loginWithGoogleThunk.fulfilled, (state, {payload}) => {
+        if (payload) {
+          console.log('Login with google:  ', payload);
+          state.userUid = payload.userUid;
+          state.user = payload.user;
+          state.isSignedIn = true;
+          AsyncStorage.setItem('userUid', payload.userUid);
+          AsyncStorage.setItem('user', JSON.stringify(payload.user));
+        }
+        state.isLoading = false;
+      })
+      .addCase(loginWithGoogleThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSignedIn = false;
+        Alert.alert('Failed login with Google: ', action.payload as string);
       });
   },
 });

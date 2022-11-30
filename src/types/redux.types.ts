@@ -13,7 +13,7 @@ export type AuthStateProps = {
   userUid: string;
   isSignedIn: boolean;
   isLoading: boolean;
-  user: UserType | undefined;
+  user: UserType | null;
 };
 
 export type ProductStateProps = {
@@ -22,6 +22,9 @@ export type ProductStateProps = {
   isFavourite: boolean;
   error?: string;
   nextPage: number;
+  field: string;
+  type: string | number;
+  condition: WhereFilterOp;
 };
 export type PaymentStateProp = {
   userId: string;
@@ -29,3 +32,15 @@ export type PaymentStateProp = {
   isLoading: boolean;
   isAdd: boolean;
 };
+
+export type WhereFilterOp =
+  | '<'
+  | '<='
+  | '=='
+  | '>'
+  | '>='
+  | '!='
+  | 'array-contains'
+  | 'array-contains-any'
+  | 'in'
+  | 'not-in';

@@ -1,4 +1,5 @@
 export type ProductType = {
+  id: string;
   name: string;
   price: number;
   category: string;
@@ -39,7 +40,7 @@ export type UserType = {
   id: string;
   name: string;
   email: string;
-  password: string;
+  // password: string;
   cart: ProductType[];
   paymentMethods: PaymentCardType[];
   orders: OrderType[];
