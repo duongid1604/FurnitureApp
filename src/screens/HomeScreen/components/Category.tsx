@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS, FONTS, FONT_SIZE} from '../../../constants';
+import {useAppDispatch} from '../../../hooks';
+import {chooseCategory} from '../../../redux/reducers/productSlice';
 
 const Category = () => {
+  const dispatch = useAppDispatch();
+
   const categories = [
     {
       name: 'star-outline',
@@ -31,6 +35,7 @@ const Category = () => {
 
   const pressHandler = (index: Number) => {
     setActive(index);
+    dispatch(chooseCategory(index));
   };
 
   return (
