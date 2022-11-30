@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {ProductType, UserType} from './data.types';
+import {PaymentCardType, ProductType, UserType} from './data.types';
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -22,4 +22,10 @@ export type ProductStateProps = {
   isFavourite: boolean;
   error?: string;
   nextPage: number;
+};
+export type PaymentStateProp = {
+  userId: string;
+  payment: PaymentCardType | undefined;
+  isLoading: boolean;
+  isAdd: boolean;
 };

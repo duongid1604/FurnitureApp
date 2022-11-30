@@ -1,14 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {AddPaymentField, AddPaymentProps} from '../../types';
-import {BigCustomButton, CustomInput, TestButton} from '../../components';
-import NewCreditCard from '../../components/NewCreditCard';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
+import {BigCustomButton, CustomInput} from '../../components';
+import NewCreditCard from '../../components/NewCreditCard';
 import {COLORS} from '../../constants';
+import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
+import {AddPaymentField, AddPaymentProps} from '../../types';
 import {scaleUI} from '../../utils';
-import firestore from '@react-native-firebase/firestore';
 
 const schema = yup
   .object({
@@ -28,14 +28,30 @@ const schema = yup
   })
   .required();
 
-const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
+const AddPaymentScreen = ({}: AddPaymentProps) => {
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<AddPaymentField>({resolver: yupResolver(schema)});
-  // const update = () => {
-  //   firestore().collection
+
+  const {onUpdate} = usePaymentScreen();
+  // const {userUid, user} = useAppSelector(state => state.auth);
+
+  // const updatePayment = (data: PaymentCardType) => {
+  //   if (!user) {
+  //     return;
+  //   }
+
+  //   firestore()
+  //     .collection('users')
+  //     .doc(userUid)
+  //     .update({
+  //       paymentMethods: [...user.paymentMethods, data],
+  //     })
+  //     .then(() => {
+  //       console.log('Payment Method Update');
+  //     });
   // };
   return (
     <View style={styles.container}>
@@ -95,7 +111,9 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
         </View>
       </View>
       <View style={styles.btn}>
-        <BigCustomButton onPress={handleSubmit()}>Add new card</BigCustomButton>
+        <BigCustomButton onPress={handleSubmit(onUpdate)}>
+          Add new card
+        </BigCustomButton>
       </View>
     </View>
   );

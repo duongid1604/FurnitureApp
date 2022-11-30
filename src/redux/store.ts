@@ -1,11 +1,17 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {authReducer, exampleReducer, productsReducer} from './reducers';
+import {
+  authReducer,
+  exampleReducer,
+  paymentReducer,
+  productsReducer,
+} from './reducers';
 
 const store = configureStore({
   reducer: {
     example: exampleReducer,
     auth: authReducer,
     products: productsReducer,
+    payment: paymentReducer,
   },
 });
 

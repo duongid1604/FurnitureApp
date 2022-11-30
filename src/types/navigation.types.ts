@@ -91,3 +91,7 @@ export type LoginScreenProps = StackScreenProps<RootStackParamList, 'Login'>;
 export type LoginNavigationProp = LoginScreenProps['navigation'];
 
 export type LoginRouteProp = LoginScreenProps['route'];
+
+export type PaymentNavigationProp = PaymentScreenProps['navigation'];
+
+export type PaymentRouteProp = PaymentScreenProps['route'];
