@@ -66,7 +66,7 @@ const RootNavigator = () => {
                 <RootStack.Screen
                   name="Search"
                   component={SearchScreen}
-                  options={{headerShown: false}}
+                  options={{headerTitleAlign: 'center'}}
                 />
                 <RootStack.Screen
                   name="HomeNavigator"
