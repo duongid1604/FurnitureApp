@@ -12,4 +12,5 @@ export default {
   DEFAULT: '#999999',
   NEUTRAL_20: '#D9D9D9',
   NEUTRAL_40: '#A9A9A9',
+  SHADOW: '#646464',
 };

@@ -13,17 +13,27 @@ import {LoginFormFields, SignupFormFields, UserType} from '../../types';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
-  async (data: LoginFormFields, {rejectWithValue}) => {
+  async (
+    {
+      oldUserUid,
+      data,
+    }: {oldUserUid?: string | undefined; data?: LoginFormFields | undefined},
+    {rejectWithValue},
+  ) => {
     try {
-      const res = await loginWithEmail(data);
-      const userUid = res?.user.uid;
-      if (!userUid) {
+      let curUserUid: string | undefined;
+      curUserUid = oldUserUid;
+      if (!oldUserUid && data) {
+        const res = await loginWithEmail(data);
+        const userUid = res?.user.uid;
+        curUserUid = userUid;
+      }
+      if (!curUserUid) {
         return undefined;
       }
+      const userRes = await getUserByUid(curUserUid);
 
-      const userRes = await getUserByUid(userUid);
-
-      return {userUid, user: userRes.data() as UserType};
+      return {curUserUid, user: userRes.data() as UserType};
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

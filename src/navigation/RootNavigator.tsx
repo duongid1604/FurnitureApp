@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../hooks';
 import {addUid} from '../redux/reducers/authSlice';
+import {loginThunk} from '../redux/thunks/auth.thunks';
 import {
   BoardingScreen,
   CartScreen,
@@ -36,17 +37,12 @@ const RootNavigator = () => {
   useEffect(() => {
     const getUid = async () => {
       try {
-        const [newUserUid, newUser] = await Promise.all([
-          AsyncStorage.getItem('userUid'),
-          AsyncStorage.getItem('user'),
-        ]);
-
-        if (!newUserUid || !newUser) {
+        const currUserUid = await AsyncStorage.getItem('userUid');
+        if (!currUserUid) {
           setInitializing(false);
           return;
         }
-        const newUserObj = JSON.parse(newUser);
-        dispatch(addUid({newUserUid, newUserObj}));
+        await dispatch(loginThunk({oldUserUid: currUserUid}));
         setInitializing(false);
       } catch (error) {}
     };
