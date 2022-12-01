@@ -54,9 +54,9 @@ export const authSlice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         if (action.payload) {
           console.log('first time sign in:  ', action.payload);
-          state.userUid = action.payload.userUid;
+          state.userUid = action.payload.curUserUid;
           state.user = action.payload.user;
-          AsyncStorage.setItem('userUid', action.payload.userUid);
+          AsyncStorage.setItem('userUid', action.payload.curUserUid);
           AsyncStorage.setItem('user', JSON.stringify(action.payload.user));
           state.isSignedIn = true;
         }

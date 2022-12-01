@@ -15,7 +15,7 @@ const useLoginScreen = () => {
   const dispatch = useAppDispatch();
 
   const onLogin = async (data: LoginFormFields) => {
-    dispatch(loginThunk(data));
+    dispatch(loginThunk({data}));
   };
 
   const onLoginWithGoogle = () => {
