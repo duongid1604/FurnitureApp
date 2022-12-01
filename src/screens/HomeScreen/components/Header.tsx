@@ -1,11 +1,21 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS, FONTS, FONT_SIZE, ICON} from '../../../constants';
+import {HomeScreenNavigationProps} from '../../../types';
 
 const Header = () => {
+  const navigation = useNavigation<HomeScreenNavigationProps>();
+
+  const moveToSearchScreen = () => {
+    navigation.navigate('Search');
+  };
+
   return (
     <View style={styles.header}>
-      <Image source={ICON.SEARCH_DISABLE} style={styles.image} />
+      <TouchableOpacity onPress={moveToSearchScreen}>
+        <Image source={ICON.SEARCH_DISABLE} style={styles.image} />
+      </TouchableOpacity>
       <View style={styles.headingCenter}>
         <Text style={styles.smallHeading}>make home</Text>
         <Text style={styles.bigHeading}>beautiful</Text>
