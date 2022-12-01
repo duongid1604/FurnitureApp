@@ -19,19 +19,30 @@ const MyReviewBox = (props: Props) => {
             <Text style={styles.price}>$ 50.00</Text>
           </View>
         </View>
-        <View style={styles.rating}>
-          <Image
-            style={styles.star}
-            source={require('../assets/icons/star.png')}
-          />
-          <Image
-            style={styles.star}
-            source={require('../assets/icons/star.png')}
-          />
-          <Image
-            style={styles.star}
-            source={require('../assets/icons/star.png')}
-          />
+        <View style={styles.RateAndTime}>
+          <View style={styles.rating}>
+            <Image
+              style={styles.star}
+              source={require('../assets/icons/star.png')}
+            />
+            <Image
+              style={styles.star}
+              source={require('../assets/icons/star.png')}
+            />
+            <Image
+              style={styles.star}
+              source={require('../assets/icons/star.png')}
+            />
+          </View>
+          <Text style={styles.time}>20/03/2020</Text>
+        </View>
+        <View style={styles.comments}>
+          <Text style={styles.description}>
+            Nice Furniture with good delivery. The delivery time is very fast.
+            Then products look like exactly the picture in the app. Besides,
+            color is also the same and quality is very good despite very cheap
+            price
+          </Text>
         </View>
       </View>
     </View>
@@ -45,7 +56,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 20,
     width: scaleUI(337, false),
-    height: scaleUI(252, false),
+    height: scaleUI(320, false),
     backgroundColor: COLORS.WHITE,
   },
   display: {
@@ -77,13 +88,35 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.POPPINS,
     lineHeight: LINE_HEIGHT.BODY,
   },
+  RateAndTime: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 16,
+  },
   rating: {
     flexDirection: 'row',
-    marginVertical: 16,
-    justifyContent: 'space-between',
+    width: scaleUI(100, false),
   },
   star: {
     width: scaleUI(16, false),
     height: scaleUI(16, false),
+  },
+  time: {
+    color: COLORS.SUB,
+    fontSize: FONT_SIZE.SMALL,
+    lineHeight: LINE_HEIGHT.SMALL,
+    fontFamily: FONTS.POPPINS,
+    fontWeight: FONT_WEIGHT.REGULAR,
+  },
+  comments: {
+    width: scaleUI(305, false),
+    height: scaleUI(200, false),
+  },
+  description: {
+    color: COLORS.SUB,
+    fontSize: FONT_SIZE.LABEL,
+    lineHeight: LINE_HEIGHT.H5,
+    fontFamily: FONTS.POPPINS,
+    fontWeight: FONT_WEIGHT.REGULAR,
   },
 });
