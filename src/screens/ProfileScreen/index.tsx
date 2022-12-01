@@ -13,6 +13,10 @@ import LoadingScreen from '../LoadingScreen';
 const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   const {
     user,
+    orderQty,
+    addressQty,
+    reviewQty,
+    paymentQty,
     onSignout,
     onGotoMyReviews,
     onGotoShippingAddress,
@@ -29,7 +33,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
     <CustomScreenContainer smallPadding>
       <View style={styles.infoContainer}>
         <Image source={{uri: IMAGES.DEFAULT_AVATAR}} style={styles.avatar} />
-        <View>
+        <View style={styles.info}>
           <Text style={styles.name}>{user.name ? user.name : 'No name'}</Text>
           <Text numberOfLines={2} style={styles.email}>
             {user.email ? user.email : 'No email'}
@@ -39,28 +43,38 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
       <View style={styles.sections}>
         <CustomInfoButton
           title="My orders"
-          info={`Already have ${
-            user.orders ? user.orders.length + ' orders' : 0 + ' order'
-          } `}
+          info={
+            orderQty && orderQty > 0
+              ? `Already have ${orderQty} ${orderQty > 1 ? 'orders' : 'order'}`
+              : 'No order'
+          }
           onPress={onGoToOrders}
         />
         <CustomInfoButton
           title="Shipping Addresses"
-          info={`${user ? user.orders.length + ' Addresses' : 0 + ' Address'} `}
+          info={
+            addressQty && addressQty > 0
+              ? `${addressQty} ${addressQty > 1 ? 'addresses' : 'address'}`
+              : 'No address'
+          }
           onPress={onGotoShippingAddress}
         />
         <CustomInfoButton
           title="Payment Method"
-          info={`You have ${
-            user ? user.orders.length + ' cards' : 0 + ' card'
-          }`}
+          info={
+            paymentQty && paymentQty > 0
+              ? `You have ${paymentQty} ${paymentQty > 1 ? 'cards' : 'card'}`
+              : 'No card'
+          }
           onPress={onGoToPaymentMethod}
         />
         <CustomInfoButton
           title="My reviews"
-          info={`Reviews for ${
-            user ? user.orders.length + ' items' : 0 + ' item'
-          }`}
+          info={
+            reviewQty && reviewQty > 0
+              ? `Reviews for ${reviewQty} ${reviewQty > 1 ? 'items' : 'item'}`
+              : 'No review'
+          }
           onPress={onGotoMyReviews}
         />
         <CustomInfoButton
@@ -84,6 +98,9 @@ const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  info: {
+    flex: 1,
   },
   avatar: {
     width: 80,
