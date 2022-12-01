@@ -25,8 +25,8 @@ export const authSlice = createSlice({
   reducers: {
     addUid: (state: AuthStateProps, action) => {
       console.log('signed in before: ', action.payload);
-      state.userUid = action.payload.userUid;
-      state.user = action.payload.user;
+      state.userUid = action.payload.newUserUid;
+      state.user = action.payload.newUser;
       state.isSignedIn = true;
       state.isLoading = false;
     },

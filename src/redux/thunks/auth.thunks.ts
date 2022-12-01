@@ -77,7 +77,6 @@ export const loginWithGoogleThunk = createAsyncThunk(
       }
       const userRes = await getUserByUid(userUid);
       const userData = userRes.data() as UserType;
-      console.log(userData);
       let user: UserType;
       if (userData) {
         user = userData;
