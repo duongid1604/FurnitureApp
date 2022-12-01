@@ -1,11 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {CustomScreenContainer} from '../../components';
 
 const SearchScreen = () => {
   return (
-    <View>
+    <CustomScreenContainer>
       <Text>SearchScreen</Text>
-    </View>
+    </CustomScreenContainer>
   );
 };
 

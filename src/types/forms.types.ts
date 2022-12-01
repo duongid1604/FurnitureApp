@@ -20,6 +20,13 @@ export type CustomInputProps<TFormValues extends FieldValues> = {
   error?: Partial<FieldErrorsImpl<TFormValues>>;
   rules?: RegisterOptions;
 };
+export type CustomSearchInputProps<TFormValues extends FieldValues> = {
+  onPress?: () => void;
+  field: Path<TFormValues>;
+  control: Control<TFormValues>;
+  name: String;
+  placeholder: String;
+};
 
 export type LoginFormFields = {
   email: string;
