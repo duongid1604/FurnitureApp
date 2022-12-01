@@ -17,6 +17,7 @@ import {
   SettingScreen,
   SignupScreen,
 } from '../screens';
+import SearchScreen from '../screens/SearchScreen';
 
 import {RootStackParamList} from '../types';
 import HomeNavigator from './HomeNavigator';
@@ -67,6 +68,11 @@ const RootNavigator = () => {
           <RootStack.Navigator initialRouteName={initialRoutename}>
             {isSignedIn ? (
               <>
+                <RootStack.Screen
+                  name="Search"
+                  component={SearchScreen}
+                  options={{headerShown: false}}
+                />
                 <RootStack.Screen
                   name="HomeNavigator"
                   component={HomeNavigator}

@@ -95,7 +95,7 @@ const productSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = [...state.products, ...action.payload];
+      state.products = action.payload;
       state.error = '';
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
