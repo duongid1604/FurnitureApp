@@ -33,6 +33,14 @@ export const paymentSlice = createSlice({
     addPayment: (state: PaymentStateProp, action) => {
       state.userId = action.payload.userId;
       state.payment = action.payload.payment;
+      state.isAdd = true;
+      state.isLoading = false;
+    },
+    enableLoading: (state: PaymentStateProp) => {
+      state.isLoading = true;
+    },
+    disableLoading: (state: PaymentStateProp) => {
+      state.isLoading = false;
     },
   },
   extraReducers: builder => {
