@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import {BigCustomButton, CustomInput} from '../../components';
 import NewCreditCard from '../../components/NewCreditCard';
 import {COLORS} from '../../constants';
-import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
+import {useAddPaymentScreen} from '../../hooks';
 import {AddPaymentField, AddPaymentProps} from '../../types';
 import {scaleUI} from '../../utils';
 
@@ -29,13 +29,14 @@ const schema = yup
   .required();
 
 const AddPaymentScreen = ({}: AddPaymentProps) => {
+  const {onUpdate} = useAddPaymentScreen();
+
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<AddPaymentField>({resolver: yupResolver(schema)});
 
-  const {onUpdate} = usePaymentScreen();
   // const {userUid, user} = useAppSelector(state => state.auth);
 
   // const updatePayment = (data: PaymentCardType) => {
@@ -81,6 +82,7 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
           textInputProps={{
             maxLength: 16,
             placeholder: '**** **** **** 3456',
+            keyboardType: 'number-pad',
           }}
         />
         <View style={styles.cvvdate}>
@@ -91,8 +93,9 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
               control={control}
               error={errors}
               textInputProps={{
-                maxLength: 16,
+                maxLength: 3,
                 placeholder: 'EX: 123',
+                keyboardType: 'number-pad',
               }}
             />
           </View>
@@ -103,8 +106,9 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
               control={control}
               error={errors}
               textInputProps={{
-                maxLength: 16,
+                maxLength: 5,
                 placeholder: '03/22',
+                keyboardType: 'numbers-and-punctuation',
               }}
             />
           </View>

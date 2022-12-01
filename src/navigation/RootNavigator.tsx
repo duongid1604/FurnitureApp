@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
+import {StyleSheet} from 'react-native';
+import {FONTS} from '../constants';
 import {useAppDispatch, useAppSelector} from '../hooks';
 import {loginThunk} from '../redux/thunks/auth.thunks';
 import {
@@ -60,7 +62,12 @@ const RootNavigator = () => {
         <LoadingScreen />
       ) : (
         <NavigationContainer>
-          <RootStack.Navigator initialRouteName={initialRoutename}>
+          <RootStack.Navigator
+            initialRouteName={initialRoutename}
+            screenOptions={{
+              headerTitleAlign: 'center',
+              headerTitleStyle: styles.headerTitle,
+            }}>
             {isSignedIn ? (
               <>
                 <RootStack.Screen
@@ -141,3 +148,9 @@ const RootNavigator = () => {
 };
 
 export default RootNavigator;
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontFamily: FONTS.POPPINS_BOLD,
+  },
+});

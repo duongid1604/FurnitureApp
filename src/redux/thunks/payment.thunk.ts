@@ -6,17 +6,16 @@ import {AddPaymentField, PaymentCardType} from '../../types';
 export const updatePaymentThunk = createAsyncThunk(
   'auth/payment',
   async (data: AddPaymentField, {rejectWithValue}) => {
-    try {
-      console.log('updatePaymentThunk');
-      const userUid = useAppSelector(state => state.auth.userUid);
+    const userUid = useAppSelector(state => state.auth.userUid);
 
+    try {
       const newPayment: PaymentCardType = {
-        userId: userUid,
         cardHolderName: data.cardHolderName,
         cardNumber: data.cardHolderName,
         cvv: +data.cvv,
         expirationDate: data.expirationDate,
       };
+      console.log(newPayment);
       await firestore()
         .collection('users')
         .doc(userUid)

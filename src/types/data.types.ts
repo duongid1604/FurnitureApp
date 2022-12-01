@@ -12,9 +12,8 @@ export type ProductType = {
 };
 
 export type PaymentCardType = {
-  userId: string;
   cardHolderName: string;
-  cardNumber: string;
+  cardNumber: number;
   cvv: number;
   expirationDate: string;
 };
@@ -40,7 +39,6 @@ export type UserType = {
   id: string;
   name: string;
   email: string;
-  // password: string;
   cart: ProductType[];
   paymentMethods: PaymentCardType[];
   orders: OrderType[];
