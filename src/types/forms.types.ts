@@ -20,13 +20,6 @@ export type CustomInputProps<TFormValues extends FieldValues> = {
   error?: Partial<FieldErrorsImpl<TFormValues>>;
   rules?: RegisterOptions;
 };
-export type CustomSearchInputProps<TFormValues extends FieldValues> = {
-  onPress?: () => void;
-  field: Path<TFormValues>;
-  control: Control<TFormValues>;
-  name: String;
-  placeholder: String;
-};
 
 export type LoginFormFields = {
   email: string;
@@ -41,8 +34,8 @@ export type SignupFormFields = {
 };
 export type AddPaymentField = {
   cardHolderName: string;
-  cardNumber: string;
-  cvv: string;
+  cardNumber: number;
+  cvv: number;
   expirationDate: string;
 };
 

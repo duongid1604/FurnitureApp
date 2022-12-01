@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import {BigCustomButton, CustomInput} from '../../components';
 import NewCreditCard from '../../components/NewCreditCard';
 import {COLORS} from '../../constants';
-import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
+import {useAddPaymentScreen} from '../../hooks';
 import {AddPaymentField, AddPaymentProps} from '../../types';
 import {scaleUI} from '../../utils';
 
@@ -29,7 +29,7 @@ const schema = yup
   .required();
 
 const AddPaymentScreen = ({}: AddPaymentProps) => {
-  const {onUpdate} = usePaymentScreen();
+  const {onUpdate} = useAddPaymentScreen();
 
   const {
     control,

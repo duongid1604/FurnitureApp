@@ -1,9 +1,9 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
 import {
+  BigCustomButton,
   CustomInfoButton,
   CustomScreenContainer,
-  CustomTextButton,
 } from '../../components';
 import {COLORS, FONTS, FONT_SIZE, IMAGES, LINE_HEIGHT} from '../../constants';
 import {useProfileScreen} from '../../hooks';
@@ -41,52 +41,56 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
         </View>
       </View>
       <View style={styles.sections}>
-        <CustomInfoButton
-          title="My orders"
-          info={
-            orderQty && orderQty > 0
-              ? `Already have ${orderQty} ${orderQty > 1 ? 'orders' : 'order'}`
-              : 'No order'
-          }
-          onPress={onGoToOrders}
-        />
-        <CustomInfoButton
-          title="Shipping Addresses"
-          info={
-            addressQty && addressQty > 0
-              ? `${addressQty} ${addressQty > 1 ? 'addresses' : 'address'}`
-              : 'No address'
-          }
-          onPress={onGotoShippingAddress}
-        />
-        <CustomInfoButton
-          title="Payment Method"
-          info={
-            paymentQty && paymentQty > 0
-              ? `You have ${paymentQty} ${paymentQty > 1 ? 'cards' : 'card'}`
-              : 'No card'
-          }
-          onPress={onGoToPaymentMethod}
-        />
-        <CustomInfoButton
-          title="My reviews"
-          info={
-            reviewQty && reviewQty > 0
-              ? `Reviews for ${reviewQty} ${reviewQty > 1 ? 'items' : 'item'}`
-              : 'No review'
-          }
-          onPress={onGotoMyReviews}
-        />
-        <CustomInfoButton
-          title="Setting"
-          info="Notification, Password, FAQ, Contact"
-          onPress={onGotoSetting}
-        />
-        <CustomTextButton
-          name="Sign out"
-          onPress={onSignout}
-          extraStyle={styles.center}
-        />
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollViewContainer}>
+          <CustomInfoButton
+            title="My orders"
+            info={
+              orderQty && orderQty > 0
+                ? `Already have ${orderQty} ${
+                    orderQty > 1 ? 'orders' : 'order'
+                  }`
+                : 'No order'
+            }
+            onPress={onGoToOrders}
+          />
+          <CustomInfoButton
+            title="Shipping Addresses"
+            info={
+              addressQty && addressQty > 0
+                ? `${addressQty} ${addressQty > 1 ? 'addresses' : 'address'}`
+                : 'No address'
+            }
+            onPress={onGotoShippingAddress}
+          />
+          <CustomInfoButton
+            title="Payment Method"
+            info={
+              paymentQty && paymentQty > 0
+                ? `You have ${paymentQty} ${paymentQty > 1 ? 'cards' : 'card'}`
+                : 'No card'
+            }
+            onPress={onGoToPaymentMethod}
+          />
+          <CustomInfoButton
+            title="My reviews"
+            info={
+              reviewQty && reviewQty > 0
+                ? `Reviews for ${reviewQty} ${reviewQty > 1 ? 'items' : 'item'}`
+                : 'No review'
+            }
+            onPress={onGotoMyReviews}
+          />
+          <CustomInfoButton
+            title="Setting"
+            info="Notification, Password, FAQ, Contact"
+            onPress={onGotoSetting}
+          />
+        </ScrollView>
+        <BigCustomButton extraStyle={styles.button} onPress={onSignout}>
+          Sign out
+        </BigCustomButton>
       </View>
     </CustomScreenContainer>
   );
@@ -122,8 +126,19 @@ const styles = StyleSheet.create({
   },
   sections: {
     marginTop: 26,
+    flex: 1,
+    marginBottom: 20,
   },
   center: {
     alignSelf: 'center',
+  },
+  scrollView: {
+    margin: -20,
+  },
+  scrollViewContainer: {
+    padding: 20,
+  },
+  button: {
+    marginVertical: 20,
   },
 });

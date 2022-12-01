@@ -9,6 +9,7 @@ import {
   loginWithGoogleThunk,
   resetPasswordWithEmailThunk,
   signupThunk,
+  updateUserThunk,
 } from '../thunks/auth.thunks';
 
 const initialState: AuthStateProps = {
@@ -143,6 +144,24 @@ export const authSlice = createSlice({
           'Failed to send reset password email: ',
           action.payload as string,
         );
+      });
+    builder
+      .addCase(updateUserThunk.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserThunk.fulfilled, (state, {payload}) => {
+        if (payload) {
+          state.userUid = payload.id;
+          state.user = payload;
+          AsyncStorage.setItem('userUid', payload.id);
+          AsyncStorage.setItem('user', JSON.stringify(payload));
+        }
+        state.isLoading = false;
+      })
+      .addCase(updateUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSignedIn = false;
+        Alert.alert('Failed to update user: ', action.payload as string);
       });
   },
 });

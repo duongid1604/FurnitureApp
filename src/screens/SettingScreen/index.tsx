@@ -1,14 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {CustomScreenContainer} from '../../components';
 
 type Props = {};
 
 const SettingScreen = (props: Props) => {
-  return (
-    <View>
-      <Text>SettingScreen</Text>
-    </View>
-  );
+  return <CustomScreenContainer smallPadding></CustomScreenContainer>;
 };
 
 export default SettingScreen;

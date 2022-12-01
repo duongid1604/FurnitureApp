@@ -1,29 +1,59 @@
 import React from 'react';
 import {StyleSheet, View, ViewStyle} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import {COLORS} from '../constants';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
   style?: ViewStyle;
   smallPadding?: boolean;
+  hasScrollView?: boolean;
 };
 
-const CustomScreenContainer = ({children, style, smallPadding}: Props) => {
+const CustomScreenContainer = ({
+  children,
+  style,
+  smallPadding,
+  hasScrollView,
+}: Props) => {
   return (
-    <View
-      style={
-        smallPadding
-          ? [styles.screen, styles.screenSmallPadding, style]
-          : [styles.screen, style]
-      }>
-      {children}
-    </View>
+    <>
+      {hasScrollView ? (
+        <View
+          style={
+            smallPadding
+              ? [styles.screen, styles.screenSmallPadding, style]
+              : [styles.screen, style]
+          }>
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollViewContainer}>
+            {children}
+          </ScrollView>
+        </View>
+      ) : (
+        <View
+          style={
+            smallPadding
+              ? [styles.screen, styles.screenSmallPadding, style]
+              : [styles.screen, style]
+          }>
+          {children}
+        </View>
+      )}
+    </>
   );
 };
 
 export default CustomScreenContainer;
 
 const styles = StyleSheet.create({
+  scrollView: {
+    margin: -20,
+  },
+  scrollViewContainer: {
+    padding: 20,
+  },
   screen: {
     flex: 1,
     paddingHorizontal: 24,
