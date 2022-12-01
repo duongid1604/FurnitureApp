@@ -63,6 +63,8 @@ export type ProfileScreenProps = CompositeScreenProps<
   StackScreenProps<RootStackParamList>
 >;
 
+export type ProfileNavigationProp = ProfileScreenProps['navigation'];
+
 export type ProductScreenProps = StackScreenProps<
   RootStackParamList,
   'Product'
