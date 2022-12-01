@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {ProductType, UserType} from './data.types';
+import {PaymentCardType, ProductType, UserType} from './data.types';
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -26,6 +26,12 @@ export type ProductStateProps = {
   field: string;
   type: string | number;
   condition: WhereFilterOp;
+};
+export type PaymentStateProp = {
+  userId: string;
+  payment: PaymentCardType | undefined;
+  isLoading: boolean;
+  isAdd: boolean;
 };
 
 export type WhereFilterOp =
