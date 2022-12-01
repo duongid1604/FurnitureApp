@@ -4,11 +4,12 @@ import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 
 const useProfileScreen = (navigation: ProfileNavigationProp) => {
   const dispatch = useAppDispatch();
-  const {user, userUid} = useAppSelector(state => state.auth);
+  const {user} = useAppSelector(state => state.auth);
 
   const orderQty = user?.orders.length;
-
-  console.log('user 11:', user);
+  const addressQty = user?.shippingAddress.length;
+  const paymentQty = user?.paymentMethods.length;
+  const reviewQty = user?.reviews.length;
 
   const onSignout = () => {
     dispatch(removeUid());
@@ -36,6 +37,10 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
 
   return {
     user,
+    orderQty,
+    addressQty,
+    reviewQty,
+    paymentQty,
     onSignout,
     onGotoShippingAddress,
     onGotoMyReviews,
