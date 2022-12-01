@@ -18,6 +18,7 @@ export type RootStackParamList = {
   ShippingNavigator: undefined;
   ReviewNavigator: undefined;
   Setting: undefined;
+  Search: undefined;
 };
 
 export type HomeTabParamList = {
@@ -68,6 +69,7 @@ export type ProductScreenProps = StackScreenProps<
 >;
 
 export type ProductNavigationProp = ProductScreenProps['navigation'];
+export type HomeScreenNavigationProps = HomeScreenProps['navigation'];
 
 export type ProductRouteProp = ProductScreenProps['route'];
 
