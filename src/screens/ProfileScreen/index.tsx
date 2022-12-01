@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {
+  BigCustomButton,
   CustomInfoButton,
   CustomScreenContainer,
-  CustomTextButton,
 } from '../../components';
 import {COLORS, FONTS, FONT_SIZE, IMAGES, LINE_HEIGHT} from '../../constants';
 import {useProfileScreen} from '../../hooks';
@@ -30,7 +30,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   }
 
   return (
-    <CustomScreenContainer smallPadding>
+    <CustomScreenContainer smallPadding hasScrollView>
       <View style={styles.infoContainer}>
         <Image source={{uri: IMAGES.DEFAULT_AVATAR}} style={styles.avatar} />
         <View style={styles.info}>
@@ -82,11 +82,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
           info="Notification, Password, FAQ, Contact"
           onPress={onGotoSetting}
         />
-        <CustomTextButton
-          name="Sign out"
-          onPress={onSignout}
-          extraStyle={styles.center}
-        />
+        <BigCustomButton onPress={onSignout}>Sign out</BigCustomButton>
       </View>
     </CustomScreenContainer>
   );

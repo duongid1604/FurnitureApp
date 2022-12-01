@@ -8,6 +8,7 @@ import {
   signinWithFacebook,
   signinWithGoogle,
   signupWithEmail,
+  updateUserById,
 } from '../../api';
 import {LoginFormFields, SignupFormFields, UserType} from '../../types';
 
@@ -155,6 +156,18 @@ export const resetPasswordWithEmailThunk = createAsyncThunk(
     try {
       const res = await resetPasswordWithEmail(email);
       return res;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
+export const updateUserThunk = createAsyncThunk(
+  'auth/updateUser',
+  async (updatedUser: UserType, {rejectWithValue}) => {
+    try {
+      await updateUserById(updatedUser.id, updatedUser);
+      return updatedUser;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
