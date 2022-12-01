@@ -9,10 +9,7 @@ export const updatePaymentThunk = createAsyncThunk(
     const userUid = useAppSelector(state => state.auth.userUid);
 
     try {
-      console.log('updatePaymentThunk');
-
       const newPayment: PaymentCardType = {
-        userId: userUid,
         cardHolderName: data.cardHolderName,
         cardNumber: data.cardHolderName,
         cvv: +data.cvv,
