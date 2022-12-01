@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {COLORS} from '../../constants';
 import MyReviewBox from '../../components/MyReviewBox';
@@ -7,9 +7,15 @@ type Props = {};
 
 const MyReviewsScreen = (props: Props) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <MyReviewBox />
-    </View>
+      <MyReviewBox />
+      <MyReviewBox />
+
+      <MyReviewBox />
+
+      <MyReviewBox />
+    </ScrollView>
   );
 };
 
