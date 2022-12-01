@@ -26,7 +26,7 @@ export const authSlice = createSlice({
     addUid: (state: AuthStateProps, action) => {
       console.log('signed in before: ', action.payload);
       state.userUid = action.payload.newUserUid;
-      state.user = action.payload.newUser;
+      state.user = action.payload.newUserObj;
       state.isSignedIn = true;
       state.isLoading = false;
     },

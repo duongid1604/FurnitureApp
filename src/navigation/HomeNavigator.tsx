@@ -1,7 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {ImageCustomButton} from '../components';
-import {ICON} from '../constants';
+import {FONTS, ICON} from '../constants';
 import {
   FavoriteScreen,
   HomeScreen,
@@ -33,6 +34,8 @@ const HomeNavigator = () => {
           return <ImageCustomButton source={icon} />;
         },
         tabBarShowLabel: false,
+        headerTitleAlign: 'center',
+        headerTitleStyle: styles.headerTitle,
       })}>
       <HomeTab.Screen
         name="Home"
@@ -47,3 +50,9 @@ const HomeNavigator = () => {
 };
 
 export default HomeNavigator;
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontFamily: FONTS.POPPINS_BOLD,
+  },
+});
