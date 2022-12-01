@@ -9,6 +9,7 @@ import {
   CartScreen,
   CheckoutScreen,
   CongratsScreen,
+  ForgotPasswordScreen,
   LoadingScreen,
   LoginScreen,
   OrderScreen,
@@ -124,6 +125,11 @@ const RootNavigator = () => {
                 <RootStack.Screen
                   name="Signup"
                   component={SignupScreen}
+                  options={{headerShown: false}}
+                />
+                <RootStack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPasswordScreen}
                   options={{headerShown: false}}
                 />
               </>

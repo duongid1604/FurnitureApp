@@ -1,7 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
 import * as yup from 'yup';
@@ -12,11 +12,12 @@ import {
   CustomInput,
   CustomScreenContainer,
   CustomTextButton,
-  TestButton,
+  ImageCustomButton,
 } from '../../components';
-import {COLORS} from '../../constants';
+import {COLORS, FONT_SIZE, ICON, LINE_HEIGHT} from '../../constants';
 import {useAppSelector, useLoginScreen} from '../../hooks';
 import {LoginFormFields, LoginScreenProps} from '../../types';
+import {scaleUI} from '../../utils';
 
 const schema = yup
   .object({
@@ -39,11 +40,13 @@ const LoginScreen = ({}: LoginScreenProps) => {
   } = useForm<LoginFormFields>({resolver: yupResolver(schema)});
 
   const {
-    onLogin,
-    onToggleShowPassword,
     isPasswordHidden,
-    onGoToSingup,
+    onLogin,
     onLoginWithGoogle,
+    onLoginWithFacebook,
+    onGoToSingup,
+    onGotoForgotPassword,
+    onToggleShowPassword,
   } = useLoginScreen();
 
   const {isLoading} = useAppSelector(state => state.auth);
@@ -85,6 +88,7 @@ const LoginScreen = ({}: LoginScreenProps) => {
           <CustomTextButton
             name="Forgot Password"
             extraStyle={styles.forgotPassword}
+            onPress={onGotoForgotPassword}
           />
           <BigCustomButton onPress={handleSubmit(onLogin)} disable={isLoading}>
             Log in
@@ -96,7 +100,23 @@ const LoginScreen = ({}: LoginScreenProps) => {
           />
           {/* Social login */}
           <View style={styles.socialLogin}>
-            <TestButton name="Login with Google" onPress={onLoginWithGoogle} />
+            <View style={styles.socialTitle}>
+              <View style={styles.line} />
+              <Text style={styles.socialText}>Or continue with</Text>
+              <View style={styles.line} />
+            </View>
+            <View style={styles.socialBtnContainer}>
+              <ImageCustomButton
+                source={ICON.GOOGLE}
+                onPress={onLoginWithGoogle}
+                extraImageStyle={styles.socialIcon}
+              />
+              <ImageCustomButton
+                source={ICON.FACEBOOK}
+                onPress={onLoginWithFacebook}
+                extraImageStyle={styles.socialIcon}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -134,5 +154,34 @@ const styles = StyleSheet.create({
   singup: {
     marginTop: 20,
   },
-  socialLogin: {},
+  socialLogin: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  socialTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  line: {
+    width: scaleUI(60),
+    backgroundColor: COLORS.MAIN,
+    height: 1,
+  },
+  socialText: {
+    fontSize: FONT_SIZE.BODY,
+    lineHeight: LINE_HEIGHT.BODY,
+    color: COLORS.MAIN,
+    marginHorizontal: 20,
+  },
+  socialBtnContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  socialIcon: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 10,
+  },
 });

@@ -5,7 +5,9 @@ import {Alert} from 'react-native';
 import {AuthStateProps} from '../../types';
 import {
   loginThunk,
+  loginWithFacebookThunk,
   loginWithGoogleThunk,
+  resetPasswordWithEmailThunk,
   signupThunk,
 } from '../thunks/auth.thunks';
 
@@ -14,6 +16,7 @@ const initialState: AuthStateProps = {
   isSignedIn: false,
   isLoading: false,
   user: null,
+  isResetEmailSent: false,
 };
 
 export const authSlice = createSlice({
@@ -105,6 +108,41 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSignedIn = false;
         Alert.alert('Failed login with Google: ', action.payload as string);
+      });
+    builder
+      .addCase(loginWithFacebookThunk.pending, state => {
+        state.isLoading = true;
+        state.isSignedIn = false;
+      })
+      .addCase(loginWithFacebookThunk.fulfilled, (state, {payload}) => {
+        if (payload) {
+          console.log('Login with facebook:  ', payload);
+          state.userUid = payload.userUid;
+          state.user = payload.user;
+          state.isSignedIn = true;
+          AsyncStorage.setItem('userUid', payload.userUid);
+          AsyncStorage.setItem('user', JSON.stringify(payload.user));
+        }
+        state.isLoading = false;
+      })
+      .addCase(loginWithFacebookThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSignedIn = false;
+        Alert.alert('Failed login with facebook: ', action.payload as string);
+      });
+    builder
+      .addCase(resetPasswordWithEmailThunk.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(resetPasswordWithEmailThunk.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(resetPasswordWithEmailThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        Alert.alert(
+          'Failed to send reset password email: ',
+          action.payload as string,
+        );
       });
   },
 });

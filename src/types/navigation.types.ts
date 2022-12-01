@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Boarding: undefined;
   Signup: undefined;
   Login: undefined;
+  ForgotPassword: undefined;
   HomeNavigator: undefined;
   Product: undefined;
   Cart: undefined;
@@ -93,3 +94,11 @@ export type LoginScreenProps = StackScreenProps<RootStackParamList, 'Login'>;
 export type LoginNavigationProp = LoginScreenProps['navigation'];
 
 export type LoginRouteProp = LoginScreenProps['route'];
+
+export type ForgotPasswordScreenProps = StackScreenProps<
+  RootStackParamList,
+  'ForgotPassword'
+>;
+
+export type ForgotPasswordNavigationProp =
+  ForgotPasswordScreenProps['navigation'];

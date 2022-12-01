@@ -41,4 +41,6 @@ export default {
   CHECKBOX: require('../assets/icons/checkbox.png'),
   UNCHECKBOX: require('../assets/icons/uncheckbox.png'),
   VISA: require('../assets/icons/visa.png'),
+  GOOGLE: require('../assets/icons/google-icon.png'),
+  FACEBOOK: require('../assets/icons/facebook-icon.png'),
 };
