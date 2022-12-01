@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   label: {
-    fontSize: FONT_SIZE.LABEL,
+    fontSize: FONT_SIZE.SMALL,
     color: COLORS.SUB,
     fontFamily: FONTS.POPPINS,
-    lineHeight: LINE_HEIGHT.LABEL,
+    lineHeight: LINE_HEIGHT.SMALL,
     textTransform: 'capitalize',
   },
   inputContainer: {
@@ -91,9 +91,10 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontFamily: FONTS.POPPINS,
-    fontSize: FONT_SIZE.BODY,
-    lineHeight: LINE_HEIGHT.BODY,
+    fontSize: FONT_SIZE.LABEL,
+    lineHeight: LINE_HEIGHT.LABEL,
     flex: 1,
+    padding: 0,
   },
   error: {
     color: COLORS.DANGER,

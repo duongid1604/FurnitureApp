@@ -1,6 +1,7 @@
 export default {
   MAIN: '#242424',
   SUB: '#909090',
+  TERRITORY: '#808080',
   WHITE: '#FFFFFF',
   BG: '#F5F5F5',
   SECONDARY: '#E0E0E0',
