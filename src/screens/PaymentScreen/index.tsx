@@ -11,6 +11,7 @@ import {
 } from '../../constants';
 import DefaultCard from '../../components/DefaultCard';
 import {PaymentScreenProps} from '../../types';
+import {scaleUI} from '../../utils';
 
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   return (
@@ -68,15 +69,16 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT.BODY,
   },
   add: {
-    bottom: -30,
+    bottom: -70,
     alignItems: 'flex-end',
     marginHorizontal: 50,
   },
   addbutton: {
+    position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 50,
-    height: 50,
+    width: scaleUI(50, true),
+    height: scaleUI(50, true),
     borderRadius: 100,
     backgroundColor: COLORS.WHITE,
   },
