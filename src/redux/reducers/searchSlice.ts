@@ -1,14 +1,11 @@
 import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {ProductType, SearchProductStateProps, WhereFilterOp} from '../../types';
+import {ProductType, SearchProductStateProps} from '../../types';
 
 const initialState: SearchProductStateProps = {
   loading: false,
   searchProducts: [],
   error: '',
-  field: '',
-  type: '',
-  condition: '==',
 };
 
 export const fetchSearchProducts = createAsyncThunk(
@@ -31,18 +28,7 @@ export const fetchSearchProducts = createAsyncThunk(
 const searchProductSlice = createSlice({
   name: 'searchProducts',
   initialState,
-  reducers: {
-    Search: (state, action) => {
-      state.field = 'name';
-      state.condition = '==';
-      state.type = action.payload;
-    },
-    ClearSearch: state => {
-      state.searchProducts = [];
-      state.field = '';
-      state.type = '';
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchSearchProducts.pending, state => {
       state.loading = true;
@@ -59,7 +45,5 @@ const searchProductSlice = createSlice({
     });
   },
 });
-
-export const {Search, ClearSearch} = searchProductSlice.actions;
 
 export default searchProductSlice.reducer;

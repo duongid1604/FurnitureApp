@@ -9,14 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE} from '../../constants';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {
-  ClearSearch,
-  fetchSearchProducts,
-} from '../../redux/reducers/searchSlice';
+import {fetchSearchProducts} from '../../redux/reducers/searchSlice';
 import {HomeScreenNavigationProps, ProductType} from '../../types';
 
 const SearchScreen = () => {
@@ -55,11 +51,6 @@ const SearchScreen = () => {
     }
   };
 
-  const backToHome = () => {
-    dispatch(ClearSearch());
-    navigation.goBack();
-  };
-
   const moveToProductScreenHandler = () => {
     navigation.navigate('Product');
   };
@@ -75,18 +66,14 @@ const SearchScreen = () => {
   );
 
   return (
-    <CustomScreenContainer>
-      <View style={styles.inputContainer}>
-        <TouchableOpacity onPress={backToHome}>
-          <Icon name="cancel" style={styles.icon} color={COLORS.MAIN} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Search</Text>
+    <CustomScreenContainer smallPadding>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.input}
+          onChangeText={searchHandler}
+          placeholder="Search something..."
+        />
       </View>
-      <TextInput
-        style={styles.input}
-        onChangeText={searchHandler}
-        placeholder="Search something..."
-      />
 
       <FlatList
         data={filteredDataSource}
@@ -104,14 +91,25 @@ export default SearchScreen;
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 30,
-    marginBottom: 30,
-    height: 50,
-    borderRadius: 16,
-    padding: 12,
+    padding: 16,
     borderColor: COLORS.SECONDARY,
     fontSize: FONT_SIZE.BODY,
-    backgroundColor: COLORS.NEUTRAL_20,
+  },
+  searchContainer: {
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 16,
+    backgroundColor: COLORS.WHITE,
+
+    shadowColor: COLORS.SHADOW,
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 8,
   },
   inputContainer: {
     flexDirection: 'row',

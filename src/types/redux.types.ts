@@ -32,9 +32,6 @@ export type SearchProductStateProps = {
   loading: boolean;
   searchProducts: ProductType[];
   error?: string;
-  field: string;
-  type: string | number;
-  condition: WhereFilterOp;
 };
 
 export type PaymentStateProp = {
