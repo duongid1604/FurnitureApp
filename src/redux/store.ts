@@ -4,6 +4,7 @@ import {
   exampleReducer,
   paymentReducer,
   productsReducer,
+  searchReducer,
 } from './reducers';
 
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     auth: authReducer,
     products: productsReducer,
     payment: paymentReducer,
+    searchProducts: searchReducer,
   },
 });
 
