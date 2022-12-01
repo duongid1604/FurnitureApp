@@ -1,6 +1,7 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {ProductType} from './data.types';
 
 export type RootStackParamList = {
   Boarding: undefined;
@@ -8,7 +9,7 @@ export type RootStackParamList = {
   Login: undefined;
   ForgotPassword: undefined;
   HomeNavigator: undefined;
-  Product: undefined;
+  Product: {data: ProductType};
   Cart: undefined;
   Checkout: undefined;
   Congrats: undefined;

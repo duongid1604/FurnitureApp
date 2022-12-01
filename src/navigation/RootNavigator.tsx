@@ -64,21 +64,25 @@ const RootNavigator = () => {
             {isSignedIn ? (
               <>
                 <RootStack.Screen
-                  name="Search"
-                  component={SearchScreen}
-                  options={{headerTitleAlign: 'center'}}
-                />
-                <RootStack.Screen
                   name="HomeNavigator"
                   component={HomeNavigator}
                   options={{headerShown: false}}
+                />
+                <RootStack.Screen
+                  name="Search"
+                  component={SearchScreen}
+                  options={{headerTitleAlign: 'center'}}
                 />
                 <RootStack.Screen
                   name="Product"
                   component={ProductScreen}
                   options={{headerShown: false}}
                 />
-                <RootStack.Screen name="Cart" component={CartScreen} />
+                <RootStack.Screen
+                  name="Cart"
+                  component={CartScreen}
+                  options={{headerTitleAlign: 'center', title: 'My cart'}}
+                />
                 <RootStack.Screen name="Checkout" component={CheckoutScreen} />
                 <RootStack.Screen name="Congrats" component={CongratsScreen} />
                 <RootStack.Screen

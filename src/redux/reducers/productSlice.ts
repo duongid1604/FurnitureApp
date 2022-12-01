@@ -11,6 +11,7 @@ const initialState: ProductStateProps = {
   field: 'popular',
   type: 0,
   condition: '>',
+  cart: [],
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -37,6 +38,17 @@ export const fetchProducts = createAsyncThunk(
       }),
     );
     return data;
+  },
+);
+export const updateProducts = createAsyncThunk(
+  'products/updateProducts',
+  async (body: ProductType) => {
+    await firestore()
+      .collection('users')
+      .doc('C5jzDdJTGDbxTtJywxSOeCIjglr2')
+      .update({
+        cart: body,
+      });
   },
 );
 
