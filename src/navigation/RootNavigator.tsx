@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../hooks';
-import {addUid} from '../redux/reducers/authSlice';
 import {loginThunk} from '../redux/thunks/auth.thunks';
 import {
   BoardingScreen,
@@ -67,7 +66,7 @@ const RootNavigator = () => {
                 <RootStack.Screen
                   name="Search"
                   component={SearchScreen}
-                  options={{headerShown: false}}
+                  options={{headerTitleAlign: 'center'}}
                 />
                 <RootStack.Screen
                   name="HomeNavigator"
