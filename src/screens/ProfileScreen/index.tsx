@@ -33,7 +33,10 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.infoContainer}>
-        <Image source={{uri: IMAGES.DEFAULT_AVATAR}} style={styles.avatar} />
+        <Image
+          source={{uri: user.avatar ? user.avatar : IMAGES.DEFAULT_AVATAR}}
+          style={styles.avatar}
+        />
         <View style={styles.info}>
           <Text style={styles.name}>{user.name ? user.name : 'No name'}</Text>
           <Text numberOfLines={2} style={styles.email}>

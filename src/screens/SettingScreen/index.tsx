@@ -1,19 +1,30 @@
 import React from 'react';
 import {CustomScreenContainer, EditTitle} from '../../components';
-import {InputButton, NotiButton} from './components';
+import {useSettingScreen} from '../../hooks';
+import LoadingScreen from '../LoadingScreen';
+import {Avatar, InputButton, NotiButton} from './components';
 
 type Props = {};
 
 const SettingScreen = ({}: Props) => {
+  const {user} = useSettingScreen();
+
+  if (!user) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <CustomScreenContainer smallPadding hasScrollView>
+    <CustomScreenContainer smallPadding hasScrollView={true}>
+      {/* Avatar */}
+      <Avatar uri={user.avatar} />
+
       {/* Personal Information */}
       <EditTitle title="Personal information" hasIcon />
-      <InputButton label="Name" info="Bruno Pham" />
+      <InputButton label="Name" info={user.name} />
 
       {/* Account Information */}
       <EditTitle title="Account information" hasIcon />
-      <InputButton label="Email" info="bruno203@gmail.com" />
+      <InputButton label="Email" info={user.email} />
       <InputButton
         label="Password"
         info="sdfsdfwerwr"
