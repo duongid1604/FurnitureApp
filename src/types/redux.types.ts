@@ -26,7 +26,6 @@ export type ProductStateProps = {
   field: string;
   type: string | number;
   condition: WhereFilterOp;
-  cart: ProductType[];
 };
 
 export type SearchProductStateProps = {

@@ -3,29 +3,26 @@ import React, {useState} from 'react';
 import {
   Image,
   Pressable,
+  StatusBar,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {BigCustomButton} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, ICON} from '../../constants';
+import {useAddCartScreen} from '../../hooks';
 import {ProductNavigationProp, ProductRouteProp} from '../../types';
-import {StatusBar} from 'react-native';
-import {useAppDispatch} from '../../hooks';
-import {updateProducts} from '../../redux/reducers/productSlice';
 
 const ProductScreen = () => {
   const navigation = useNavigation<ProductNavigationProp>();
 
-  const dispatch = useAppDispatch();
+  const {onUpdateCart} = useAddCartScreen();
 
   const route = useRoute<ProductRouteProp>();
 
   const {data} = route.params;
-
-  console.log(data, 'data');
 
   const [number, setNumber] = useState(1);
 
@@ -44,8 +41,8 @@ const ProductScreen = () => {
     navigation.goBack();
   };
 
-  const moveToCartScreen = () => {
-    dispatch(updateProducts(data));
+  const addToCartHandler = () => {
+    onUpdateCart(data);
     navigation.navigate('Cart');
   };
 
@@ -103,7 +100,7 @@ const ProductScreen = () => {
           <Image source={ICON.MARKER_DISABLE} style={styles.marker} />
         </TouchableOpacity>
         <Pressable style={styles.buttonContainer}>
-          <BigCustomButton onPress={moveToCartScreen}>
+          <BigCustomButton onPress={addToCartHandler}>
             Add to cart
           </BigCustomButton>
         </Pressable>

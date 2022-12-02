@@ -1,6 +1,6 @@
+import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {ProductStateProps, ProductType, WhereFilterOp} from '../../types';
-import firestore from '@react-native-firebase/firestore';
 
 const initialState: ProductStateProps = {
   loading: false,
@@ -11,7 +11,6 @@ const initialState: ProductStateProps = {
   field: 'popular',
   type: 0,
   condition: '>',
-  cart: [],
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -38,17 +37,6 @@ export const fetchProducts = createAsyncThunk(
       }),
     );
     return data;
-  },
-);
-export const updateProducts = createAsyncThunk(
-  'products/updateProducts',
-  async (body: ProductType) => {
-    await firestore()
-      .collection('users')
-      .doc('C5jzDdJTGDbxTtJywxSOeCIjglr2')
-      .update({
-        cart: body,
-      });
   },
 );
 

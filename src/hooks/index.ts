@@ -6,3 +6,4 @@ export {default as useForgotPasswordScreen} from './screens/useForgotPasswordScr
 export {default as useSignupScreen} from './screens/useSignupScreen';
 export {default as useProfileScreen} from './screens/useProfileScreen';
 export {default as useAddPaymentScreen} from './screens/useAddPaymentScreen';
+export {default as useAddCartScreen} from './screens/useAddCartScreen';
