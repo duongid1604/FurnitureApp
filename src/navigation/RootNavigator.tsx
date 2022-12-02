@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
-import {FONTS} from '../constants';
+import {FONTS, FONT_SIZE} from '../constants';
 import {useAppDispatch, useAppSelector} from '../hooks';
 import {loginThunk} from '../redux/thunks/auth.thunks';
 import {
@@ -95,7 +95,11 @@ const RootNavigator = () => {
                     headerShown: false,
                   }}
                 />
-                <RootStack.Screen name="MyOrders" component={OrderScreen} />
+                <RootStack.Screen
+                  name="MyOrders"
+                  component={OrderScreen}
+                  options={{headerTitle: 'My orders'}}
+                />
                 <RootStack.Screen name="Setting" component={SettingScreen} />
                 <RootStack.Screen
                   name="ShippingNavigator"
@@ -148,5 +152,6 @@ export default RootNavigator;
 const styles = StyleSheet.create({
   headerTitle: {
     fontFamily: FONTS.POPPINS_BOLD,
+    fontSize: FONT_SIZE.BODY_18,
   },
 });

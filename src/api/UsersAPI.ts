@@ -29,7 +29,10 @@ export const createUserWithUid = async (uid: string, newUser: UserType) => {
 
 export const updateUserById = async (uid: string, updatedUser: UserType) => {
   try {
-    const res = await firestore().collection('users').doc(uid).set(updatedUser);
+    const res = await firestore()
+      .collection('users')
+      .doc(uid)
+      .update(updatedUser);
     return res;
   } catch (error) {
     let errorMessage = 'Could not update user!';
