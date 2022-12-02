@@ -1,9 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {
   BigCustomButton,
   CustomInfoButton,
   CustomScreenContainer,
+  ShadowScrollView,
 } from '../../components';
 import {COLORS, FONTS, FONT_SIZE, IMAGES, LINE_HEIGHT} from '../../constants';
 import {useProfileScreen} from '../../hooks';
@@ -32,7 +33,10 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.infoContainer}>
-        <Image source={{uri: IMAGES.DEFAULT_AVATAR}} style={styles.avatar} />
+        <Image
+          source={{uri: user.avatar ? user.avatar : IMAGES.DEFAULT_AVATAR}}
+          style={styles.avatar}
+        />
         <View style={styles.info}>
           <Text style={styles.name}>{user.name ? user.name : 'No name'}</Text>
           <Text numberOfLines={2} style={styles.email}>
@@ -41,9 +45,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
         </View>
       </View>
       <View style={styles.sections}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollViewContainer}>
+        <ShadowScrollView>
           <CustomInfoButton
             title="My orders"
             info={
@@ -87,7 +89,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
             info="Notification, Password, FAQ, Contact"
             onPress={onGotoSetting}
           />
-        </ScrollView>
+        </ShadowScrollView>
         <BigCustomButton extraStyle={styles.button} onPress={onSignout}>
           Sign out
         </BigCustomButton>
@@ -127,16 +129,9 @@ const styles = StyleSheet.create({
   sections: {
     marginTop: 26,
     flex: 1,
-    marginBottom: 20,
   },
   center: {
     alignSelf: 'center',
-  },
-  scrollView: {
-    margin: -20,
-  },
-  scrollViewContainer: {
-    padding: 20,
   },
   button: {
     marginVertical: 20,
