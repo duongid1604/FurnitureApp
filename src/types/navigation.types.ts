@@ -107,3 +107,10 @@ export type ForgotPasswordScreenProps = StackScreenProps<
 
 export type ForgotPasswordNavigationProp =
   ForgotPasswordScreenProps['navigation'];
+
+export type SettingScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Setting'
+>;
+
+export type SettingScreenNavigationProps = SettingScreenProps['navigation'];

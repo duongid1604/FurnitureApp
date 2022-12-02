@@ -10,6 +10,7 @@ export default {
   YELLOW: '#F2C94C',
   DANGER: '#EB5757',
   BLACK_O2: 'rgba(138, 149, 158, 0.2)',
+  BACKDROP: 'rgba(0,0,0,0.5)',
   DEFAULT: '#999999',
   NEUTRAL_20: '#D9D9D9',
   NEUTRAL_40: '#A9A9A9',
