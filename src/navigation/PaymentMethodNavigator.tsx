@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {FONTS, FONT_SIZE} from '../constants';
 import {AddPaymentScreen, PaymentScreen} from '../screens';
+import Review from '../screens/ReviewScreen';
 import {PaymentMethodStackParamList} from '../types';
 
 const PaymentStack = createStackNavigator<PaymentMethodStackParamList>();
@@ -24,6 +25,11 @@ const PaymentMethodNavigator = () => {
         name="AddPayment"
         component={AddPaymentScreen}
         options={{headerTitle: 'Add payment method'}}
+      />
+      <PaymentStack.Screen
+        name="Review"
+        component={Review}
+        options={{headerTitle: 'Review'}}
       />
     </PaymentStack.Navigator>
   );

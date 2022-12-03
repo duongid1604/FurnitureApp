@@ -1,7 +1,13 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import * as yup from 'yup';
 import {BigCustomButton, CustomInput} from '../../components';
 import NewCreditCard from '../../components/NewCreditCard';
@@ -28,7 +34,7 @@ const schema = yup
   })
   .required();
 
-const AddPaymentScreen = ({}: AddPaymentProps) => {
+const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
   const {onUpdate} = useAddPaymentScreen();
 
   const {
@@ -121,6 +127,9 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
       <View style={styles.btn}>
         <BigCustomButton onPress={handleSubmit(onUpdate)}>
           Add new card
+        </BigCustomButton>
+        <BigCustomButton onPress={() => navigation.navigate('Review')}>
+          Go to Review
         </BigCustomButton>
       </View>
     </View>

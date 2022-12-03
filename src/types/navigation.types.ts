@@ -20,6 +20,7 @@ export type RootStackParamList = {
   ReviewNavigator: undefined;
   SettingNavigator: undefined;
   Search: undefined;
+  Rebiew: undefined;
 };
 
 export type HomeTabParamList = {
@@ -42,6 +43,7 @@ export type SettingStackParamList = {
 export type PaymentMethodStackParamList = {
   PaymentMethod: undefined;
   AddPayment: undefined;
+  Review: undefined;
 };
 
 export type ReviewStackParamList = {

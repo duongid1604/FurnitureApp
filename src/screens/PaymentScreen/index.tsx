@@ -19,22 +19,18 @@ import {useAppSelector} from '../../hooks';
 import GotoAddScreen from '../../components/GotoAddScreen';
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   const [isActive, setActive] = useState(false);
-  const [data, setData] = useState([]);
   const {paymentMethods} = useAppSelector(state => state.auth.user);
   console.log(paymentMethods);
 
-  const onChangeValue = item => {
-    const newData = paymentMethods.map(newItem => {
+  const onChangeValue = (item, index, newValue) => {
+    const isActive = paymentMethods.map(newItem => {
       if (newItem.id == item.id) {
         return {
           ...newItem,
-          selected: true,
+          selected: newValue,
         };
       }
-      return {
-        ...newItem,
-        selected: false,
-      };
+      return newItem;
     });
     setActive(isActive);
   };
@@ -64,7 +60,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
             onAnimationType="fill"
             offAnimationType="fade"
             boxType="square"
-            onValueChange={() => onChangeValue(item)}
+            onValueChange={newValue => onChangeValue(item, index, newValue)}
           />
 
           <Text style={styles.titleUncheck}>Use as default payment method</Text>
