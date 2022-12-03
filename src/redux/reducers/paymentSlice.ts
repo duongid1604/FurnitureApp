@@ -7,7 +7,7 @@ import {updatePaymentThunk} from '../thunks/payment.thunk';
 
 const initialState: PaymentStateProp = {
   userId: '',
-  payment: undefined,
+  payment: [],
   isLoading: false,
   isAdd: false,
   isSelect: false,

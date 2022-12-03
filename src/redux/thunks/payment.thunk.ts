@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {useAppSelector} from '../../hooks';
-import {AddPaymentField, PaymentCardType, WhereFilterOp} from '../../types';
+import {AddPaymentField, PaymentCardType} from '../../types';
 
 export const updatePaymentThunk = createAsyncThunk(
   'auth/payment',
@@ -27,20 +27,3 @@ export const updatePaymentThunk = createAsyncThunk(
     }
   },
 );
-export const fetchPayment = createAsyncThunk('auth/payment', async () => {
-  const userUid = useAppSelector(state => state.auth.userUid);
-
-  const data: PaymentCardType[] = [];
-
-  await firestore()
-    .collection('users')
-    .doc(userUid)
-    .get()
-    .then(documentSnapshot =>
-      data.push({
-        ...(documentSnapshot.data() as PaymentCardType),
-        id: documentSnapshot.id,
-      }),
-    );
-  return data;
-});

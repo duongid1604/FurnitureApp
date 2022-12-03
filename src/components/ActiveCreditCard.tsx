@@ -11,7 +11,7 @@ import {
 } from '../constants';
 
 type Props = {
-  card: string;
+  card: Props;
 };
 
 const ActiveCreditCard = ({card}: Props) => {
@@ -31,7 +31,6 @@ const ActiveCreditCard = ({card}: Props) => {
           </View>
         </View>
       </View>
-      <Image />
     </View>
   );
 };

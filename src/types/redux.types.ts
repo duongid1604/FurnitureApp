@@ -36,7 +36,7 @@ export type SearchProductStateProps = {
 
 export type PaymentStateProp = {
   userId: string;
-  payment: PaymentCardType | undefined;
+  payment: PaymentCardType;
   isLoading: boolean;
   isAdd: boolean;
   isSelect: boolean;

@@ -9,7 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import ActiveCreditCard from '../../components/ActiveCreditCard';
+// import ActiveCreditCard from '../../components/ActiveCreditCard';
 import {
   COLORS,
   FONTS,
@@ -18,58 +18,62 @@ import {
   ICON,
   LINE_HEIGHT,
 } from '../../constants';
-import DefaultCard from '../../components/DefaultCard';
+import CheckBox from '@react-native-community/checkbox';
+
+// import DefaultCard from '../../components/DefaultCard';
 import {PaymentCardType, PaymentScreenProps} from '../../types';
 import {scaleUI} from '../../utils';
 import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../../hooks';
 import GotoAddScreen from '../../components/GotoAddScreen';
-import {fetchPayment} from '../../redux/thunks/payment.thunk';
-
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  const [isActive, setActive] = useState<Number>(0);
+  const [isActive, setActive] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchPayment());
-  }, [dispatch]);
-  const {paymentMethods} = useAppSelector(
-    state => state.auth.user?.paymentMethods,
-  );
-  const renderProducts = ({item}: {item: PaymentCardType}) => (
-    <Pressable>
-      <ActiveCreditCard />
-      <View style={styles.checkDefault}>
-        <Image source={ICON.CHECKBOX} style={styles.checkbox} />
-        <Text style={styles.titleCheck}>{item.cardHolderName}</Text>
-      </View>
-    </Pressable>
-  );
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <ActiveCreditCard />
-        <View style={styles.checkDefault}>
-          <Image source={ICON.CHECKBOX} style={styles.checkbox} />
-          <Text style={styles.titleCheck}>Use as default payment method</Text>
-        </View>
 
-        <DefaultCard />
+  const {paymentMethods} = useAppSelector(state => state.auth.user);
+  console.log(paymentMethods);
+  const renderProducts = ({item}: {item: PaymentCardType}) => {
+    return (
+      <View>
+        <View style={styles.active}>
+          <View style={styles.infoView}>
+            <Image source={ICON.MASTERCARD} style={styles.mastercard} />
+            <Text style={styles.cardnum}>{item.cardNumber}</Text>
+            <View style={styles.detail}>
+              <View style={styles.username}>
+                <Text style={styles.smalltitle}>Card Holder Name</Text>
+                <Text style={styles.labeltitle}>{item.cardHolderName}</Text>
+              </View>
+              <View style={styles.username}>
+                <Text style={styles.smalltitle}>Expiry Date</Text>
+                <Text style={styles.labeltitle}>{item.expirationDate}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
         <View style={styles.checkDefault}>
-          <Image source={ICON.UNCHECKBOX} style={styles.checkbox} />
+          <CheckBox
+            disabled={false}
+            value={isActive}
+            onValueChange={newValue => setActive(newValue)}
+          />
+
           <Text style={styles.titleUncheck}>Use as default payment method</Text>
         </View>
-      </ScrollView>
+      </View>
+    );
+  };
+  return (
+    <View style={styles.container}>
+      <View>
+        <FlatList
+          data={paymentMethods}
+          keyExtractor={item => item.id}
+          renderItem={renderProducts}
+          // ListFooterComponent={renderBottom()}
+        />
+      </View>
 
-      <FlatList
-        data={paymentMethods}
-        keyExtractor={item => item.id}
-        // renderItem={renderProducts}
-        horizontal={false}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        columnWrapperStyle={styles.container}
-        // ListFooterComponent={renderBottom()}
-      />
       <GotoAddScreen onPress={() => navigation.navigate('AddPayment')} />
     </View>
   );
@@ -85,6 +89,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   checkDefault: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginBottom: 15,
   },
@@ -106,5 +111,51 @@ const styles = StyleSheet.create({
     fontWeight: FONT_WEIGHT.REGULAR,
     fontFamily: FONTS.POPPINS,
     lineHeight: LINE_HEIGHT.BODY,
+  },
+  active: {
+    marginVertical: 20,
+    width: scaleUI(333, false),
+    height: scaleUI(180, false),
+    backgroundColor: COLORS.MAIN,
+    borderRadius: 10,
+  },
+  infoView: {
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
+  mastercard: {
+    width: 30,
+    height: 24,
+    marginBottom: 20,
+  },
+  cardnum: {
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.H5,
+    fontWeight: FONT_WEIGHT.REGULAR,
+    fontFamily: FONTS.POPPINS,
+    lineHeight: LINE_HEIGHT.H5,
+  },
+  detail: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    justifyContent: 'space-between',
+  },
+  username: {
+    marginRight: 29,
+  },
+  smalltitle: {
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.SMALL,
+    lineHeight: LINE_HEIGHT.SMALL,
+    fontFamily: FONTS.POPPINS,
+    fontWeight: FONT_WEIGHT.REGULAR,
+  },
+  labeltitle: {
+    marginVertical: 5,
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.LABEL,
+    lineHeight: LINE_HEIGHT.LABEL,
+    fontFamily: FONTS.POPPINS,
+    fontWeight: FONT_WEIGHT.REGULAR,
   },
 });

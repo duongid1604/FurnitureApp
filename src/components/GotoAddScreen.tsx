@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {COLORS, ICON} from '../constants';
 import {scaleUI} from '../utils';
@@ -22,9 +22,8 @@ export default GotoAddScreen;
 const styles = StyleSheet.create({
   add: {
     width: scaleUI(330, false),
-    justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    bottom: 50,
+    bottom: 100,
   },
   addbutton: {
     justifyContent: 'center',
