@@ -39,6 +39,7 @@ export type PaymentStateProp = {
   payment: PaymentCardType | undefined;
   isLoading: boolean;
   isAdd: boolean;
+  isSelect: boolean;
 };
 
 export type WhereFilterOp =

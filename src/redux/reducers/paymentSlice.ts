@@ -10,6 +10,7 @@ const initialState: PaymentStateProp = {
   payment: undefined,
   isLoading: false,
   isAdd: false,
+  isSelect: false,
   // cardHolderName: '',
   // cardNumber: '',
   // number: '',
@@ -42,6 +43,43 @@ export const paymentSlice = createSlice({
     disableLoading: (state: PaymentStateProp) => {
       state.isLoading = false;
     },
+    // chooseCard: (state, action) => {
+    //   switch (action.payload) {
+    //     case 0:
+    //       state.products = [];
+    //       state.field = 'popular';
+    //       state.condition = '>';
+    //       state.type = 0;
+    //       break;
+    //     case 1:
+    //       state.products = [];
+    //       state.field = 'category';
+    //       state.condition = '==';
+    //       state.type = 'chair';
+    //       break;
+    //     case 2:
+    //       state.products = [];
+    //       state.field = 'category';
+    //       state.condition = '==';
+    //       state.type = 'table';
+    //       break;
+    //     case 3:
+    //       state.products = [];
+    //       state.field = 'category';
+    //       state.condition = '==';
+    //       state.type = 'armchair';
+    //       break;
+    //     case 4:
+    //       state.products = [];
+    //       state.field = 'category';
+    //       state.condition = '==';
+    //       state.type = 'bed';
+    //       break;
+
+    //     default:
+    //       break;
+    //   }
+    // },
   },
   extraReducers: builder => {
     builder

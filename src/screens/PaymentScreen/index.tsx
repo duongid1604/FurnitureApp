@@ -1,5 +1,14 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+  Pressable,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import ActiveCreditCard from '../../components/ActiveCreditCard';
 import {
   COLORS,
@@ -10,29 +19,58 @@ import {
   LINE_HEIGHT,
 } from '../../constants';
 import DefaultCard from '../../components/DefaultCard';
-import {PaymentScreenProps} from '../../types';
+import {PaymentCardType, PaymentScreenProps} from '../../types';
 import {scaleUI} from '../../utils';
+import {useDispatch} from 'react-redux';
+import {useAppSelector} from '../../hooks';
+import GotoAddScreen from '../../components/GotoAddScreen';
+import {fetchPayment} from '../../redux/thunks/payment.thunk';
 
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  return (
-    <View style={styles.container}>
+  const [isActive, setActive] = useState<Number>(0);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPayment());
+  }, [dispatch]);
+  const {paymentMethods} = useAppSelector(
+    state => state.auth.user?.paymentMethods,
+  );
+  const renderProducts = ({item}: {item: PaymentCardType}) => (
+    <Pressable>
       <ActiveCreditCard />
       <View style={styles.checkDefault}>
         <Image source={ICON.CHECKBOX} style={styles.checkbox} />
-        <Text style={styles.titleCheck}>Use as default payment method</Text>
+        <Text style={styles.titleCheck}>{item.cardHolderName}</Text>
       </View>
-      <DefaultCard />
-      <View style={styles.checkDefault}>
-        <Image source={ICON.UNCHECKBOX} style={styles.checkbox} />
-        <Text style={styles.titleUncheck}>Use as default payment method</Text>
-      </View>
-      <View style={styles.add}>
-        <TouchableOpacity
-          style={styles.addbutton}
-          onPress={() => navigation.navigate('AddPayment')}>
-          <Image source={ICON.PLUS} style={styles.plus} />
-        </TouchableOpacity>
-      </View>
+    </Pressable>
+  );
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <ActiveCreditCard />
+        <View style={styles.checkDefault}>
+          <Image source={ICON.CHECKBOX} style={styles.checkbox} />
+          <Text style={styles.titleCheck}>Use as default payment method</Text>
+        </View>
+
+        <DefaultCard />
+        <View style={styles.checkDefault}>
+          <Image source={ICON.UNCHECKBOX} style={styles.checkbox} />
+          <Text style={styles.titleUncheck}>Use as default payment method</Text>
+        </View>
+      </ScrollView>
+
+      <FlatList
+        data={paymentMethods}
+        keyExtractor={item => item.id}
+        // renderItem={renderProducts}
+        horizontal={false}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={styles.container}
+        // ListFooterComponent={renderBottom()}
+      />
+      <GotoAddScreen onPress={() => navigation.navigate('AddPayment')} />
     </View>
   );
 };
@@ -42,7 +80,8 @@ export default PaymentScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
+    width: scaleUI(375, false),
+    height: scaleUI(812, false),
     marginHorizontal: 20,
   },
   checkDefault: {
@@ -67,23 +106,5 @@ const styles = StyleSheet.create({
     fontWeight: FONT_WEIGHT.REGULAR,
     fontFamily: FONTS.POPPINS,
     lineHeight: LINE_HEIGHT.BODY,
-  },
-  add: {
-    bottom: -70,
-    alignItems: 'flex-end',
-    marginHorizontal: 50,
-  },
-  addbutton: {
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: scaleUI(50, true),
-    height: scaleUI(50, true),
-    borderRadius: 100,
-    backgroundColor: COLORS.WHITE,
-  },
-  plus: {
-    width: 24,
-    height: 24,
   },
 });

@@ -10,9 +10,7 @@ const MyReviewsScreen = (props: Props) => {
       <MyReviewBox />
       <MyReviewBox />
       <MyReviewBox />
-
       <MyReviewBox />
-
       <MyReviewBox />
     </ScrollView>
   );
