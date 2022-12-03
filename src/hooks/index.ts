@@ -7,3 +7,4 @@ export {default as useSignupScreen} from './screens/useSignupScreen';
 export {default as useProfileScreen} from './screens/useProfileScreen';
 export {default as useAddPaymentScreen} from './screens/useAddPaymentScreen';
 export {default as useSettingScreen} from './screens/useSettingScreen';
+export {default as useEditProfileScreen} from './screens/useEditProfileScreen';

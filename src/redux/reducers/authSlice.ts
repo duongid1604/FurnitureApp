@@ -9,6 +9,7 @@ import {
   loginWithGoogleThunk,
   resetPasswordWithEmailThunk,
   signupThunk,
+  updateAvatarThunk,
   updateUserThunk,
 } from '../thunks/auth.thunks';
 
@@ -18,6 +19,7 @@ const initialState: AuthStateProps = {
   isLoading: false,
   user: null,
   isResetEmailSent: false,
+  avatarLoading: false,
 };
 
 export const authSlice = createSlice({
@@ -37,12 +39,6 @@ export const authSlice = createSlice({
       state.userUid = '';
       state.user = null;
       state.isSignedIn = false;
-      state.isLoading = false;
-    },
-    enableLoading: (state: AuthStateProps) => {
-      state.isLoading = true;
-    },
-    disableLoading: (state: AuthStateProps) => {
       state.isLoading = false;
     },
   },
@@ -163,10 +159,20 @@ export const authSlice = createSlice({
         state.isSignedIn = false;
         Alert.alert('Failed to update user: ', action.payload as string);
       });
+    builder
+      .addCase(updateAvatarThunk.pending, state => {
+        state.avatarLoading = true;
+      })
+      .addCase(updateAvatarThunk.fulfilled, state => {
+        state.avatarLoading = false;
+      })
+      .addCase(updateAvatarThunk.rejected, (state, action) => {
+        state.avatarLoading = false;
+        Alert.alert('Failed to update user avatar: ', action.payload as string);
+      });
   },
 });
 
-export const {addUid, removeUid, enableLoading, disableLoading} =
-  authSlice.actions;
+export const {addUid, removeUid} = authSlice.actions;
 
 export default authSlice.reducer;

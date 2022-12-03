@@ -1,6 +1,7 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {EditFieldType} from './constant.types';
 
 export type RootStackParamList = {
   Boarding: undefined;
@@ -17,7 +18,7 @@ export type RootStackParamList = {
   MyOrders: undefined;
   ShippingNavigator: undefined;
   ReviewNavigator: undefined;
-  Setting: undefined;
+  SettingNavigator: undefined;
   Search: undefined;
 };
 
@@ -31,6 +32,11 @@ export type HomeTabParamList = {
 export type ShippingAddressStackParamList = {
   ShippingAddress: undefined;
   AddShippingAddress: undefined;
+};
+
+export type SettingStackParamList = {
+  Setting: undefined;
+  EditProfile: {field: EditFieldType};
 };
 
 export type PaymentMethodStackParamList = {
@@ -107,3 +113,15 @@ export type ForgotPasswordScreenProps = StackScreenProps<
 
 export type ForgotPasswordNavigationProp =
   ForgotPasswordScreenProps['navigation'];
+
+export type SettingScreenProps = StackScreenProps<
+  SettingStackParamList,
+  'Setting'
+>;
+
+export type SettingScreenNavigationProps = SettingScreenProps['navigation'];
+
+export type EditProfileScreenProps = StackScreenProps<
+  SettingStackParamList,
+  'EditProfile'
+>;

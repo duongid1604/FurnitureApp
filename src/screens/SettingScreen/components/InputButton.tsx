@@ -8,11 +8,21 @@ type Props = {
   info: string;
   onPress?: () => void;
   extraTextInputProps?: TextInputProps;
+  hasRippleEffect?: boolean;
 };
 
-const InputButton = ({label, info, extraTextInputProps, onPress}: Props) => {
+const InputButton = ({
+  label,
+  info,
+  extraTextInputProps,
+  onPress,
+  hasRippleEffect,
+}: Props) => {
   return (
-    <TouchableCard onPress={onPress} extraStyle={styles.card}>
+    <TouchableCard
+      hasRippleEffect={hasRippleEffect}
+      onPress={onPress}
+      extraStyle={styles.card}>
       <View>
         <Text style={styles.label}>{label}</Text>
         <TextInput
