@@ -13,6 +13,7 @@ const SettingScreen = ({}: SettingScreenProps) => {
     setModalIsVisible,
     onTakeAnImage,
     onChooseAnImage,
+    onGotoEditScreen,
   } = useSettingScreen();
 
   if (!user) {
@@ -27,17 +28,16 @@ const SettingScreen = ({}: SettingScreenProps) => {
 
         {/* Personal Information */}
         <EditTitle title="Personal information" hasIcon />
-        <InputButton label="Name" info={user.name} />
+        <InputButton
+          label="Name"
+          info={user.name}
+          onPress={() => onGotoEditScreen('Name')}
+        />
 
         {/* Account Information */}
         <EditTitle
           title="Account information"
           hasIcon={user.type === 'normal'}
-        />
-        <InputButton
-          label="Email"
-          info={user.email}
-          hasRippleEffect={user.type === 'normal'}
         />
         <>
           {user.type === 'normal' && (
@@ -45,6 +45,7 @@ const SettingScreen = ({}: SettingScreenProps) => {
               label="Password"
               info="sdfsdfwerwr"
               extraTextInputProps={{secureTextEntry: true}}
+              onPress={() => onGotoEditScreen('Password')}
             />
           )}
         </>

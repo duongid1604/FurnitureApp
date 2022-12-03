@@ -24,7 +24,7 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGotoSetting = () => {
-    navigation.navigate('Setting');
+    navigation.navigate('SettingNavigator');
   };
 
   const onGoToPaymentMethod = () => {

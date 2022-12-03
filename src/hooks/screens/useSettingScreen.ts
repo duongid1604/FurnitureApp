@@ -2,13 +2,16 @@ import {useState} from 'react';
 import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {useNavigation} from '@react-navigation/native';
+
 import {DeviceAPI} from '../../api';
 import {updateAvatarThunk} from '../../redux/thunks/auth.thunks';
-
 import {useAppDispatch, useAppSelector} from '../redux/useRedux';
+import {EditFieldType, SettingScreenNavigationProps} from '../../types';
 
 const useSettingScreen = () => {
   const {user} = useAppSelector(state => state.auth);
+  const navigation = useNavigation<SettingScreenNavigationProps>();
   const dispatch = useAppDispatch();
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
@@ -94,12 +97,17 @@ const useSettingScreen = () => {
     }
   };
 
+  const onGotoEditScreen = async (field: EditFieldType) => {
+    navigation.navigate('EditProfile', {field});
+  };
+
   return {
     user,
     modalIsVisible,
     setModalIsVisible,
     onTakeAnImage,
     onChooseAnImage,
+    onGotoEditScreen,
   };
 };
 
