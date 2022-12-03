@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ViewStyle} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {StyleSheet, View, ViewStyle, ScrollView} from 'react-native';
 import {COLORS} from '../constants';
 
 type Props = {

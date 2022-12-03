@@ -43,3 +43,9 @@ export type AddPaymentField = {
 export type ForgotPasswordFormFields = {
   email: string;
 };
+
+export type ChangePasswordFormFields = {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+};

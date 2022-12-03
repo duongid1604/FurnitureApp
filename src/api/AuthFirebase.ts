@@ -109,3 +109,38 @@ export const resetPasswordWithEmail = async (email: string) => {
     }
   }
 };
+
+export const reauthenticateWithCredential = async (currentPassword: string) => {
+  try {
+    const user = auth().currentUser;
+    if (!user || !user.email) {
+      return;
+    }
+    const credential = auth.EmailAuthProvider.credential(
+      user.email,
+      currentPassword,
+    );
+
+    const res = await user.reauthenticateWithCredential(credential);
+    return res;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+};
+
+export const updatePasswordOnFirebase = async (newPassword: string) => {
+  try {
+    const user = auth().currentUser;
+    if (!user) {
+      return;
+    }
+    await user.updatePassword(newPassword);
+    return true;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+};

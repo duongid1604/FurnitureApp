@@ -1,9 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, Pressable} from 'react-native';
+
 import {
   BigCustomButton,
   CustomInfoButton,
   CustomScreenContainer,
+  LoadingSpinner,
   ShadowScrollView,
 } from '../../components';
 import {COLORS, FONTS, FONT_SIZE, IMAGES, LINE_HEIGHT} from '../../constants';
@@ -14,6 +16,8 @@ import LoadingScreen from '../LoadingScreen';
 const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   const {
     user,
+    avatarLoading,
+    isLoading,
     orderQty,
     addressQty,
     reviewQty,
@@ -32,18 +36,24 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
 
   return (
     <CustomScreenContainer smallPadding>
-      <View style={styles.infoContainer}>
-        <Image
-          source={{uri: user.avatar ? user.avatar : IMAGES.DEFAULT_AVATAR}}
-          style={styles.avatar}
-        />
+      <Pressable style={styles.infoContainer} onPress={onGotoSetting}>
+        <View style={styles.avatarContainer}>
+          {avatarLoading || isLoading ? (
+            <LoadingSpinner size="small" color={COLORS.MAIN} />
+          ) : (
+            <Image
+              source={{uri: user.avatar ? user.avatar : IMAGES.DEFAULT_AVATAR}}
+              style={styles.avatar}
+            />
+          )}
+        </View>
         <View style={styles.info}>
           <Text style={styles.name}>{user.name ? user.name : 'No name'}</Text>
           <Text numberOfLines={2} style={styles.email}>
             {user.email ? user.email : 'No email'}
           </Text>
         </View>
-      </View>
+      </Pressable>
       <View style={styles.sections}>
         <ShadowScrollView>
           <CustomInfoButton
@@ -108,11 +118,27 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
   },
-  avatar: {
+  avatarContainer: {
     width: 80,
     height: 80,
     borderRadius: 40,
     marginRight: 20,
+    backgroundColor: COLORS.WHITE,
+    shadowColor: COLORS.SUB,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 40,
+    borderWidth: 1,
+    borderColor: COLORS.WHITE,
   },
   name: {
     fontSize: FONT_SIZE.H5,
