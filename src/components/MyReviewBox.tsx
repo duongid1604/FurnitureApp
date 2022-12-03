@@ -58,6 +58,15 @@ const styles = StyleSheet.create({
     width: scaleUI(337, false),
     height: scaleUI(320, false),
     backgroundColor: COLORS.WHITE,
+    shadowColor: '#8A959E',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
   },
   display: {
     marginHorizontal: 16,

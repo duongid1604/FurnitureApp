@@ -1,7 +1,13 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {StyleSheet, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import * as yup from 'yup';
 import {BigCustomButton, CustomInput} from '../../components';
 import NewCreditCard from '../../components/NewCreditCard';
@@ -28,7 +34,7 @@ const schema = yup
   })
   .required();
 
-const AddPaymentScreen = ({}: AddPaymentProps) => {
+const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
   const {onUpdate} = useAddPaymentScreen();
 
   const {
@@ -61,30 +67,33 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
         onPress={() => navigation.navigate('PaymentMethod')}
       /> */}
       <NewCreditCard />
-      <View style={styles.viewText}>
-        <CustomInput<AddPaymentField>
-          label="CardHolder Name"
-          field="cardHolderName"
-          control={control}
-          error={errors}
-          textInputProps={{
-            maxLength: 16,
-            placeholder: 'EX: Bruno Pham',
-          }}
-        />
-      </View>
-      <View style={styles.viewText}>
-        <CustomInput<AddPaymentField>
-          label="Card Number"
-          field="cardNumber"
-          control={control}
-          error={errors}
-          textInputProps={{
-            maxLength: 16,
-            placeholder: '**** **** **** 3456',
-            keyboardType: 'number-pad',
-          }}
-        />
+      <ScrollView>
+        <View style={styles.viewText}>
+          <CustomInput<AddPaymentField>
+            label="CardHolder Name"
+            field="cardHolderName"
+            control={control}
+            error={errors}
+            textInputProps={{
+              maxLength: 16,
+              placeholder: 'EX: Bruno Pham',
+            }}
+          />
+        </View>
+        <View style={styles.viewText}>
+          <CustomInput<AddPaymentField>
+            label="Card Number"
+            field="cardNumber"
+            control={control}
+            error={errors}
+            textInputProps={{
+              maxLength: 16,
+              placeholder: '**** **** **** 3456',
+              keyboardType: 'number-pad',
+            }}
+          />
+        </View>
+
         <View style={styles.cvvdate}>
           <View style={styles.inside}>
             <CustomInput<AddPaymentField>
@@ -113,10 +122,14 @@ const AddPaymentScreen = ({}: AddPaymentProps) => {
             />
           </View>
         </View>
-      </View>
+      </ScrollView>
+
       <View style={styles.btn}>
         <BigCustomButton onPress={handleSubmit(onUpdate)}>
           Add new card
+        </BigCustomButton>
+        <BigCustomButton onPress={() => navigation.navigate('Review')}>
+          Go to Review
         </BigCustomButton>
       </View>
     </View>
@@ -142,17 +155,19 @@ const styles = StyleSheet.create({
     marginVertical: 18,
   },
   cvvdate: {
+    width: scaleUI(333, false),
+    height: scaleUI(50, false),
     marginVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 90,
   },
   inside: {
     width: scaleUI(157, false),
     height: scaleUI(66, false),
   },
   btn: {
-    position: 'absolute',
-    width: scaleUI(333, true),
+    width: scaleUI(333, false),
     bottom: 40,
   },
 });

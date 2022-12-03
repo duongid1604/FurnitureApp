@@ -33,6 +33,7 @@ export type SignupFormFields = {
   confirmPassword: string;
 };
 export type AddPaymentField = {
+  id: string;
   cardHolderName: string;
   cardNumber: number;
   cvv: number;

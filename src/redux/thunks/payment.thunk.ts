@@ -10,8 +10,9 @@ export const updatePaymentThunk = createAsyncThunk(
 
     try {
       const newPayment: PaymentCardType = {
+        id: data.id,
         cardHolderName: data.cardHolderName,
-        cardNumber: data.cardHolderName,
+        cardNumber: +data.cardHolderName,
         cvv: +data.cvv,
         expirationDate: data.expirationDate,
       };

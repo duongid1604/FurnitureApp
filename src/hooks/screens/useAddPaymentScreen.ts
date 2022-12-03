@@ -16,7 +16,6 @@ const useAddPaymentScreen = () => {
       ...user,
       paymentMethods: [...user.paymentMethods, data],
     };
-
     dispatch(updateUserThunk(newUser));
     navigation.navigate('PaymentMethod');
   };
