@@ -1,14 +1,5 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  Pressable,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import React, {useState} from 'react';
 // import ActiveCreditCard from '../../components/ActiveCreditCard';
 import {
   COLORS,
@@ -28,10 +19,25 @@ import {useAppSelector} from '../../hooks';
 import GotoAddScreen from '../../components/GotoAddScreen';
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   const [isActive, setActive] = useState(false);
-  const dispatch = useDispatch();
-
+  const [data, setData] = useState([]);
   const {paymentMethods} = useAppSelector(state => state.auth.user);
   console.log(paymentMethods);
+
+  const onChangeValue = item => {
+    const newData = paymentMethods.map(newItem => {
+      if (newItem.id == item.id) {
+        return {
+          ...newItem,
+          selected: true,
+        };
+      }
+      return {
+        ...newItem,
+        selected: false,
+      };
+    });
+    setActive(isActive);
+  };
   const renderProducts = ({item}: {item: PaymentCardType}) => {
     return (
       <View>
@@ -55,7 +61,10 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
           <CheckBox
             disabled={false}
             value={isActive}
-            onValueChange={newValue => setActive(newValue)}
+            onAnimationType="fill"
+            offAnimationType="fade"
+            boxType="square"
+            onValueChange={() => onChangeValue(item)}
           />
 
           <Text style={styles.titleUncheck}>Use as default payment method</Text>
