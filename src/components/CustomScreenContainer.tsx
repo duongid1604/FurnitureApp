@@ -49,10 +49,10 @@ export default CustomScreenContainer;
 
 const styles = StyleSheet.create({
   scrollView: {
-    margin: -20,
+    margin: -30,
   },
   scrollViewContainer: {
-    padding: 20,
+    padding: 30,
   },
   screen: {
     flex: 1,

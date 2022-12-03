@@ -10,6 +10,7 @@ import {
   signupWithEmail,
   updateUserById,
 } from '../../api';
+import {IMAGES} from '../../constants';
 import {LoginFormFields, SignupFormFields, UserType} from '../../types';
 
 export const loginThunk = createAsyncThunk(
@@ -54,14 +55,19 @@ export const signupThunk = createAsyncThunk(
 
       const newUser: UserType = {
         id: userUid,
+        type: 'normal',
         name: data.name,
         email: data.email,
-        // password: data.password,
-        cart: [],
+        cart: {
+          products: [],
+          qty: 0,
+          totalPrice: 0,
+        },
         orders: [],
         paymentMethods: [],
         reviews: [],
         shippingAddress: [],
+        avatar: IMAGES.DEFAULT_AVATAR,
       };
 
       await createUserWithUid(userUid, newUser);
@@ -94,13 +100,19 @@ export const loginWithGoogleThunk = createAsyncThunk(
       } else {
         user = {
           id: userUid,
+          type: 'social',
           name: googleUser.displayName || 'Noname',
           email: googleUser.email || 'no email',
-          cart: [],
+          cart: {
+            products: [],
+            qty: 0,
+            totalPrice: 0,
+          },
           orders: [],
           paymentMethods: [],
           reviews: [],
           shippingAddress: [],
+          avatar: IMAGES.DEFAULT_AVATAR,
         };
         await createUserWithUid(userUid, user);
       }
@@ -133,13 +145,19 @@ export const loginWithFacebookThunk = createAsyncThunk(
       } else {
         user = {
           id: userUid,
+          type: 'social',
           name: facebookUser.displayName || 'Noname',
           email: facebookUser.email || 'no email',
-          cart: [],
+          cart: {
+            products: [],
+            qty: 0,
+            totalPrice: 0,
+          },
           orders: [],
           paymentMethods: [],
           reviews: [],
           shippingAddress: [],
+          avatar: IMAGES.DEFAULT_AVATAR,
         };
         await createUserWithUid(userUid, user);
       }

@@ -36,13 +36,23 @@ export type ReviewType = {
   name: string;
 };
 
+export type CartType = {
+  products: ProductType[];
+  qty: number;
+  totalPrice: number;
+};
+
 export type UserType = {
   id: string;
   name: string;
   email: string;
-  cart: ProductType[];
+  cart: CartType;
   paymentMethods: PaymentCardType[];
   orders: OrderType[];
   reviews: ReviewType[];
   shippingAddress: ShippingAddressType[];
+  avatar: string;
+  type: AccountType;
 };
+
+export type AccountType = 'normal' | 'social';

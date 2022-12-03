@@ -1,14 +1,14 @@
+import React from 'react';
 import {
+  Image,
+  StyleProp,
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Image,
-  StyleProp,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
 import {COLORS, FONTS, FONT_SIZE, ICON, LINE_HEIGHT} from '../constants';
+import TouchableCard from './TouchableCard';
 
 type Props = {
   onPress?: () => void;
@@ -24,15 +24,15 @@ const CustomInfoButton = ({
   extraContainerStyle,
 }: Props) => {
   return (
-    <TouchableOpacity
-      style={[styles.container, extraContainerStyle]}
-      onPress={onPress}>
+    <TouchableCard
+      onPress={onPress}
+      extraStyle={[styles.container, extraContainerStyle]}>
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.info}>{info}</Text>
       </View>
       <Image source={ICON.RIGHT} style={styles.arrowIcon} />
-    </TouchableOpacity>
+    </TouchableCard>
   );
 };
 
@@ -40,22 +40,9 @@ export default CustomInfoButton;
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    marginBottom: 20,
-    padding: 18,
-    backgroundColor: COLORS.WHITE,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 8,
-    shadowColor: COLORS.SHADOW,
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 24,
   },
   infoContainer: {
     flex: 1,
@@ -65,6 +52,7 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT.BODY,
     color: COLORS.MAIN,
     fontFamily: FONTS.POPPINS_BOLD,
+    marginBottom: 4,
   },
   info: {
     fontSize: FONT_SIZE.SMALL,
