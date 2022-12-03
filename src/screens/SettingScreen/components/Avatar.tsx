@@ -1,8 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, View, Pressable} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {LoadingSpinner} from '../../../components';
 
 import {COLORS} from '../../../constants';
+import {useAppSelector} from '../../../hooks';
 import {scaleUI} from '../../../utils';
 
 type Props = {
@@ -11,9 +13,15 @@ type Props = {
 };
 
 const Avatar = ({uri, onPress}: Props) => {
+  const {avatarLoading, isLoading} = useAppSelector(state => state.auth);
+
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Image source={{uri}} style={styles.avatar} />
+      {avatarLoading || isLoading ? (
+        <LoadingSpinner size="small" color={COLORS.MAIN} />
+      ) : (
+        <Image source={{uri}} style={styles.avatar} />
+      )}
       <View style={styles.cameraContainer}>
         <Ionicons
           name="camera-outline"

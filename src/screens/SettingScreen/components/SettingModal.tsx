@@ -9,6 +9,7 @@ type Props = {
   visible?: boolean;
   onRequestClose: () => void;
   onTakeAnImage: () => void;
+  onChooseAnImage: () => void;
 };
 
 const deviceWidth = Dimensions.get('window').width;
@@ -19,7 +20,12 @@ const deviceHeight =
         'REAL_WINDOW_HEIGHT',
       );
 
-const SettingModal = ({visible, onRequestClose, onTakeAnImage}: Props) => {
+const SettingModal = ({
+  visible,
+  onRequestClose,
+  onTakeAnImage,
+  onChooseAnImage,
+}: Props) => {
   return (
     <Modal
       isVisible={visible}
@@ -40,6 +46,7 @@ const SettingModal = ({visible, onRequestClose, onTakeAnImage}: Props) => {
         <CustomTextButton
           name="Choose an image"
           extraStyle={styles.extraStyle}
+          onPress={onChooseAnImage}
         />
         <CustomTextButton
           name="Cancel"

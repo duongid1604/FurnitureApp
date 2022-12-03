@@ -7,8 +7,13 @@ import LoadingScreen from '../LoadingScreen';
 import {Avatar, InputButton, NotiButton, SettingModal} from './components';
 
 const SettingScreen = ({}: SettingScreenProps) => {
-  const {user, modalIsVisible, setModalIsVisible, onTakeAnImage} =
-    useSettingScreen();
+  const {
+    user,
+    modalIsVisible,
+    setModalIsVisible,
+    onTakeAnImage,
+    onChooseAnImage,
+  } = useSettingScreen();
 
   if (!user) {
     return <LoadingScreen />;
@@ -25,13 +30,24 @@ const SettingScreen = ({}: SettingScreenProps) => {
         <InputButton label="Name" info={user.name} />
 
         {/* Account Information */}
-        <EditTitle title="Account information" hasIcon />
-        <InputButton label="Email" info={user.email} />
-        <InputButton
-          label="Password"
-          info="sdfsdfwerwr"
-          extraTextInputProps={{secureTextEntry: true}}
+        <EditTitle
+          title="Account information"
+          hasIcon={user.type === 'normal'}
         />
+        <InputButton
+          label="Email"
+          info={user.email}
+          hasRippleEffect={user.type === 'normal'}
+        />
+        <>
+          {user.type === 'normal' && (
+            <InputButton
+              label="Password"
+              info="sdfsdfwerwr"
+              extraTextInputProps={{secureTextEntry: true}}
+            />
+          )}
+        </>
 
         {/* Notification */}
         <EditTitle title="Notification" />
@@ -45,6 +61,7 @@ const SettingScreen = ({}: SettingScreenProps) => {
         visible={modalIsVisible}
         onRequestClose={() => setModalIsVisible(false)}
         onTakeAnImage={onTakeAnImage}
+        onChooseAnImage={onChooseAnImage}
       />
     </>
   );
