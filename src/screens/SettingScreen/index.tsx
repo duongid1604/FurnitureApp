@@ -25,7 +25,6 @@ const SettingScreen = ({}: SettingScreenProps) => {
       <CustomScreenContainer smallPadding>
         {/* Avatar */}
         <Avatar uri={user.avatar} onPress={() => setModalIsVisible(true)} />
-
         {/* Personal Information */}
         <EditTitle title="Personal information" hasIcon />
         <InputButton
@@ -33,23 +32,23 @@ const SettingScreen = ({}: SettingScreenProps) => {
           info={user.name}
           onPress={() => onGotoEditScreen('Name')}
         />
-
         {/* Account Information */}
-        <EditTitle
-          title="Account information"
-          hasIcon={user.type === 'normal'}
-        />
         <>
           {user.type === 'normal' && (
-            <InputButton
-              label="Password"
-              info="sdfsdfwerwr"
-              extraTextInputProps={{secureTextEntry: true}}
-              onPress={() => onGotoEditScreen('Password')}
-            />
+            <>
+              <EditTitle
+                title="Account information"
+                hasIcon={user.type === 'normal'}
+              />
+              <InputButton
+                label="Password"
+                info="sdfsdfwerwr"
+                extraTextInputProps={{secureTextEntry: true}}
+                onPress={() => onGotoEditScreen('Password')}
+              />
+            </>
           )}
         </>
-
         {/* Notification */}
         <EditTitle title="Notification" />
         <NotiButton name="Sales" />
