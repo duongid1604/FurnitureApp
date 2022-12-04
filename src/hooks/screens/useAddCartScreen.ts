@@ -11,8 +11,6 @@ const useAddCartScreen = () => {
       return;
     }
 
-    console.log(localQty, 'localQty');
-
     if (user.cart.products.length === 0) {
       console.log('case first');
 
@@ -54,14 +52,18 @@ const useAddCartScreen = () => {
 
         const newData = {
           ...data,
-          qty: (user.cart.products[productIndex].qty += localQty),
+          qty: user.cart.products[productIndex].qty + localQty,
         };
+
+        const newProducts = user.cart.products.filter(
+          item => item.id !== newData.id,
+        );
 
         const newUser: UserType = {
           ...user,
           cart: {
             ...user.cart,
-            products: [newData],
+            products: [...newProducts, newData],
             totalQty: user.cart.totalQty + localQty,
             totalPrice: user.cart.totalPrice + data.price * localQty,
           },

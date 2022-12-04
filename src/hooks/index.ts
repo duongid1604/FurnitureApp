@@ -10,3 +10,4 @@ export {default as useSettingScreen} from './screens/useSettingScreen';
 export {default as useAddCartScreen} from './screens/useAddCartScreen';
 export {default as useUpdateCartScreen} from './screens/userUpdateCartScreen';
 export {default as useEditProfileScreen} from './screens/useEditProfileScreen';
+export {default as useAddFavouriteScreen} from './screens/useAddFavouriteScreen';
