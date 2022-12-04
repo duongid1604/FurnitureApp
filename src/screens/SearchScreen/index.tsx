@@ -51,14 +51,14 @@ const SearchScreen = () => {
     }
   };
 
-  const moveToProductScreenHandler = () => {
-    navigation.navigate('Product');
+  const moveToProductScreenHandler = (item: ProductType) => {
+    navigation.navigate('Product', {data: item});
   };
 
   const renderProducts = ({item}: {item: ProductType}) => (
     <TouchableOpacity
       style={styles.imageContainer}
-      onPress={moveToProductScreenHandler}>
+      onPress={() => moveToProductScreenHandler(item)}>
       <Image source={{uri: item.image}} style={styles.image} />
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.price}>$ {item.price}.00</Text>

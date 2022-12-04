@@ -1,3 +1,5 @@
+import {OrderTabType} from './constant.types';
+
 export type ProductType = {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ export type ProductType = {
   popular: number;
   rate: number;
   review: number;
+  qty: number;
 };
 
 export type PaymentCardType = {
@@ -29,7 +32,12 @@ export type ShippingAddressType = {
 };
 
 export type OrderType = {
-  name: string;
+  id: string;
+  orderCode: string;
+  totalQty: number;
+  totalPrice: number;
+  status: OrderTabType;
+  date: string;
 };
 
 export type ReviewType = {
@@ -38,7 +46,7 @@ export type ReviewType = {
 
 export type CartType = {
   products: ProductType[];
-  qty: number;
+  totalQty: number;
   totalPrice: number;
 };
 

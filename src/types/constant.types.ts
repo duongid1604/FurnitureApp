@@ -13,3 +13,14 @@ export type FontWeightType =
   | undefined;
 
 export type EditFieldType = 'Name' | 'Password';
+
+export enum OrderTabEnum {
+  delivered = 'delivered',
+  processing = 'processing',
+  canceled = 'canceled',
+}
+
+export type OrderTabType =
+  | OrderTabEnum.delivered
+  | OrderTabEnum.processing
+  | OrderTabEnum.canceled;
