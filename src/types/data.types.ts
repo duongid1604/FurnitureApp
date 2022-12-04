@@ -33,11 +33,12 @@ export type ShippingAddressType = {
 
 export type OrderType = {
   id: string;
-  orderCode: string;
+  orderCode: number;
   totalQty: number;
   totalPrice: number;
   status: OrderTabType;
   date: string;
+  currentTab: OrderTabType;
 };
 
 export type ReviewType = {
@@ -61,6 +62,7 @@ export type UserType = {
   shippingAddress: ShippingAddressType[];
   avatar: string;
   type: AccountType;
+  favourite: ProductType[];
 };
 
 export type AccountType = 'normal' | 'social';

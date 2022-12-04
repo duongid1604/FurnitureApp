@@ -1,8 +1,8 @@
 import React from 'react';
-import {FlatList, StyleSheet, View, Text} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {CustomScreenContainer} from '../../components';
 import {useOrderScreen} from '../../hooks';
-import {OrderTabEnum, OrderType} from '../../types';
+import {OrderTabEnum, OrderTabType, OrderType} from '../../types';
 import LoadingScreen from '../LoadingScreen';
 import {OrderItem, TabButton} from './components';
 
@@ -15,8 +15,7 @@ const OrderScreen = ({}: Props) => {
     return <LoadingScreen />;
   }
 
-  const renderOrder = ({item}: {item: OrderType}) => {
-    console.log('order: ', item);
+  const renderOrder = (item: OrderType, tab: OrderTabType) => {
     return (
       <OrderItem
         id={item.id}
@@ -25,6 +24,7 @@ const OrderScreen = ({}: Props) => {
         status={item.status}
         totalQty={item.totalQty}
         totalPrice={item.totalPrice}
+        currentTab={tab}
       />
     );
   };
@@ -53,7 +53,7 @@ const OrderScreen = ({}: Props) => {
       <View style={styles.ordersContainer}>
         <FlatList
           data={user.orders}
-          renderItem={renderOrder}
+          renderItem={({item}) => renderOrder(item, tabIsSelected)}
           keyExtractor={item => item.id}
           style={styles.flatList}
           contentContainerStyle={styles.flatListContainer}

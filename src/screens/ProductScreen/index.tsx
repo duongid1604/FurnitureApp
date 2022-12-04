@@ -12,20 +12,30 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import {BigCustomButton} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, ICON} from '../../constants';
-import {useAddCartScreen} from '../../hooks';
+import {
+  useAddCartScreen,
+  useAddFavouriteScreen,
+  useAppSelector,
+} from '../../hooks';
 import {ProductNavigationProp, ProductRouteProp} from '../../types';
 import {scaleUI} from '../../utils';
 
 const ProductScreen = () => {
   const navigation = useNavigation<ProductNavigationProp>();
 
-  const [localQty, setQty] = useState(1);
+  const {user} = useAppSelector(state => state.auth);
+
+  const {onAddFavourite} = useAddFavouriteScreen();
 
   const {onAddCart} = useAddCartScreen();
+
+  const [localQty, setQty] = useState(1);
 
   const route = useRoute<ProductRouteProp>();
 
   const {data} = route.params;
+
+  const favouriteIndex = user?.favourite.findIndex(item => item.id === data.id);
 
   const increaseHandler = () => {
     setQty(localQty + 1);
@@ -45,6 +55,14 @@ const ProductScreen = () => {
   const addToCartHandler = () => {
     onAddCart(data, localQty);
     navigation.navigate('Cart');
+  };
+
+  const addToFavouriteHandler = () => {
+    onAddFavourite(data);
+  };
+
+  const moveToReviewScreen = () => {
+    navigation.navigate('ReviewNavigator', {screen: 'Review'});
   };
 
   return (
@@ -86,18 +104,22 @@ const ProductScreen = () => {
           </View>
         </View>
 
-        <View style={styles.reviewContainer}>
+        <TouchableOpacity
+          style={styles.reviewContainer}
+          onPress={moveToReviewScreen}>
           <Icon name="star" color="#f0db25" style={styles.star} />
           <Text style={styles.mark}>{data.rate}</Text>
           <Text style={styles.review}>({data.review} reviews)</Text>
-        </View>
+        </TouchableOpacity>
 
         <Text style={styles.description} numberOfLines={5}>
           {data.description}
         </Text>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.markerContainer}>
+        <TouchableOpacity
+          style={styles.markerContainer}
+          onPress={addToFavouriteHandler}>
           <Image source={ICON.MARKER_DISABLE} style={styles.marker} />
         </TouchableOpacity>
         <Pressable style={styles.buttonContainer}>

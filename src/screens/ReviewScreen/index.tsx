@@ -8,7 +8,7 @@ import {BigCustomButton} from '../../components';
 
 type Props = {};
 
-const Review = (props: Props) => {
+const Review = ({}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.productbox}>
