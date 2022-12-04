@@ -14,27 +14,28 @@ import {BigCustomButton} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, ICON} from '../../constants';
 import {useAddCartScreen} from '../../hooks';
 import {ProductNavigationProp, ProductRouteProp} from '../../types';
+import {scaleUI} from '../../utils';
 
 const ProductScreen = () => {
   const navigation = useNavigation<ProductNavigationProp>();
 
-  const {onUpdateCart} = useAddCartScreen();
+  const [localQty, setQty] = useState(1);
+
+  const {onAddCart} = useAddCartScreen();
 
   const route = useRoute<ProductRouteProp>();
 
   const {data} = route.params;
 
-  const [number, setNumber] = useState(1);
-
   const increaseHandler = () => {
-    setNumber(number + 1);
+    setQty(localQty + 1);
   };
 
   const decreaseHandler = () => {
-    if (number === 1) {
+    if (localQty === 1) {
       return;
     }
-    setNumber(number - 1);
+    setQty(localQty - 1);
   };
 
   const moveToHomeScreen = () => {
@@ -42,7 +43,7 @@ const ProductScreen = () => {
   };
 
   const addToCartHandler = () => {
-    onUpdateCart(data);
+    onAddCart(data, localQty);
     navigation.navigate('Cart');
   };
 
@@ -76,7 +77,7 @@ const ProductScreen = () => {
               onPress={increaseHandler}>
               <Icon name="plus" style={styles.icon} />
             </TouchableOpacity>
-            <Text style={styles.number}>{number}</Text>
+            <Text style={styles.number}>{localQty}</Text>
             <TouchableOpacity
               style={styles.iconContainer}
               onPress={decreaseHandler}>
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     position: 'absolute',
-    bottom: 10,
+    bottom: scaleUI(40, true),
     marginHorizontal: 16,
   },
   markerContainer: {

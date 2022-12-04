@@ -8,3 +8,4 @@ export {default as useProfileScreen} from './screens/useProfileScreen';
 export {default as useAddPaymentScreen} from './screens/useAddPaymentScreen';
 export {default as useSettingScreen} from './screens/useSettingScreen';
 export {default as useAddCartScreen} from './screens/useAddCartScreen';
+export {default as useUpdateCartScreen} from './screens/userUpdateCartScreen';

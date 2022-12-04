@@ -10,7 +10,7 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   HomeNavigator: undefined;
   Product: {data: ProductType};
-  Cart: undefined;
+  Cart: {qty: number} | undefined;
   Checkout: undefined;
   Congrats: undefined;
   Loading: undefined;
@@ -108,3 +108,5 @@ export type ForgotPasswordScreenProps = StackScreenProps<
 
 export type ForgotPasswordNavigationProp =
   ForgotPasswordScreenProps['navigation'];
+
+export type CartScreenProps = StackScreenProps<RootStackParamList, 'Cart'>;

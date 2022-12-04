@@ -60,7 +60,7 @@ export const signupThunk = createAsyncThunk(
         email: data.email,
         cart: {
           products: [],
-          qty: 0,
+          totalQty: 0,
           totalPrice: 0,
         },
         orders: [],
@@ -105,7 +105,7 @@ export const loginWithGoogleThunk = createAsyncThunk(
           email: googleUser.email || 'no email',
           cart: {
             products: [],
-            qty: 0,
+            totalQty: 0,
             totalPrice: 0,
           },
           orders: [],
@@ -150,7 +150,7 @@ export const loginWithFacebookThunk = createAsyncThunk(
           email: facebookUser.email || 'no email',
           cart: {
             products: [],
-            qty: 0,
+            totalQty: 0,
             totalPrice: 0,
           },
           orders: [],

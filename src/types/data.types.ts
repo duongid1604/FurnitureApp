@@ -9,6 +9,7 @@ export type ProductType = {
   popular: number;
   rate: number;
   review: number;
+  qty: number;
 };
 
 export type PaymentCardType = {
@@ -37,7 +38,7 @@ export type ReviewType = {
 
 export type CartType = {
   products: ProductType[];
-  qty: number;
+  totalQty: number;
   totalPrice: number;
 };
 
