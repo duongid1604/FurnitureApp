@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
 // import ActiveCreditCard from '../../components/ActiveCreditCard';
 import {
@@ -22,7 +29,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   const {paymentMethods} = useAppSelector(state => state.auth.user);
   console.log(paymentMethods);
 
-  const onChangeValue = (item, index, newValue) => {
+  const onChangeValue = (item, newValue) => {
     const isActive = paymentMethods.map(newItem => {
       if (newItem.id == item.id) {
         return {
@@ -60,7 +67,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
             onAnimationType="fill"
             offAnimationType="fade"
             boxType="square"
-            onValueChange={newValue => onChangeValue(item, index, newValue)}
+            onValueChange={newValue => onChangeValue(item, newValue)}
           />
 
           <Text style={styles.titleUncheck}>Use as default payment method</Text>
@@ -70,7 +77,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   };
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{height: '100%'}}>
         <FlatList
           data={paymentMethods}
           keyExtractor={item => item.id}
@@ -78,8 +85,13 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
           // ListFooterComponent={renderBottom()}
         />
       </View>
-
-      <GotoAddScreen onPress={() => navigation.navigate('AddPayment')} />
+      <View style={styles.add}>
+        <TouchableOpacity
+          style={styles.addbutton}
+          onPress={() => navigation.navigate('AddPayment')}>
+          <Image source={ICON.PLUS} style={styles.plus} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -162,5 +174,22 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT.LABEL,
     fontFamily: FONTS.POPPINS,
     fontWeight: FONT_WEIGHT.REGULAR,
+  },
+  add: {
+    width: scaleUI(330, false),
+    alignItems: 'flex-end',
+    bottom: 100,
+  },
+  addbutton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: scaleUI(50, true),
+    height: scaleUI(50, true),
+    borderRadius: 100,
+    backgroundColor: COLORS.WHITE,
+  },
+  plus: {
+    width: 24,
+    height: 24,
   },
 });
