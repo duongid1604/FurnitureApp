@@ -20,7 +20,7 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGotoMyReviews = () => {
-    navigation.navigate('ReviewNavigator');
+    navigation.navigate('ReviewNavigator', {screen: 'MyReview'});
   };
 
   const onGotoSetting = () => {

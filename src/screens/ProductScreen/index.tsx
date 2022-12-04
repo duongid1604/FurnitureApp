@@ -61,7 +61,9 @@ const ProductScreen = () => {
     onAddFavourite(data);
   };
 
-  const moveToReviewScreen = () => {};
+  const moveToReviewScreen = () => {
+    navigation.navigate('ReviewNavigator', {screen: 'Review'});
+  };
 
   return (
     <View style={styles.container}>
