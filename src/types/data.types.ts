@@ -33,11 +33,12 @@ export type ShippingAddressType = {
 
 export type OrderType = {
   id: string;
-  orderCode: string;
+  orderCode: number;
   totalQty: number;
   totalPrice: number;
   status: OrderTabType;
   date: string;
+  currentTab: OrderTabType;
 };
 
 export type ReviewType = {

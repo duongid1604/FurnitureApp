@@ -11,7 +11,11 @@ const OrderItem = ({
   totalPrice,
   status,
   date,
+  currentTab,
 }: OrderType) => {
+  if (currentTab !== status) {
+    return <></>;
+  }
   let orderStatus = 'Processing';
   let orderStyle = styles.processing;
   if (status === OrderTabEnum.delivered) {
