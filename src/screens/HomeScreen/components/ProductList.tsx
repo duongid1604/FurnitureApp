@@ -12,10 +12,10 @@ import {
 import {COLORS, FONTS, FONT_SIZE} from '../../../constants';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {fetchProducts} from '../../../redux/reducers/productSlice';
-import {ProductNavigationProp, ProductType} from '../../../types';
+import {HomeScreenNavigationProps, ProductType} from '../../../types';
 
 const ProductList = () => {
-  const navigation = useNavigation<ProductNavigationProp>();
+  const navigation = useNavigation<HomeScreenNavigationProps>();
   const dispatch = useAppDispatch();
 
   const {products, field, type, condition, loading} = useAppSelector(
