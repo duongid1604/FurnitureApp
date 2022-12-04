@@ -1,5 +1,8 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CompositeScreenProps} from '@react-navigation/native';
+import {
+  CompositeScreenProps,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {EditFieldType} from './constant.types';
 import {ProductType} from './data.types';
@@ -18,10 +21,9 @@ export type RootStackParamList = {
   PaymentNavigator: undefined;
   MyOrders: undefined;
   ShippingNavigator: undefined;
-  ReviewNavigator: undefined;
+  ReviewNavigator: NavigatorScreenParams<ReviewStackParamList>;
   SettingNavigator: undefined;
   Search: undefined;
-  Rebiew: undefined;
 };
 
 export type HomeTabParamList = {
@@ -51,6 +53,11 @@ export type ReviewStackParamList = {
   MyReview: undefined;
   Review: undefined;
 };
+
+export type ReviewNavigatorProps = StackScreenProps<
+  RootStackParamList,
+  'ReviewNavigator'
+>;
 
 export type BoardingScreenProps = StackScreenProps<
   RootStackParamList,
