@@ -26,8 +26,8 @@ const ProductList = () => {
     dispatch(fetchProducts({field, condition, type}));
   }, [dispatch, field, condition, type]);
 
-  const moveToProductScreenHandler = () => {
-    navigation.navigate('Product');
+  const moveToProductScreenHandler = (item: ProductType) => {
+    navigation.navigate('Product', {data: item});
   };
 
   const renderBottom = () => {
@@ -43,7 +43,7 @@ const ProductList = () => {
   const renderProducts = ({item}: {item: ProductType}) => (
     <Pressable
       style={styles.imageContainer}
-      onPress={moveToProductScreenHandler}>
+      onPress={() => moveToProductScreenHandler(item)}>
       <Image source={{uri: item.image}} style={styles.image} />
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.price}>$ {item.price}.00</Text>

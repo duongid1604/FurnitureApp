@@ -1,6 +1,6 @@
+import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {ProductStateProps, ProductType, WhereFilterOp} from '../../types';
-import firestore from '@react-native-firebase/firestore';
 
 const initialState: ProductStateProps = {
   loading: false,

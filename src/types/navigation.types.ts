@@ -2,6 +2,7 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {EditFieldType} from './constant.types';
+import {ProductType} from './data.types';
 
 export type RootStackParamList = {
   Boarding: undefined;
@@ -9,8 +10,8 @@ export type RootStackParamList = {
   Login: undefined;
   ForgotPassword: undefined;
   HomeNavigator: undefined;
-  Product: undefined;
-  Cart: undefined;
+  Product: {data: ProductType};
+  Cart: {qty: number} | undefined;
   Checkout: undefined;
   Congrats: undefined;
   Loading: undefined;
@@ -127,3 +128,5 @@ export type EditProfileScreenProps = StackScreenProps<
   SettingStackParamList,
   'EditProfile'
 >;
+
+export type CartScreenProps = StackScreenProps<RootStackParamList, 'Cart'>;
