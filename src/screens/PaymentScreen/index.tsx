@@ -85,13 +85,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
           // ListFooterComponent={renderBottom()}
         />
       </View>
-      <View style={styles.add}>
-        <TouchableOpacity
-          style={styles.addbutton}
-          onPress={() => navigation.navigate('AddPayment')}>
-          <Image source={ICON.PLUS} style={styles.plus} />
-        </TouchableOpacity>
-      </View>
+      <GotoAddScreen onPress={() => navigation.navigate('AddPayment')} />
     </View>
   );
 };

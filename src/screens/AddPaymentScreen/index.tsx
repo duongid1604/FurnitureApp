@@ -102,7 +102,6 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
               control={control}
               error={errors}
               textInputProps={{
-                selectionColor: COLORS.MAIN,
                 maxLength: 3,
                 placeholder: 'EX: 123',
                 keyboardType: 'number-pad',
@@ -129,9 +128,9 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
         <BigCustomButton onPress={handleSubmit(onUpdate)}>
           Add new card
         </BigCustomButton>
-        {/* <BigCustomButton onPress={() => navigation.navigate('Review')}>
+        <BigCustomButton onPress={() => navigation.navigate('Review')}>
           Go to Review
-        </BigCustomButton> */}
+        </BigCustomButton>
       </View>
     </View>
   );

@@ -2,7 +2,9 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {scaleUI} from '../../utils';
 import ReviewBox from '../../components/ReviewBox';
-import {COLORS} from '../../constants';
+import {COLORS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
+import {ScrollView} from 'react-native-gesture-handler';
+import {BigCustomButton} from '../../components';
 
 type Props = {};
 
@@ -16,14 +18,26 @@ const Review = (props: Props) => {
         />
         <View style={styles.info}>
           <Text style={styles.name}>Minimal Stand</Text>
-          <View>
-            <Image />
-            <Text></Text>
+          <View style={styles.rate}>
+            <Image
+              style={styles.star}
+              source={require('../../assets//icons/star.png')}
+            />
+            <Text style={styles.mark}>4.5</Text>
           </View>
-          <Text></Text>
+          <Text style={styles.num}> 10 reviews</Text>
         </View>
       </View>
-      <ReviewBox />
+      <ScrollView>
+        <ReviewBox />
+        <ReviewBox />
+        <ReviewBox />
+        <ReviewBox />
+        <ReviewBox />
+      </ScrollView>
+      <View style={styles.btn}>
+        <BigCustomButton>Write a review</BigCustomButton>
+      </View>
     </View>
   );
 };
@@ -51,6 +65,31 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   name: {
+    color: COLORS.MAIN,
+  },
+  rate: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginVertical: 10,
+    alignItems: 'center',
+    width: '40%',
+  },
+  star: {
+    width: scaleUI(25, false),
+    height: scaleUI(25, false),
+  },
+  mark: {
+    fontSize: FONT_SIZE.H4,
+    color: COLORS.MAIN,
+    fontWeight: FONT_WEIGHT.BOLD,
+  },
+  num: {
+    fontSize: FONT_SIZE.LABEL,
     color: COLORS.SUB,
+    fontWeight: FONT_WEIGHT.REGULAR,
+  },
+  btn: {
+    bottom: 40,
+    marginHorizontal: 20,
   },
 });

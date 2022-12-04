@@ -21,7 +21,6 @@ export type RootStackParamList = {
   ReviewNavigator: undefined;
   SettingNavigator: undefined;
   Search: undefined;
-  Rebiew: undefined;
 };
 
 export type HomeTabParamList = {
