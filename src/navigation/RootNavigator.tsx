@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
+import {getUserByUid} from '../api';
 import {FONTS, FONT_SIZE} from '../constants';
 import {useAppDispatch, useAppSelector} from '../hooks';
 import {loginThunk} from '../redux/thunks/auth.thunks';
@@ -39,7 +40,14 @@ const RootNavigator = () => {
     const getUid = async () => {
       try {
         const currUserUid = await AsyncStorage.getItem('userUid');
+
         if (!currUserUid) {
+          setInitializing(false);
+          return;
+        }
+        const userRes = await getUserByUid(currUserUid);
+        const userOnFireStore = userRes.data();
+        if (!userOnFireStore) {
           setInitializing(false);
           return;
         }
