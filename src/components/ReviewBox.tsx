@@ -50,9 +50,18 @@ export default ReviewBox;
 const styles = StyleSheet.create({
   container: {
     width: scaleUI(337, false),
-    height: scaleUI(233, false),
+    height: scaleUI(300, false),
+    backgroundColor: COLORS.WHITE,
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 10,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
   },
   avatar: {
     alignItems: 'center',
@@ -62,6 +71,8 @@ const styles = StyleSheet.create({
     height: 40,
   },
   TimeAndName: {
+    marginHorizontal: 20,
+    marginVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -89,6 +100,7 @@ const styles = StyleSheet.create({
   comments: {
     width: scaleUI(311, false),
     height: scaleUI(200, false),
+    marginHorizontal: 20,
     marginVertical: 20,
   },
   description: {
