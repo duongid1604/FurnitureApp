@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View, Text} from 'react-native';
 import {CustomScreenContainer} from '../../components';
 import {useOrderScreen} from '../../hooks';
 import {OrderTabEnum, OrderType} from '../../types';
@@ -15,15 +15,19 @@ const OrderScreen = ({}: Props) => {
     return <LoadingScreen />;
   }
 
-  const renderOrder = ({item}: {item: OrderType}) => (
-    <OrderItem
-      orderCode={item.orderCode}
-      date={item.date}
-      status={item.status}
-      totalQty={item.totalQty}
-      totalPrice={item.totalPrice}
-    />
-  );
+  const renderOrder = ({item}: {item: OrderType}) => {
+    console.log('order: ', item);
+    return (
+      <OrderItem
+        id={item.id}
+        orderCode={item.orderCode}
+        date={item.date}
+        status={item.status}
+        totalQty={item.totalQty}
+        totalPrice={item.totalPrice}
+      />
+    );
+  };
 
   return (
     <CustomScreenContainer smallPadding>
@@ -47,17 +51,12 @@ const OrderScreen = ({}: Props) => {
       </View>
       {/* order list */}
       <View style={styles.ordersContainer}>
-        {/* <OrderItem
-          orderCode="238562312"
-          date="20/03/2020"
-          status={OrderTabEnum.processing}
-          totalQty={3}
-          totalPrice={150}
-        /> */}
         <FlatList
           data={user.orders}
           renderItem={renderOrder}
-          keyExtractor={item => item.orderCode}
+          keyExtractor={item => item.id}
+          style={styles.flatList}
+          contentContainerStyle={styles.flatListContainer}
         />
       </View>
     </CustomScreenContainer>
@@ -73,5 +72,12 @@ const styles = StyleSheet.create({
   },
   ordersContainer: {
     marginVertical: 24,
+    paddingBottom: 24,
+  },
+  flatList: {
+    margin: -20,
+  },
+  flatListContainer: {
+    padding: 20,
   },
 });
