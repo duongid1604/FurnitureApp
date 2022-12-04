@@ -1,6 +1,7 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {EditFieldType} from './constant.types';
 import {ProductType} from './data.types';
 
 export type RootStackParamList = {
@@ -18,8 +19,9 @@ export type RootStackParamList = {
   MyOrders: undefined;
   ShippingNavigator: undefined;
   ReviewNavigator: undefined;
-  Setting: undefined;
+  SettingNavigator: undefined;
   Search: undefined;
+  Rebiew: undefined;
 };
 
 export type HomeTabParamList = {
@@ -34,9 +36,15 @@ export type ShippingAddressStackParamList = {
   AddShippingAddress: undefined;
 };
 
+export type SettingStackParamList = {
+  Setting: undefined;
+  EditProfile: {field: EditFieldType};
+};
+
 export type PaymentMethodStackParamList = {
   PaymentMethod: undefined;
   AddPayment: undefined;
+  Review: undefined;
 };
 
 export type ReviewStackParamList = {
@@ -108,5 +116,17 @@ export type ForgotPasswordScreenProps = StackScreenProps<
 
 export type ForgotPasswordNavigationProp =
   ForgotPasswordScreenProps['navigation'];
+
+export type SettingScreenProps = StackScreenProps<
+  SettingStackParamList,
+  'Setting'
+>;
+
+export type SettingScreenNavigationProps = SettingScreenProps['navigation'];
+
+export type EditProfileScreenProps = StackScreenProps<
+  SettingStackParamList,
+  'EditProfile'
+>;
 
 export type CartScreenProps = StackScreenProps<RootStackParamList, 'Cart'>;

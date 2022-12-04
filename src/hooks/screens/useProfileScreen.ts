@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 
 const useProfileScreen = (navigation: ProfileNavigationProp) => {
   const dispatch = useAppDispatch();
-  const {user} = useAppSelector(state => state.auth);
+  const {user, avatarLoading, isLoading} = useAppSelector(state => state.auth);
 
   const orderQty = user?.orders.length;
   const addressQty = user?.shippingAddress.length;
@@ -24,7 +24,7 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGotoSetting = () => {
-    navigation.navigate('Setting');
+    navigation.navigate('SettingNavigator');
   };
 
   const onGoToPaymentMethod = () => {
@@ -37,6 +37,8 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
 
   return {
     user,
+    avatarLoading,
+    isLoading,
     orderQty,
     addressQty,
     reviewQty,

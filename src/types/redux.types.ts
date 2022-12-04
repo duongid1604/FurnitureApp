@@ -15,6 +15,7 @@ export type AuthStateProps = {
   isLoading: boolean;
   user: UserType | null;
   isResetEmailSent: boolean;
+  avatarLoading: boolean;
 };
 
 export type ProductStateProps = {
@@ -36,9 +37,10 @@ export type SearchProductStateProps = {
 
 export type PaymentStateProp = {
   userId: string;
-  payment: PaymentCardType | undefined;
+  payment: PaymentCardType;
   isLoading: boolean;
   isAdd: boolean;
+  isSelect: boolean;
 };
 
 export type WhereFilterOp =

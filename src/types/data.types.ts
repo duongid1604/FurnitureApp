@@ -13,6 +13,7 @@ export type ProductType = {
 };
 
 export type PaymentCardType = {
+  id: string;
   cardHolderName: string;
   cardNumber: number;
   cvv: number;

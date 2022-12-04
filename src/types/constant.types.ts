@@ -11,3 +11,5 @@ export type FontWeightType =
   | '800'
   | '900'
   | undefined;
+
+export type EditFieldType = 'Name' | 'Password';

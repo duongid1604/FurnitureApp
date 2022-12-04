@@ -16,7 +16,6 @@ import {
   LoginScreen,
   OrderScreen,
   ProductScreen,
-  SettingScreen,
   SignupScreen,
 } from '../screens';
 import SearchScreen from '../screens/SearchScreen';
@@ -25,6 +24,7 @@ import {RootStackParamList} from '../types';
 import HomeNavigator from './HomeNavigator';
 import PaymentMethodNavigator from './PaymentMethodNavigator';
 import ReviewNavigator from './ReviewNavigator';
+import SettingNavigator from './SettingNavigator';
 import ShippingNavigator from './ShippingNavigator';
 
 const RootStack = createStackNavigator<RootStackParamList>();
@@ -104,7 +104,13 @@ const RootNavigator = () => {
                   component={OrderScreen}
                   options={{headerTitle: 'My orders'}}
                 />
-                <RootStack.Screen name="Setting" component={SettingScreen} />
+                <RootStack.Screen
+                  name="SettingNavigator"
+                  component={SettingNavigator}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
                 <RootStack.Screen
                   name="ShippingNavigator"
                   component={ShippingNavigator}

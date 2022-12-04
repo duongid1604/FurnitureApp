@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 
 import {
   createUserWithUid,
+  FirebaseStorage,
   getUserByUid,
   loginWithEmail,
   resetPasswordWithEmail,
@@ -10,8 +11,13 @@ import {
   signupWithEmail,
   updateUserById,
 } from '../../api';
-import {IMAGES} from '../../constants';
-import {LoginFormFields, SignupFormFields, UserType} from '../../types';
+import {IMAGES, LINKS} from '../../constants';
+import {
+  AuthStateProps,
+  LoginFormFields,
+  SignupFormFields,
+  UserType,
+} from '../../types';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -186,6 +192,34 @@ export const updateUserThunk = createAsyncThunk(
     try {
       await updateUserById(updatedUser.id, updatedUser);
       return updatedUser;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
+export const updateAvatarThunk = createAsyncThunk(
+  'auth/updateAvatar',
+  async (imageUri: string, {dispatch, rejectWithValue, getState}) => {
+    try {
+      const {auth} = getState() as {auth: AuthStateProps};
+      const userBefore = auth.user;
+      if (!userBefore) {
+        return;
+      }
+      const desc = `${LINKS.AVATARS}/${userBefore.id}`;
+      const uploadToStorageRes = await FirebaseStorage.uploadToStorage(
+        imageUri,
+        desc,
+      );
+      console.log('upload success: ', uploadToStorageRes);
+      const avatarUri: string = await FirebaseStorage.getDownloadUrl(desc);
+      const newUser: UserType = {
+        ...userBefore,
+        avatar: avatarUri,
+      };
+      dispatch(updateUserThunk(newUser));
+      return;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

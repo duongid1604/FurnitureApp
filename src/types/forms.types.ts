@@ -33,6 +33,7 @@ export type SignupFormFields = {
   confirmPassword: string;
 };
 export type AddPaymentField = {
+  id: string;
   cardHolderName: string;
   cardNumber: number;
   cvv: number;
@@ -41,4 +42,10 @@ export type AddPaymentField = {
 
 export type ForgotPasswordFormFields = {
   email: string;
+};
+
+export type ChangePasswordFormFields = {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
 };

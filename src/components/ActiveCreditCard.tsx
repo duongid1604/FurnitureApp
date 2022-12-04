@@ -10,9 +10,11 @@ import {
   LINE_HEIGHT,
 } from '../constants';
 
-type Props = {};
+type Props = {
+  card: Props;
+};
 
-const ActiveCreditCard = (props: Props) => {
+const ActiveCreditCard = ({card}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.infoView}>
@@ -29,7 +31,6 @@ const ActiveCreditCard = (props: Props) => {
           </View>
         </View>
       </View>
-      <Image />
     </View>
   );
 };
