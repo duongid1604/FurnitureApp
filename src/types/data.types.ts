@@ -1,3 +1,5 @@
+import {OrderTabType} from './constant.types';
+
 export type ProductType = {
   id: string;
   name: string;
@@ -30,7 +32,12 @@ export type ShippingAddressType = {
 };
 
 export type OrderType = {
-  name: string;
+  id: string;
+  orderCode: string;
+  totalQty: number;
+  totalPrice: number;
+  status: OrderTabType;
+  date: string;
 };
 
 export type ReviewType = {
