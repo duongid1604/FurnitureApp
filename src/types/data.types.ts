@@ -62,6 +62,7 @@ export type UserType = {
   shippingAddress: ShippingAddressType[];
   avatar: string;
   type: AccountType;
+  favourite: ProductType[];
 };
 
 export type AccountType = 'normal' | 'social';
