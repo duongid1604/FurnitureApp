@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE} from '../../constants';
-import {useAppSelector, useUpdateCartScreen} from '../../hooks';
+import {useAppSelector, useCartScreen, useUpdateCartScreen} from '../../hooks';
 import {ProductType} from '../../types';
 import {scaleUI} from '../../utils';
 
@@ -20,9 +20,18 @@ const CartScreen = () => {
 
   const {onUpdateCart} = useUpdateCartScreen();
 
-  const increaseHandler = () => {};
+  const {onIncreaseQty, onDecreaseQty} = useCartScreen();
 
-  const decreaseHandler = () => {};
+  const increaseHandler = (item: ProductType) => {
+    onIncreaseQty(item, 1);
+  };
+
+  const decreaseHandler = (item: ProductType) => {
+    if (item.qty === 1) {
+      return;
+    }
+    onDecreaseQty(item, 1);
+  };
 
   const deleteFromCartHandler = (id: string) => {
     onUpdateCart(id);
@@ -39,13 +48,13 @@ const CartScreen = () => {
         <View style={styles.calculate}>
           <TouchableOpacity
             style={styles.iconContainer}
-            onPress={increaseHandler}>
+            onPress={() => increaseHandler(item)}>
             <Icon name="plus" style={styles.icon} />
           </TouchableOpacity>
           <Text style={styles.number}>{item.qty}</Text>
           <TouchableOpacity
             style={styles.iconContainer}
-            onPress={decreaseHandler}>
+            onPress={() => decreaseHandler(item)}>
             <Icon name="minus" style={styles.icon} />
           </TouchableOpacity>
         </View>

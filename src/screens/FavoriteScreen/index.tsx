@@ -1,4 +1,5 @@
 import React from 'react';
+import Toast from 'react-native-toast-message';
 import {
   FlatList,
   Image,
@@ -31,29 +32,43 @@ const FavoriteScreen = () => {
 
   const addToCartHandler = (item: ProductType) => {
     onAddCart(item, 1);
+    Toast.show({
+      type: 'success',
+      text1: 'Done',
+      text2: 'Add to cart successfully !',
+    });
   };
-  const renderFavourite = ({item}: {item: ProductType}) => (
-    <View style={styles.container}>
-      <Image source={{uri: item.image}} style={styles.image} />
-      <View style={styles.innerContainer}>
-        <View>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.price}>$ {item.price}.00</Text>
-        </View>
-      </View>
-      <TouchableOpacity
-        style={styles.featherIconContainer}
-        onPress={() => deleteFromFavouriteHandler(item)}>
-        <Feather name="x-circle" style={styles.featherIcon} />
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.addToCartIconContainer}
-        onPress={() => addToCartHandler(item)}>
-        <Image source={ICON.SHOPPING_BAG} style={styles.addToCartIcon} />
-      </TouchableOpacity>
-    </View>
-  );
+  const renderFavourite = ({item}: {item: ProductType}) => {
+    const isCart = user?.cart.products.some(
+      cartItem => cartItem.id === item.id,
+    );
+    return (
+      <View style={styles.container}>
+        <Image source={{uri: item.image}} style={styles.image} />
+        <View style={styles.innerContainer}>
+          <View>
+            <Text style={styles.title}>{item.name}</Text>
+            <Text style={styles.price}>$ {item.price}.00</Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          style={styles.featherIconContainer}
+          onPress={() => deleteFromFavouriteHandler(item)}>
+          <Feather name="x-circle" style={styles.featherIcon} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.addToCartIconContainer}
+          onPress={() => addToCartHandler(item)}>
+          <Image
+            source={isCart ? ICON.SHOPPING_BAG : ICON.SHOPPING_BAG_DISABLE}
+            style={styles.addToCartIcon}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <CustomScreenContainer smallPadding>
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 0,
     padding: 5,
-    backgroundColor: COLORS.SUB,
+    backgroundColor: COLORS.SECONDARY,
     borderRadius: 6,
   },
   addToCartIcon: {
