@@ -13,7 +13,6 @@ import {BigCustomButton, CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
 import {useAppSelector, useCartScreen, useUpdateCartScreen} from '../../hooks';
 import {CartScreenProps, ProductType} from '../../types';
-import {scaleUI} from '../../utils';
 
 const CartScreen = ({navigation}: CartScreenProps) => {
   const {user} = useAppSelector(state => state.auth);
@@ -42,7 +41,9 @@ const CartScreen = ({navigation}: CartScreenProps) => {
   };
 
   const moveToCheckoutScreen = () => {
-    navigation.navigate('Checkout');
+    navigation.navigate('Checkout', {
+      data: user?.cart.products,
+    });
   };
 
   const renderCart = ({item}: {item: ProductType}) => (
@@ -114,6 +115,7 @@ export default CartScreen;
 const styles = StyleSheet.create({
   flatListContainer: {
     height: '75%',
+    flex: 1,
   },
   container: {
     flexDirection: 'row',
@@ -188,11 +190,7 @@ const styles = StyleSheet.create({
     color: COLORS.MAIN,
   },
   footerContainer: {
-    position: 'absolute',
-    bottom: scaleUI(40, true),
-    left: 0,
-    right: 0,
-    marginHorizontal: 24,
+    marginVertical: 24,
   },
   footer: {
     flexDirection: 'row',

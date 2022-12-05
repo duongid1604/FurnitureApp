@@ -1,19 +1,38 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
-import {scaleUI} from '../../utils';
-import {COLORS, FONTS, FONT_SIZE} from '../../constants';
-import {useAppSelector} from '../../hooks';
+import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
+import {useAppSelector, useCheckoutScreen} from '../../hooks';
+import {CheckoutScreenProps} from '../../types';
 
-const Checkout = () => {
+const Checkout = ({navigation, route}: CheckoutScreenProps) => {
   const {user} = useAppSelector(state => state.auth);
+  const {onCheckout} = useCheckoutScreen();
 
-  const submitOrderHandler = () => {};
+  const {data} = route.params;
+
+  const submitOrderHandler = () => {
+    onCheckout(data);
+    navigation.navigate('Congrats');
+  };
   return (
     <CustomScreenContainer smallPadding>
-      <View style={styles.footer}>
-        <Text style={styles.text}>Total</Text>
-        <Text style={styles.totalPrice}>$ {user?.cart.totalPrice}.00</Text>
+      <View style={styles.flexContainer}>
+        <View style={styles.shippingAddress}>
+          <View style={styles.label}>
+            <Text style={styles.heading}>Shipping address</Text>
+            <Image source={ICON.EDIT} style={styles.editIcon} />
+          </View>
+          <View style={styles.innerContainer}>
+            <Text style={styles.name}>Bruno Fernandes</Text>
+            <Text style={styles.address}>25, Minh Khai, Van Tri</Text>
+          </View>
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.text}>Total</Text>
+          <Text style={styles.totalPrice}>$ {user?.cart.totalPrice}.00</Text>
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -28,6 +47,51 @@ const Checkout = () => {
 export default Checkout;
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
+  shippingAddress: {},
+  label: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  heading: {
+    fontFamily: FONTS.POPPINS,
+    fontSize: FONT_SIZE.BODY,
+    color: COLORS.SUB,
+  },
+  editIcon: {
+    width: 24,
+    height: 24,
+  },
+  innerContainer: {
+    backgroundColor: COLORS.WHITE,
+    padding: 10,
+    borderRadius: 6,
+    marginBottom: 20,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
+  name: {
+    fontFamily: FONTS.POPPINS_BOLD,
+    fontSize: FONT_SIZE.BODY_18,
+    color: COLORS.MAIN,
+  },
+  address: {
+    fontFamily: FONTS.POPPINS,
+    fontSize: FONT_SIZE.LABEL,
+    color: COLORS.SUB,
+  },
   footer: {
     backgroundColor: COLORS.WHITE,
     flexDirection: 'row',
@@ -56,10 +120,6 @@ const styles = StyleSheet.create({
     color: COLORS.MAIN,
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: scaleUI(40, true),
-    left: 0,
-    right: 0,
-    marginHorizontal: 24,
+    marginVertical: 24,
   },
 });
