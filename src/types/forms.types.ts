@@ -49,3 +49,12 @@ export type ChangePasswordFormFields = {
   newPassword: string;
   confirmNewPassword: string;
 };
+
+export type ShippingAddressFormFields = {
+  fullName: string;
+  address: string;
+  zipcode: number;
+  country: string;
+  city: string;
+  district: string;
+};

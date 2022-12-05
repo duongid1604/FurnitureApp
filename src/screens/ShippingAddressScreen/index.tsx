@@ -4,15 +4,18 @@ import {FlatList} from 'react-native-gesture-handler';
 import {AddButton, CustomScreenContainer} from '../../components';
 import {IMAGES} from '../../constants';
 import {useShippingAddressScreen} from '../../hooks';
-import {ShippingAddressType} from '../../types';
+import {ShippingAddressScreenProps, ShippingAddressType} from '../../types';
 import EmptyStateScreen from '../EmptyStateScreen';
 import LoadingScreen from '../LoadingScreen';
 import {ShippingAddressItem} from './components';
 
-type Props = {};
-
-const ShippingAddressScreen = ({}: Props) => {
-  const {selectedAddress, user, onToggleCheckBox} = useShippingAddressScreen();
+const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
+  const {
+    user,
+    selectedAddress,
+    onSelectAddress,
+    onGotoAddShippingAddressScreen,
+  } = useShippingAddressScreen();
 
   if (!user) {
     return <LoadingScreen />;
@@ -25,15 +28,15 @@ const ShippingAddressScreen = ({}: Props) => {
         content="You haven't had any addresses yet."
         source={IMAGES.NO_ORDERS}
         buttonText="Add address"
-        // onButtonPress={onBackHome}
+        onButtonPress={onGotoAddShippingAddressScreen}
       />
     );
   }
   const renderShippingAddressItem = ({item}: {item: ShippingAddressType}) => (
     <ShippingAddressItem
-      onToggleCheckBox={onToggleCheckBox}
-      {...item}
-      isActive={item.id === selectedAddress}
+      onToggleCheckBox={onSelectAddress}
+      shippingAddress={item}
+      isActive={item.id === selectedAddress?.id}
     />
   );
 
@@ -46,7 +49,7 @@ const ShippingAddressScreen = ({}: Props) => {
         renderItem={renderShippingAddressItem}
         keyExtractor={item => item.id}
       />
-      <AddButton />
+      <AddButton onPress={onGotoAddShippingAddressScreen} />
     </CustomScreenContainer>
   );
 };
