@@ -13,3 +13,4 @@ export {default as ShadowScrollView} from './ShadowScrollView';
 export {default as EditTitle} from './EditTitle';
 export {default as TouchableCard} from './TouchableCard';
 export {default as Card} from './Card';
+export {default as AddButton} from './AddButton';

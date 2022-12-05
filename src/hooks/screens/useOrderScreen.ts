@@ -1,8 +1,10 @@
 import {useState} from 'react';
-import {OrderTabEnum, OrderTabType} from '../../types';
+import {useNavigation} from '@react-navigation/native';
+import {OrderNavigationProp, OrderTabEnum, OrderTabType} from '../../types';
 import {useAppSelector} from '../redux/useRedux';
 
 const useOrderScreen = () => {
+  const navigation = useNavigation<OrderNavigationProp>();
   const [tabIsSelected, setTabIsSelected] = useState<OrderTabType>(
     OrderTabEnum.delivered,
   );
@@ -13,7 +15,11 @@ const useOrderScreen = () => {
     setTabIsSelected(tabName);
   };
 
-  return {user, tabIsSelected, onSetSelectedTab};
+  const onBackHome = () => {
+    navigation.navigate('HomeNavigator', {screen: 'Home'});
+  };
+
+  return {user, tabIsSelected, onSetSelectedTab, onBackHome};
 };
 
 export default useOrderScreen;

@@ -4,7 +4,7 @@ import {LoadingSpinner} from '../../components';
 
 type Props = {};
 
-const LoadingScreen = (props: Props) => {
+const LoadingScreen = ({}: Props) => {
   return (
     <View style={styles.screen}>
       <LoadingSpinner />

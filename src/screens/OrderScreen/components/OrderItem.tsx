@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
-import {OrderTabEnum, OrderType} from '../../../types';
+import {OrderItemProps, OrderTabEnum} from '../../../types';
 import leadingZeroLessTwoDigits from '../../../utils/leadingZeroLessTwoDigits';
 
 const OrderItem = ({
@@ -12,7 +12,7 @@ const OrderItem = ({
   status,
   date,
   currentTab,
-}: OrderType) => {
+}: OrderItemProps) => {
   if (currentTab !== status) {
     return <></>;
   }
