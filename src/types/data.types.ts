@@ -42,7 +42,11 @@ export type OrderType = {
 };
 
 export type ReviewType = {
-  name: string;
+  comment: string;
+  product: ProductType[];
+  image: string;
+  rating: number;
+  date: string;
 };
 
 export type CartType = {

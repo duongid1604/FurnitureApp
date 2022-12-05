@@ -128,9 +128,6 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
         <BigCustomButton onPress={handleSubmit(onUpdate)}>
           Add new card
         </BigCustomButton>
-        <BigCustomButton onPress={() => navigation.navigate('Review')}>
-          Go to Review
-        </BigCustomButton>
       </View>
     </View>
   );

@@ -39,7 +39,9 @@ export type AddPaymentField = {
   cvv: number;
   expirationDate: string;
 };
-
+export type AddReviewField = {
+  comment: string;
+};
 export type ForgotPasswordFormFields = {
   email: string;
 };

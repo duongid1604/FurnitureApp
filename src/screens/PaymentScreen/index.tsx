@@ -31,7 +31,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
 
   const onChangeValue = (item, newValue) => {
     const isActive = paymentMethods.map(newItem => {
-      if (newItem.id == item.id) {
+      if (newItem.id === item.id) {
         return {
           ...newItem,
           selected: newValue,
@@ -80,7 +80,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
       <View style={{height: '100%'}}>
         <FlatList
           data={paymentMethods}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.cardNumber}
           renderItem={renderProducts}
           // ListFooterComponent={renderBottom()}
         />

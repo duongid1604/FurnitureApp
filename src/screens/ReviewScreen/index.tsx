@@ -1,14 +1,42 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, Image, Modal, Pressable} from 'react-native';
+import React, {useState} from 'react';
 import {scaleUI} from '../../utils';
+import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
 import ReviewBox from '../../components/ReviewBox';
 import {COLORS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
-import {BigCustomButton} from '../../components';
+import {
+  BigCustomButton,
+  CustomInput,
+  NormalCustomButton,
+} from '../../components';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {AddPaymentField, AddReviewField, ProductRouteProp} from '../../types';
+import {yupResolver} from '@hookform/resolvers/yup';
+import useAddReviewScreen from '../../hooks/screens/useAddReviewScreen';
 
 type Props = {};
 
 const Review = ({}: Props) => {
+  const route = useRoute<ProductRouteProp>();
+  const {item} = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
+  const schema = yup
+    .object({
+      comment: yup
+        .string()
+        .min(2, 'Your review must be at least 16 characters.')
+        .required('Review is required!'),
+    })
+    .required();
+  const {onUpdate} = useAddReviewScreen();
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<AddReviewField>({resolver: yupResolver(schema)});
   return (
     <View style={styles.container}>
       <View style={styles.productbox}>
@@ -17,15 +45,15 @@ const Review = ({}: Props) => {
           source={require('../../assets/images/product1.jpg')}
         />
         <View style={styles.info}>
-          <Text style={styles.name}>Minimal Stand</Text>
+          <Text style={styles.name}>{item.name}</Text>
           <View style={styles.rate}>
             <Image
               style={styles.star}
               source={require('../../assets//icons/star.png')}
             />
-            <Text style={styles.mark}>4.5</Text>
+            <Text style={styles.mark}>{item.rate}</Text>
           </View>
-          <Text style={styles.num}> 10 reviews</Text>
+          <Text style={styles.num}>{item.review} review</Text>
         </View>
       </View>
       <ScrollView>
@@ -35,8 +63,46 @@ const Review = ({}: Props) => {
         <ReviewBox />
         <ReviewBox />
       </ScrollView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Let's us know how you feel product
+            </Text>
+            <View style={styles.viewReview}>
+              <CustomInput<AddReviewField>
+                label="Your Review"
+                field="comment"
+                control={control}
+                error={errors}
+                textInputProps={{
+                  maxLength: 16,
+                }}
+              />
+            </View>
+            <View style={styles.option}>
+              <NormalCustomButton onPress={handleSubmit(onUpdate)}>
+                Send
+              </NormalCustomButton>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.btn}>
-        <BigCustomButton>Write a review</BigCustomButton>
+        <BigCustomButton onPress={() => setModalVisible(true)}>
+          Write a review
+        </BigCustomButton>
       </View>
     </View>
   );
@@ -68,13 +134,12 @@ const styles = StyleSheet.create({
     color: COLORS.MAIN,
   },
   rate: {
-    justifyContent: 'space-between',
     flexDirection: 'row',
     marginVertical: 10,
     alignItems: 'center',
-    width: '40%',
   },
   star: {
+    marginRight: 10,
     width: scaleUI(25, false),
     height: scaleUI(25, false),
   },
@@ -92,4 +157,51 @@ const styles = StyleSheet.create({
     bottom: 40,
     marginHorizontal: 20,
   },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  viewReview: {
+    width: scaleUI(333, false),
+    marginVertical: 18,
+  },
+  option: {flexDirection: 'row', justifyContent: 'space-between'},
 });
