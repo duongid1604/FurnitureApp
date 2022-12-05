@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {CustomScreenContainer} from '../../components';
-import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
+import {COLORS, FONTS, FONT_SIZE, ICON, IMAGES} from '../../constants';
 import {
   useAddCartScreen,
   useAddFavouriteScreen,
@@ -18,6 +18,8 @@ import {
 } from '../../hooks';
 import {ProductType} from '../../types';
 import {scaleUI} from '../../utils';
+import EmptyStateScreen from '../EmptyStateScreen';
+import LoadingScreen from '../LoadingScreen';
 
 const FavoriteScreen = () => {
   const {user} = useAppSelector(state => state.auth);
@@ -39,10 +41,29 @@ const FavoriteScreen = () => {
     });
   };
 
+  if (!user) {
+    return <LoadingScreen />;
+  }
+
+  console.log('Favourite length: ', user.favourite.length);
+
+  if (user.favourite.length === 0) {
+    return (
+      <EmptyStateScreen
+        title="no favorite items"
+        content="you haven't had any favorite items yet."
+        source={IMAGES.NO_ORDERS}
+        buttonText="Go Shopping"
+        hasButton={false}
+      />
+    );
+  }
+
   const renderFavourite = ({item}: {item: ProductType}) => {
     const isCart = user?.cart.products.some(
       cartItem => cartItem.id === item.id,
     );
+
     return (
       <View style={styles.container}>
         <Image source={{uri: item.image}} style={styles.image} />

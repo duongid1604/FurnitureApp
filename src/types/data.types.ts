@@ -23,6 +23,7 @@ export type PaymentCardType = {
 };
 
 export type ShippingAddressType = {
+  id: string;
   fullName: string;
   address: string;
   zipcode: string;
@@ -32,6 +33,15 @@ export type ShippingAddressType = {
 };
 
 export type OrderType = {
+  id: string;
+  orderCode: number;
+  totalQty: number;
+  totalPrice: number;
+  status: OrderTabType;
+  date: string;
+};
+
+export type OrderItemProps = {
   id: string;
   orderCode: number;
   totalQty: number;

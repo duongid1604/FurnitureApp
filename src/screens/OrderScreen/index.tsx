@@ -1,18 +1,35 @@
 import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {CustomScreenContainer} from '../../components';
+import {IMAGES} from '../../constants';
 import {useOrderScreen} from '../../hooks';
-import {OrderTabEnum, OrderTabType, OrderType} from '../../types';
+import {
+  OrderScreenProps,
+  OrderTabEnum,
+  OrderTabType,
+  OrderType,
+} from '../../types';
+import EmptyStateScreen from '../EmptyStateScreen';
 import LoadingScreen from '../LoadingScreen';
 import {OrderItem, TabButton} from './components';
 
-type Props = {};
-
-const OrderScreen = ({}: Props) => {
-  const {user, tabIsSelected, onSetSelectedTab} = useOrderScreen();
+const OrderScreen = ({}: OrderScreenProps) => {
+  const {user, tabIsSelected, onSetSelectedTab, onBackHome} = useOrderScreen();
 
   if (!user) {
     return <LoadingScreen />;
+  }
+
+  if (user.orders.length === 0) {
+    return (
+      <EmptyStateScreen
+        title="no orders yet"
+        content="You haven't placed any orders yet."
+        source={IMAGES.NO_ORDERS}
+        buttonText="Go shopping"
+        onButtonPress={onBackHome}
+      />
+    );
   }
 
   const renderOrder = (item: OrderType, tab: OrderTabType) => {
