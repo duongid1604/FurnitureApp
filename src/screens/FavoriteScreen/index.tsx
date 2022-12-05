@@ -51,7 +51,7 @@ const FavoriteScreen = () => {
     return (
       <EmptyStateScreen
         title="no favorite items"
-        content="you haven't had any favorite items yet."
+        content="You haven't had any favorite items yet."
         source={IMAGES.NO_ORDERS}
         buttonText="Go Shopping"
         hasButton={false}

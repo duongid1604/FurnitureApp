@@ -2,8 +2,8 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import {ScrollView, StyleSheet} from 'react-native';
 import * as yup from 'yup';
-
 import {yupResolver} from '@hookform/resolvers/yup';
+
 import {
   BigCustomButton,
   CustomInput,

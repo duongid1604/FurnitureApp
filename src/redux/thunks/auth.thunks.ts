@@ -72,11 +72,12 @@ export const signupThunk = createAsyncThunk(
         orders: [],
         paymentMethods: [],
         reviews: [],
-        shippingAddress: [],
+        shippingAddresses: [],
         avatar: IMAGES.DEFAULT_AVATAR,
         favourite: [],
-        selectedAddress: null,
-        selectedPaymentMethod: null,
+        selectedAddress: undefined,
+        selectedPaymentMethod: undefined,
+        notifications: [],
       };
 
       await createUserWithUid(userUid, newUser);
@@ -120,11 +121,12 @@ export const loginWithGoogleThunk = createAsyncThunk(
           orders: [],
           paymentMethods: [],
           reviews: [],
-          shippingAddress: [],
+          shippingAddresses: [],
           avatar: IMAGES.DEFAULT_AVATAR,
           favourite: [],
-          selectedAddress: null,
-          selectedPaymentMethod: null,
+          selectedAddress: undefined,
+          selectedPaymentMethod: undefined,
+          notifications: [],
         };
         await createUserWithUid(userUid, user);
       }
@@ -168,11 +170,12 @@ export const loginWithFacebookThunk = createAsyncThunk(
           orders: [],
           paymentMethods: [],
           reviews: [],
-          shippingAddress: [],
+          shippingAddresses: [],
           avatar: IMAGES.DEFAULT_AVATAR,
           favourite: [],
-          selectedAddress: null,
-          selectedPaymentMethod: null,
+          selectedAddress: undefined,
+          selectedPaymentMethod: undefined,
+          notifications: [],
         };
         await createUserWithUid(userUid, user);
       }

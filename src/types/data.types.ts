@@ -61,6 +61,10 @@ export type CartType = {
   totalPrice: number;
 };
 
+export type NotiType = {
+  content: string;
+};
+
 export type UserType = {
   id: string;
   name: string;
@@ -69,12 +73,13 @@ export type UserType = {
   paymentMethods: PaymentCardType[];
   orders: OrderType[];
   reviews: ReviewType[];
-  shippingAddress: ShippingAddressType[];
+  shippingAddresses: ShippingAddressType[];
   avatar: string;
   type: AccountType;
   favourite: ProductType[];
   selectedAddress: ShippingAddressType | undefined;
   selectedPaymentMethod: PaymentCardType | undefined;
+  notifications: NotiType[];
 };
 
 export type AccountType = 'normal' | 'social';
