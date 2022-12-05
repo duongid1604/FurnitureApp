@@ -73,8 +73,8 @@ export type UserType = {
   avatar: string;
   type: AccountType;
   favourite: ProductType[];
-  selectedAddress: ShippingAddressType | null;
-  selectedPaymentMethod: PaymentCardType | null;
+  selectedAddress: ShippingAddressType | undefined;
+  selectedPaymentMethod: PaymentCardType | undefined;
 };
 
 export type AccountType = 'normal' | 'social';

@@ -1,6 +1,6 @@
 import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Pressable} from 'react-native';
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
 import {ShippingAddressType} from '../../../types';
@@ -29,14 +29,18 @@ const ShippingAddressItem = ({
           Use as the shipping address
         </Text>
       </View>
-      <Card>
-        <Text style={styles.fullName}>{shippingAddress.fullName}</Text>
-        <Text
-          numberOfLines={3}
-          ellipsizeMode="tail"
-          style={
-            styles.address
-          }>{`${shippingAddress.address} ${shippingAddress.zipcode} ${shippingAddress.district} ${shippingAddress.city} ${shippingAddress.country}`}</Text>
+      <Card extraStyle={styles.card}>
+        <Pressable
+          android_ripple={{color: COLORS.BLACK_O2}}
+          style={styles.buttonCard}>
+          <Text style={styles.fullName}>{shippingAddress.fullName}</Text>
+          <Text
+            numberOfLines={3}
+            ellipsizeMode="tail"
+            style={
+              styles.address
+            }>{`${shippingAddress.address} ${shippingAddress.zipcode} ${shippingAddress.district} ${shippingAddress.city} ${shippingAddress.country}`}</Text>
+        </Pressable>
       </Card>
     </View>
   );
@@ -51,6 +55,12 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  card: {
+    padding: 0,
+  },
+  buttonCard: {
+    padding: 18,
   },
   text: {
     fontSize: FONT_SIZE.BODY_18,
