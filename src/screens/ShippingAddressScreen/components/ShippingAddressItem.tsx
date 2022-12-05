@@ -1,14 +1,19 @@
 import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
 import {StyleSheet, Text, View, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
-import {ShippingAddressType} from '../../../types';
+import {
+  ShippingAddressType,
+  ShippingAddressNavigationProp,
+} from '../../../types';
 
 type Props = {
   shippingAddress: ShippingAddressType;
-  onToggleCheckBox: (shippingAddress: ShippingAddressType) => void;
   isActive: boolean;
+  onToggleCheckBox: (shippingAddress: ShippingAddressType) => void;
 };
 
 const ShippingAddressItem = ({
@@ -16,6 +21,8 @@ const ShippingAddressItem = ({
   isActive,
   onToggleCheckBox,
 }: Props) => {
+  const navigation = useNavigation<ShippingAddressNavigationProp>();
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -32,7 +39,12 @@ const ShippingAddressItem = ({
       <Card extraStyle={styles.card}>
         <Pressable
           android_ripple={{color: COLORS.BLACK_O2}}
-          style={styles.buttonCard}>
+          style={styles.buttonCard}
+          onPress={() =>
+            navigation.navigate('EditShippingAddress', {
+              address: shippingAddress,
+            })
+          }>
           <Text style={styles.fullName}>{shippingAddress.fullName}</Text>
           <Text
             numberOfLines={3}

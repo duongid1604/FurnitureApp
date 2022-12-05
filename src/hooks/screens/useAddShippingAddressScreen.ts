@@ -28,7 +28,8 @@ const useAddShippingAddressScreen = () => {
 
     const newUser: UserType = {
       ...user,
-      shippingAddress: [...user.shippingAddress, newAddress],
+      shippingAddresses: [...user.shippingAddresses, newAddress],
+      selectedAddress: newAddress,
     };
 
     dispatch(updateUserThunk(newUser));

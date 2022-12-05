@@ -69,7 +69,7 @@ export type UserType = {
   paymentMethods: PaymentCardType[];
   orders: OrderType[];
   reviews: ReviewType[];
-  shippingAddress: ShippingAddressType[];
+  shippingAddresses: ShippingAddressType[];
   avatar: string;
   type: AccountType;
   favourite: ProductType[];

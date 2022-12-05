@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 
 import {
@@ -12,12 +12,19 @@ import {useAppDispatch} from '../redux/useRedux';
 
 const useShippingAddressScreen = () => {
   const navigation = useNavigation<ShippingAddressNavigationProp>();
-  const user = useRoute<ShippingAddressRouteProp>().params?.user;
+  const user = useRoute<ShippingAddressRouteProp>().params.user;
   const [selectedAddress, setSelectedAddress] = useState<
     ShippingAddressType | undefined
-  >(user?.selectedAddress);
+  >(user.selectedAddress);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      setSelectedAddress(user.selectedAddress);
+    });
+  }, [navigation, user.selectedAddress]);
+
   const onSelectAddress = (shippingAddress: ShippingAddressType) => {
     if (!user) {
       return;
@@ -33,6 +40,7 @@ const useShippingAddressScreen = () => {
   const onGotoAddShippingAddressScreen = () => {
     navigation.navigate('AddShippingAddress');
   };
+
   return {
     user,
     selectedAddress,
