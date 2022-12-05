@@ -1,18 +1,43 @@
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 
-import {useAppSelector} from '../redux/useRedux';
+import {
+  ShippingAddressNavigationProp,
+  ShippingAddressRouteProp,
+  ShippingAddressType,
+  UserType,
+} from '../../types';
+import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 
 const useShippingAddressScreen = () => {
-  const [selectedAddress, setSelectedAddress] = useState('');
-  const {user} = useAppSelector(state => state.auth);
-  const navigation = useNav;
-  const onToggleCheckBox = (addressId: string) => {
-    setSelectedAddress(addressId);
+  const navigation = useNavigation<ShippingAddressNavigationProp>();
+  const user = useRoute<ShippingAddressRouteProp>().params?.user;
+  const [selectedAddress, setSelectedAddress] =
+    useState<ShippingAddressType | null>(user.selectedAddress);
+
+  const dispatch = useAppDispatch();
+  const onSelectAddress = (shippingAddress: ShippingAddressType) => {
+    if (!user) {
+      return;
+    }
+    setSelectedAddress(shippingAddress);
+    const newUser: UserType = {
+      ...user,
+      selectedAddress: shippingAddress,
+    };
+    dispatch(updateUserThunk(newUser));
   };
 
-  const onGotoAddShippingAddressScreen = () => {};
-  return {selectedAddress, user, onToggleCheckBox};
+  const onGotoAddShippingAddressScreen = () => {
+    navigation.navigate('AddShippingAddress');
+  };
+  return {
+    user,
+    selectedAddress,
+    onSelectAddress,
+    onGotoAddShippingAddressScreen,
+  };
 };
 
 export default useShippingAddressScreen;

@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "@react-navigation/stack": "^6.3.5",
     "@reduxjs/toolkit": "^1.9.0",
+    "@types/uuid": "^9.0.0",
     "dayjs": "^1.11.6",
     "lottie-react-native": "^5.1.4",
     "react": "18.1.0",
@@ -31,6 +32,7 @@
     "react-native-extra-dimensions-android": "^1.2.5",
     "react-native-fbsdk-next": "^11.1.0",
     "react-native-gesture-handler": "^2.8.0",
+    "react-native-get-random-values": "^1.8.0",
     "react-native-image-picker": "^4.10.2",
     "react-native-modal": "^13.0.1",
     "react-native-permissions": "^3.6.1",
@@ -40,6 +42,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "toggle-switch-react-native": "^3.3.0",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

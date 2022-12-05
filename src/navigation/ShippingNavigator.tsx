@@ -27,6 +27,9 @@ const ShippingNavigator = ({}: Props) => {
       <ShippingStack.Screen
         name="AddShippingAddress"
         component={AddShippingAddressScreen}
+        options={{
+          headerTitle: 'Add shipping address',
+        }}
       />
     </ShippingStack.Navigator>
   );

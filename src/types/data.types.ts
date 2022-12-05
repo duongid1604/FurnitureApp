@@ -26,7 +26,7 @@ export type ShippingAddressType = {
   id: string;
   fullName: string;
   address: string;
-  zipcode: string;
+  zipcode: number;
   country: string;
   city: string;
   district: string;
@@ -73,6 +73,8 @@ export type UserType = {
   avatar: string;
   type: AccountType;
   favourite: ProductType[];
+  selectedAddress: ShippingAddressType | null;
+  selectedPaymentMethod: PaymentCardType | null;
 };
 
 export type AccountType = 'normal' | 'social';
