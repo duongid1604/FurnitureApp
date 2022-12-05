@@ -1,11 +1,16 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {scaleUI} from '../utils';
 import {COLORS, FONTS, FONT_SIZE, FONT_WEIGHT, LINE_HEIGHT} from '../constants';
+import {ProductRouteProp} from '../types';
 
 type Props = {};
 
 const ReviewBox = (props: Props) => {
+  const route = useRoute<ProductRouteProp>();
+
+  // const {data} = route.param;
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
