@@ -125,11 +125,11 @@ const ProductScreen = () => {
             style={styles.marker}
           />
         </TouchableOpacity>
-        <Pressable style={styles.buttonContainer}>
+        <View style={styles.buttonContainer}>
           <BigCustomButton onPress={addToCartHandler}>
             Add to cart
           </BigCustomButton>
-        </Pressable>
+        </View>
       </View>
     </View>
   );

@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "@react-navigation/stack": "^6.3.5",
     "@reduxjs/toolkit": "^1.9.0",
+    "date-and-time": "^2.4.1",
     "lottie-react-native": "^5.1.4",
     "react": "18.1.0",
     "react-hook-form": "^7.39.5",

@@ -10,12 +10,12 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
-import {COLORS, FONTS, FONT_SIZE} from '../../constants';
+import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
 import {useAppSelector, useCartScreen, useUpdateCartScreen} from '../../hooks';
-import {ProductType} from '../../types';
+import {CartScreenProps, ProductType} from '../../types';
 import {scaleUI} from '../../utils';
 
-const CartScreen = () => {
+const CartScreen = ({navigation}: CartScreenProps) => {
   const {user} = useAppSelector(state => state.auth);
 
   const {onUpdateCart} = useUpdateCartScreen();
@@ -35,6 +35,14 @@ const CartScreen = () => {
 
   const deleteFromCartHandler = (id: string) => {
     onUpdateCart(id);
+  };
+
+  const moveToHome = () => {
+    navigation.navigate('HomeNavigator', {screen: 'Home'});
+  };
+
+  const moveToCheckoutScreen = () => {
+    navigation.navigate('Checkout');
   };
 
   const renderCart = ({item}: {item: ProductType}) => (
@@ -78,12 +86,24 @@ const CartScreen = () => {
         />
       </View>
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.footerContainer}>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total: </Text>
           <Text style={styles.totalPrice}>$ {user?.cart.totalPrice}.00</Text>
         </View>
-        <BigCustomButton>Check out</BigCustomButton>
+
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.homeIconContainer}
+            onPress={moveToHome}>
+            <Image source={ICON.CLARITY_HOME_SOLID} style={styles.homeIcon} />
+          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <BigCustomButton onPress={moveToCheckoutScreen}>
+              Check out
+            </BigCustomButton>
+          </View>
+        </View>
       </View>
     </CustomScreenContainer>
   );
@@ -167,11 +187,30 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.H5,
     color: COLORS.MAIN,
   },
-  buttonContainer: {
+  footerContainer: {
     position: 'absolute',
     bottom: scaleUI(40, true),
     left: 0,
     right: 0,
     marginHorizontal: 24,
+  },
+  footer: {
+    flexDirection: 'row',
+  },
+  homeIconContainer: {
+    backgroundColor: COLORS.SECONDARY,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    marginRight: 16,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+  homeIcon: {
+    width: 24,
+    height: 24,
   },
 });
