@@ -23,6 +23,7 @@ export type PaymentCardType = {
 };
 
 export type ShippingAddressType = {
+  id: string;
   fullName: string;
   address: string;
   zipcode: string;

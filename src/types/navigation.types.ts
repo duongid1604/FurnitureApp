@@ -136,3 +136,7 @@ export type ProfileScreenProps = CompositeScreenProps<
   BottomTabScreenProps<HomeTabParamList, 'Profile'>,
   StackScreenProps<RootStackParamList>
 >;
+
+export type OrderScreenProps = StackScreenProps<RootStackParamList, 'MyOrders'>;
+
+export type OrderNavigationProp = OrderScreenProps['navigation'];
