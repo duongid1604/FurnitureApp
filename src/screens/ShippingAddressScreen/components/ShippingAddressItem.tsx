@@ -3,28 +3,17 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
+import {ShippingAddressType} from '../../../types';
 
 type Props = {
-  id: string;
+  shippingAddress: ShippingAddressType;
+  onToggleCheckBox: (shippingAddress: ShippingAddressType) => void;
   isActive: boolean;
-  fullName: string;
-  address: string;
-  zipcode: string;
-  country: string;
-  city: string;
-  district: string;
-  onToggleCheckBox: (id: string) => void;
 };
 
 const ShippingAddressItem = ({
-  id,
+  shippingAddress,
   isActive,
-  fullName,
-  address,
-  zipcode,
-  country,
-  city,
-  district,
   onToggleCheckBox,
 }: Props) => {
   return (
@@ -33,19 +22,21 @@ const ShippingAddressItem = ({
         <CheckBox
           disabled={false}
           value={isActive}
-          onValueChange={() => onToggleCheckBox(id)}
+          onValueChange={() => onToggleCheckBox(shippingAddress)}
           tintColors={{true: COLORS.MAIN}}
         />
-        <Text style={styles.text}>Use as the shipping address</Text>
+        <Text style={isActive ? styles.text : [styles.text, styles.disable]}>
+          Use as the shipping address
+        </Text>
       </View>
       <Card>
-        <Text style={styles.fullName}>{fullName}</Text>
+        <Text style={styles.fullName}>{shippingAddress.fullName}</Text>
         <Text
           numberOfLines={3}
           ellipsizeMode="tail"
           style={
             styles.address
-          }>{`${address} ${zipcode} ${district} ${city} ${country}`}</Text>
+          }>{`${shippingAddress.address} ${shippingAddress.zipcode} ${shippingAddress.district} ${shippingAddress.city} ${shippingAddress.country}`}</Text>
       </Card>
     </View>
   );

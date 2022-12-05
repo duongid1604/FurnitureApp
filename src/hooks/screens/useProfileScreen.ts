@@ -16,7 +16,13 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGotoShippingAddress = () => {
-    navigation.navigate('ShippingNavigator', {screen: 'ShippingAddress'});
+    if (!user) {
+      return;
+    }
+    navigation.navigate('ShippingNavigator', {
+      screen: 'ShippingAddress',
+      params: {user},
+    });
   };
 
   const onGotoMyReviews = () => {
