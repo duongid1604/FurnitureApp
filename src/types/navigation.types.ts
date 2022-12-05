@@ -140,3 +140,11 @@ export type ProfileScreenProps = CompositeScreenProps<
 export type OrderScreenProps = StackScreenProps<RootStackParamList, 'MyOrders'>;
 
 export type OrderNavigationProp = OrderScreenProps['navigation'];
+
+export type ShippingAddressScreenProps = StackScreenProps<
+  ShippingAddressStackParamList,
+  'ShippingAddress'
+>;
+
+export type ShippingAddressNavigationProp =
+  ShippingAddressScreenProps['navigation'];

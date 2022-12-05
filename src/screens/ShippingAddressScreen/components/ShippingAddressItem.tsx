@@ -1,5 +1,5 @@
 import CheckBox from '@react-native-community/checkbox';
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
@@ -39,8 +39,13 @@ const ShippingAddressItem = ({
         <Text style={styles.text}>Use as the shipping address</Text>
       </View>
       <Card>
-        <Text>{fullName}</Text>
-        <Text>{`${address} ${zipcode} ${district} ${city} ${country}`}</Text>
+        <Text style={styles.fullName}>{fullName}</Text>
+        <Text
+          numberOfLines={3}
+          ellipsizeMode="tail"
+          style={
+            styles.address
+          }>{`${address} ${zipcode} ${district} ${city} ${country}`}</Text>
       </Card>
     </View>
   );
@@ -63,6 +68,22 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.POPPINS,
   },
   disable: {
+    color: COLORS.SUB,
+  },
+  fullName: {
+    fontSize: FONT_SIZE.BODY_18,
+    lineHeight: LINE_HEIGHT.BODY,
+    fontFamily: FONTS.POPPINS_BOLD,
+    color: COLORS.MAIN,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.SECONDARY,
+  },
+  address: {
+    marginTop: 12,
+    fontFamily: FONTS.POPPINS,
+    fontSize: FONT_SIZE.LABEL,
+    lineHeight: LINE_HEIGHT.LABEL,
     color: COLORS.SUB,
   },
 });

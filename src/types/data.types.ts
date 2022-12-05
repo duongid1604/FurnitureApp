@@ -39,6 +39,15 @@ export type OrderType = {
   totalPrice: number;
   status: OrderTabType;
   date: string;
+};
+
+export type OrderItemProps = {
+  id: string;
+  orderCode: number;
+  totalQty: number;
+  totalPrice: number;
+  status: OrderTabType;
+  date: string;
   currentTab: OrderTabType;
 };
 
