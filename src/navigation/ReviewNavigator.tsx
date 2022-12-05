@@ -3,16 +3,14 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {FONTS, FONT_SIZE} from '../constants';
 import {MyReviewsScreen, ReviewScreen} from '../screens';
-import {ReviewStackParamList} from '../types';
-
-type Props = {};
+import {ReviewNavigatorProps, ReviewStackParamList} from '../types';
 
 const ReviewStack = createStackNavigator<ReviewStackParamList>();
 
-const ReviewNavigator = ({}: Props) => {
+const ReviewNavigator = ({}: ReviewNavigatorProps) => {
   return (
     <ReviewStack.Navigator
-      initialRouteName="MyReview"
+      initialRouteName="Review"
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: styles.headerTitle,

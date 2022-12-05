@@ -16,19 +16,19 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGotoShippingAddress = () => {
-    navigation.navigate('ShippingNavigator');
+    navigation.navigate('ShippingNavigator', {screen: 'ShippingAddress'});
   };
 
   const onGotoMyReviews = () => {
-    navigation.navigate('ReviewNavigator');
+    navigation.navigate('ReviewNavigator', {screen: 'MyReview'});
   };
 
   const onGotoSetting = () => {
-    navigation.navigate('SettingNavigator');
+    navigation.navigate('SettingNavigator', {screen: 'Setting'});
   };
 
   const onGoToPaymentMethod = () => {
-    navigation.navigate('PaymentNavigator');
+    navigation.navigate('PaymentNavigator', {screen: 'PaymentMethod'});
   };
 
   const onGoToOrders = () => {

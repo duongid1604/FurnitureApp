@@ -1,5 +1,8 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CompositeScreenProps} from '@react-navigation/native';
+import {
+  CompositeScreenProps,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {EditFieldType} from './constant.types';
 import {ProductType} from './data.types';
@@ -9,19 +12,18 @@ export type RootStackParamList = {
   Signup: undefined;
   Login: undefined;
   ForgotPassword: undefined;
-  HomeNavigator: undefined;
   Product: {data: ProductType};
   Cart: {qty: number} | undefined;
   Checkout: undefined;
   Congrats: undefined;
   Loading: undefined;
-  PaymentNavigator: undefined;
+  PaymentNavigator: NavigatorScreenParams<PaymentMethodStackParamList>;
   MyOrders: undefined;
-  ShippingNavigator: undefined;
-  ReviewNavigator: undefined;
-  SettingNavigator: undefined;
+  HomeNavigator: NavigatorScreenParams<HomeTabParamList>;
+  ShippingNavigator: NavigatorScreenParams<ShippingAddressStackParamList>;
+  ReviewNavigator: NavigatorScreenParams<ReviewStackParamList>;
+  SettingNavigator: NavigatorScreenParams<SettingStackParamList>;
   Search: undefined;
-  Rebiew: undefined;
 };
 
 export type HomeTabParamList = {
@@ -52,24 +54,19 @@ export type ReviewStackParamList = {
   Review: undefined;
 };
 
+export type ReviewNavigatorProps = StackScreenProps<
+  RootStackParamList,
+  'ReviewNavigator'
+>;
+
 export type BoardingScreenProps = StackScreenProps<
   RootStackParamList,
   'Boarding'
 >;
 
-export type HomeScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<HomeTabParamList, 'Home'>,
-  StackScreenProps<RootStackParamList>
->;
-
 export type CongratsScreenProps = StackScreenProps<
   RootStackParamList,
   'Congrats'
->;
-
-export type ProfileScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<HomeTabParamList, 'Profile'>,
-  StackScreenProps<RootStackParamList>
 >;
 
 export type ProfileNavigationProp = ProfileScreenProps['navigation'];
@@ -130,3 +127,12 @@ export type EditProfileScreenProps = StackScreenProps<
 >;
 
 export type CartScreenProps = StackScreenProps<RootStackParamList, 'Cart'>;
+
+export type HomeScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<HomeTabParamList, 'Home'>,
+  StackScreenProps<RootStackParamList>
+>;
+export type ProfileScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<HomeTabParamList, 'Profile'>,
+  StackScreenProps<RootStackParamList>
+>;
