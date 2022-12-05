@@ -24,6 +24,7 @@ import {scaleUI} from '../../utils';
 import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../../hooks';
 import GotoAddScreen from '../../components/GotoAddScreen';
+import {CustomScreenContainer} from '../../components';
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
   const [isActive, setActive] = useState(false);
   const {paymentMethods} = useAppSelector(state => state.auth.user);
@@ -76,8 +77,8 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
     );
   };
   return (
-    <View style={styles.container}>
-      <View style={{height: '100%'}}>
+    <CustomScreenContainer smallPadding>
+      <View style={styles.container}>
         <FlatList
           data={paymentMethods}
           keyExtractor={item => item.id}
@@ -92,7 +93,7 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
           <Image source={ICON.PLUS} style={styles.plus} />
         </TouchableOpacity>
       </View>
-    </View>
+    </CustomScreenContainer>
   );
 };
 
@@ -101,9 +102,6 @@ export default PaymentScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: scaleUI(375, false),
-    height: scaleUI(812, false),
-    marginHorizontal: 20,
   },
   checkDefault: {
     alignItems: 'center',

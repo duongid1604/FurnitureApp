@@ -33,7 +33,7 @@ const useAddShippingAddressScreen = () => {
 
     dispatch(updateUserThunk(newUser));
 
-    navigation.navigate('ShippingAddress');
+    navigation.navigate('ShippingAddress', {user: newUser});
   };
 
   return {onAddNewAddress};

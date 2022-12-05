@@ -22,3 +22,4 @@ export {default as ReviewScreen} from './ReviewScreen';
 export {default as ForgotPasswordScreen} from './ForgotPasswordScreen';
 export {default as EditProfileScreen} from './EditProfileScreen';
 export {default as EmptyStateScreen} from './EmptyStateScreen';
+export {default as EditShippingAddress} from './EditShippingAddress';

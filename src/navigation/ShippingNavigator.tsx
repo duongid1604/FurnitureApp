@@ -2,7 +2,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {FONTS, FONT_SIZE} from '../constants';
-import {AddShippingAddressScreen, ShippingAddressScreen} from '../screens';
+import {
+  AddShippingAddressScreen,
+  EditShippingAddress,
+  ShippingAddressScreen,
+} from '../screens';
 import {ShippingAddressStackParamList} from '../types';
 
 type Props = {};
@@ -29,6 +33,13 @@ const ShippingNavigator = ({}: Props) => {
         component={AddShippingAddressScreen}
         options={{
           headerTitle: 'Add shipping address',
+        }}
+      />
+      <ShippingStack.Screen
+        name="EditShippingAddress"
+        component={EditShippingAddress}
+        options={{
+          headerTitle: 'Edit shipping address',
         }}
       />
     </ShippingStack.Navigator>
