@@ -99,7 +99,11 @@ const RootNavigator = () => {
                   options={{headerTitleAlign: 'center', title: 'My cart'}}
                 />
                 <RootStack.Screen name="Checkout" component={CheckoutScreen} />
-                <RootStack.Screen name="Congrats" component={CongratsScreen} />
+                <RootStack.Screen
+                  name="Congrats"
+                  component={CongratsScreen}
+                  options={{headerShown: false}}
+                />
                 <RootStack.Screen
                   name="PaymentNavigator"
                   component={PaymentMethodNavigator}

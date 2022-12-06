@@ -14,7 +14,7 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   Product: {data: ProductType};
   Cart: {qty: number} | undefined;
-  Checkout: undefined;
+  Checkout: {data: ProductType[] | undefined};
   Congrats: undefined;
   Loading: undefined;
   PaymentNavigator: NavigatorScreenParams<PaymentMethodStackParamList>;
@@ -68,6 +68,11 @@ export type BoardingScreenProps = StackScreenProps<
 export type CongratsScreenProps = StackScreenProps<
   RootStackParamList,
   'Congrats'
+>;
+
+export type CheckoutScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Checkout'
 >;
 
 export type ProfileNavigationProp = ProfileScreenProps['navigation'];
