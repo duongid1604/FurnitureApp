@@ -1,13 +1,11 @@
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
-// import ActiveCreditCard from '../../components/ActiveCreditCard';
+import React from 'react';
 import {
   COLORS,
   FONTS,
@@ -16,73 +14,45 @@ import {
   ICON,
   LINE_HEIGHT,
 } from '../../constants';
-import CheckBox from '@react-native-community/checkbox';
-
-// import DefaultCard from '../../components/DefaultCard';
 import {PaymentCardType, PaymentScreenProps} from '../../types';
 import {scaleUI} from '../../utils';
-import {useDispatch} from 'react-redux';
-import {useAppSelector} from '../../hooks';
-import GotoAddScreen from '../../components/GotoAddScreen';
 import {CustomScreenContainer} from '../../components';
+import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
+import EmptyStateScreen from '../EmptyStateScreen';
+import LoadingScreen from '../LoadingScreen';
+import {PaymentItem} from './components';
+
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  const [isActive, setActive] = useState(false);
-  const {paymentMethods} = useAppSelector(state => state.auth.user);
-  console.log(paymentMethods);
-
-  const onChangeValue = (item, newValue) => {
-    const isActive = paymentMethods.map(newItem => {
-      if (newItem.id == item.id) {
-        return {
-          ...newItem,
-          selected: newValue,
-        };
-      }
-      return newItem;
-    });
-    setActive(isActive);
-  };
-  const renderProducts = ({item}: {item: PaymentCardType}) => {
+  const {user, selectedPaymentMethod, onGotoAddPaymentScreen, onSelectCard} =
+    usePaymentScreen();
+  if (!user) {
+    return <LoadingScreen />;
+  }
+  if (user?.paymentMethods.length === 0) {
     return (
-      <View>
-        <View style={styles.active}>
-          <View style={styles.infoView}>
-            <Image source={ICON.MASTERCARD} style={styles.mastercard} />
-            <Text style={styles.cardnum}>{item.cardNumber}</Text>
-            <View style={styles.detail}>
-              <View style={styles.username}>
-                <Text style={styles.smalltitle}>Card Holder Name</Text>
-                <Text style={styles.labeltitle}>{item.cardHolderName}</Text>
-              </View>
-              <View style={styles.username}>
-                <Text style={styles.smalltitle}>Expiry Date</Text>
-                <Text style={styles.labeltitle}>{item.expirationDate}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.checkDefault}>
-          <CheckBox
-            disabled={false}
-            value={isActive}
-            onAnimationType="fill"
-            offAnimationType="fade"
-            boxType="square"
-            onValueChange={newValue => onChangeValue(item, newValue)}
-          />
-
-          <Text style={styles.titleUncheck}>Use as default payment method</Text>
-        </View>
-      </View>
+      <EmptyStateScreen
+        title="No PaymentMethod yet"
+        content="You dont have any PaymentMethod yet"
+        buttonText="Add Payment"
+        onButtonPress={onGotoAddPaymentScreen}
+      />
     );
-  };
+  }
+
+  const renderItem = ({item}: {item: PaymentCardType}) => (
+    <PaymentItem
+      onToggleCheckBox={onSelectCard}
+      Payment={item}
+      isActive={item.id === selectedPaymentMethod?.id}
+    />
+  );
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.container}>
         <FlatList
-          data={paymentMethods}
+          data={[...user?.paymentMethods].reverse()}
           keyExtractor={item => item.id}
-          renderItem={renderProducts}
+          renderItem={renderItem}
           // ListFooterComponent={renderBottom()}
         />
       </View>

@@ -27,7 +27,7 @@ const CongratsScreen = ({navigation}: CongratsScreenProps) => {
         </View>
 
         <Text style={styles.text}>Your oder will be delivered soon.</Text>
-        <Text style={styles.text}>Thank you for choosing our app !</Text>
+        <Text style={styles.text}>Thank you for choosing our app!</Text>
       </View>
 
       <View style={styles.footer}>

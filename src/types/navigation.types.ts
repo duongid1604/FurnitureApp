@@ -45,15 +45,13 @@ export type SettingStackParamList = {
 };
 
 export type PaymentMethodStackParamList = {
-  PaymentMethod: undefined;
+  PaymentMethod: {user: UserType};
   AddPayment: undefined;
-  Review: undefined;
 };
 
 export type ReviewStackParamList = {
   MyReview: undefined;
-  Review: undefined;
-  WriteReview: undefined;
+  Review: {item: ProductType};
 };
 
 export type ReviewNavigatorProps = StackScreenProps<
