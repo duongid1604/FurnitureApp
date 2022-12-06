@@ -1,18 +1,21 @@
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import MyReviewBox from '../../components/MyReviewBox';
+import {useAppSelector} from '../../hooks';
 
 type Props = {};
 
 const MyReviewsScreen = (props: Props) => {
+  const {reviews} = useAppSelector(state => state.auth.user);
+  console.log(reviews);
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <MyReviewBox />
       <MyReviewBox />
       <MyReviewBox />
       <MyReviewBox />
       <MyReviewBox />
-    </ScrollView>
+    </View>
   );
 };
 
