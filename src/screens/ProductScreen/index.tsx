@@ -2,7 +2,6 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   Image,
-  Pressable,
   StatusBar,
   StyleSheet,
   Text,
@@ -23,6 +22,7 @@ import {
   ProductType,
 } from '../../types';
 import {scaleUI} from '../../utils';
+import {ProductNavigationProp, ProductRouteProp} from '../../types';
 
 const ProductScreen = () => {
   const navigation = useNavigation<ProductNavigationProp>();
@@ -80,50 +80,49 @@ const ProductScreen = () => {
         backgroundColor="transparent"
         translucent={true}
       />
-      <Image source={{uri: data.image}} style={styles.image} />
-      <Pressable
-        style={({pressed}) =>
-          pressed
-            ? [styles.backIconContainer, styles.pressed]
-            : styles.backIconContainer
-        }
-        onPress={moveToHomeScreen}>
-        <Image source={ICON.BACK_CONTAINER} style={styles.backIcon} />
-      </Pressable>
-
-      <View style={styles.infoContainer}>
-        <Text style={styles.title}>{data.name}</Text>
-
-        <View style={styles.bellowTitle}>
-          <Text style={styles.price}>$ {data.price}.00</Text>
-
-          <View style={styles.calculate}>
-            <TouchableOpacity
-              style={styles.iconContainer}
-              onPress={increaseHandler}>
-              <Icon name="plus" style={styles.icon} />
-            </TouchableOpacity>
-            <Text style={styles.number}>{localQty}</Text>
-            <TouchableOpacity
-              style={styles.iconContainer}
-              onPress={decreaseHandler}>
-              <Icon name="minus" style={styles.icon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
+      <View style={styles.flexContainer}>
+        <Image source={{uri: data.image}} style={styles.image} />
         <TouchableOpacity
-          style={styles.reviewContainer}
-          onPress={moveToReviewScreen}>
-          <Icon name="star" color="#f0db25" style={styles.star} />
-          <Text style={styles.mark}>{data.rate}</Text>
-          <Text style={styles.review}>({data.review} reviews)</Text>
+          style={styles.backIconContainer}
+          onPress={moveToHomeScreen}>
+          <Image source={ICON.BACK_CONTAINER} style={styles.backIcon} />
         </TouchableOpacity>
 
-        <Text style={styles.description} numberOfLines={5}>
-          {data.description}
-        </Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.title}>{data.name}</Text>
+
+          <View style={styles.bellowTitle}>
+            <Text style={styles.price}>$ {data.price}.00</Text>
+
+            <View style={styles.calculate}>
+              <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={increaseHandler}>
+                <Icon name="plus" style={styles.icon} />
+              </TouchableOpacity>
+              <Text style={styles.number}>{localQty}</Text>
+              <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={decreaseHandler}>
+                <Icon name="minus" style={styles.icon} />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.reviewContainer}
+            onPress={moveToReviewScreen}>
+            <Icon name="star" color="#f0db25" style={styles.star} />
+            <Text style={styles.mark}>{data.rate}</Text>
+            <Text style={styles.review}>({data.review} reviews)</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.description} numberOfLines={5}>
+            {data.description}
+          </Text>
+        </View>
       </View>
+
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.markerContainer}
@@ -133,11 +132,11 @@ const ProductScreen = () => {
             style={styles.marker}
           />
         </TouchableOpacity>
-        <Pressable style={styles.buttonContainer}>
+        <View style={styles.buttonContainer}>
           <BigCustomButton onPress={addToCartHandler}>
             Add to cart
           </BigCustomButton>
-        </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -147,6 +146,9 @@ export default ProductScreen;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  flexContainer: {
     flex: 1,
   },
   image: {
@@ -231,8 +233,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    position: 'absolute',
-    bottom: scaleUI(40, true),
+    marginVertical: 24,
     marginHorizontal: 16,
   },
   markerContainer: {

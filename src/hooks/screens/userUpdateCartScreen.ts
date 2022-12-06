@@ -21,10 +21,6 @@ const useUpdateCartScreen = () => {
     newProduct.forEach(item => newQty.push(item.qty));
     const newTotalQty = newQty.reduce((total, crr) => total + crr, 0);
 
-    console.log('new products', newProduct);
-    console.log('new TotalPrice', newTotalPrice);
-    console.log('new TotalQty', newTotalQty);
-
     const newUser: UserType = {
       ...user,
       cart: {

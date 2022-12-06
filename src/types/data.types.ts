@@ -33,7 +33,7 @@ export type ShippingAddressType = {
 };
 
 export type OrderType = {
-  id: string;
+  id: number;
   orderCode: number;
   totalQty: number;
   totalPrice: number;

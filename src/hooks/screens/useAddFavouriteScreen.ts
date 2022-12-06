@@ -23,8 +23,6 @@ const useAddFavouriteScreen = () => {
         item => item.id === data.id,
       );
       if (productIndex === -1) {
-        console.log('case different');
-
         const newUser: UserType = {
           ...user,
           favourite: [...user.favourite, data],
@@ -32,8 +30,6 @@ const useAddFavouriteScreen = () => {
 
         dispatch(updateUserThunk(newUser));
       } else {
-        console.log('case equal ');
-
         const newUser: UserType = {
           ...user,
           favourite: user.favourite.filter(item => item.id !== data.id),

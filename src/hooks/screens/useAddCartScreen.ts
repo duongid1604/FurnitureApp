@@ -12,8 +12,6 @@ const useAddCartScreen = () => {
     }
 
     if (user.cart.products.length === 0) {
-      console.log('case first');
-
       const newData = {...data, qty: localQty};
 
       const newUser: UserType = {
@@ -48,8 +46,6 @@ const useAddCartScreen = () => {
 
         dispatch(updateUserThunk(newUser));
       } else {
-        console.log('case equal ');
-
         const newData = {
           ...data,
           qty: user.cart.products[productIndex].qty + localQty,
