@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
 import {useAppSelector, useCheckoutScreen} from '../../hooks';
@@ -15,17 +15,26 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
     onCheckout(data);
     navigation.navigate('Congrats');
   };
+
+  const moveToMyAddress = () => {};
+
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.flexContainer}>
         <View style={styles.shippingAddress}>
           <View style={styles.label}>
             <Text style={styles.heading}>Shipping address</Text>
-            <Image source={ICON.EDIT} style={styles.editIcon} />
+            <TouchableOpacity onPress={moveToMyAddress}>
+              <Image source={ICON.EDIT} style={styles.editIcon} />
+            </TouchableOpacity>
           </View>
           <View style={styles.innerContainer}>
-            <Text style={styles.name}>Bruno Fernandes</Text>
-            <Text style={styles.address}>25, Minh Khai, Van Tri</Text>
+            <Text style={styles.name}>{user?.selectedAddress?.fullName}</Text>
+            <Text style={styles.address}>
+              {user?.selectedAddress?.address},{' '}
+              {user?.selectedAddress?.district}, {user?.selectedAddress?.city},{' '}
+              {user?.selectedAddress?.country}
+            </Text>
           </View>
         </View>
 

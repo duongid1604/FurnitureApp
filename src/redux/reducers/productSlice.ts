@@ -31,12 +31,21 @@ export const fetchProducts = createAsyncThunk(
       .where(field, condition, type)
       .get();
     response.forEach(querySnapshot =>
-      data.push({
-        ...(querySnapshot.data() as ProductType),
-        id: querySnapshot.id,
-      }),
+      data.push(querySnapshot.data() as ProductType),
     );
     return data;
+  },
+);
+
+export const updateProducts = createAsyncThunk(
+  'products/updateProducts',
+  async ({id, popular}: {id: string; popular: number}) => {
+    const response = await firestore()
+      .collection('products')
+      .doc(id)
+      .update({popular: popular});
+
+    return response;
   },
 );
 

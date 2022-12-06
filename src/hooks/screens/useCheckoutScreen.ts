@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import {updateProducts} from '../../redux/reducers/productSlice';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 import {UserType, OrderTabEnum, OrderType, ProductType} from '../../types';
 import {useAppDispatch, useAppSelector} from '../redux/useRedux';
@@ -11,7 +12,11 @@ const useCheckoutScreen = () => {
     if (!user) {
       return;
     }
-    console.log('data', data);
+
+    data?.map(item => {
+      console.log(item.id, item.popular);
+      dispatch(updateProducts({id: item.id, popular: item.popular + 1}));
+    });
 
     const randomNumber = Math.floor(Math.random() * 10000);
 
@@ -27,6 +32,11 @@ const useCheckoutScreen = () => {
     const newUser: UserType = {
       ...user,
       orders: [...user.orders, newOrder],
+      cart: {
+        products: [],
+        totalQty: 0,
+        totalPrice: 0,
+      },
     };
 
     dispatch(updateUserThunk(newUser));
