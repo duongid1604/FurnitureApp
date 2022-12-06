@@ -17,6 +17,7 @@ export const getUserByUid = async (uid: string) => {
 export const createUserWithUid = async (uid: string, newUser: UserType) => {
   try {
     const res = await firestore().collection('users').doc(uid).set(newUser);
+    console.log('create user with id res: ', res);
     return res;
   } catch (error) {
     let errorMessage = 'Could not create new user!';

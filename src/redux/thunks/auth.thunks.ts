@@ -75,8 +75,8 @@ export const signupThunk = createAsyncThunk(
         shippingAddresses: [],
         avatar: IMAGES.DEFAULT_AVATAR,
         favourite: [],
-        selectedAddress: undefined,
-        selectedPaymentMethod: undefined,
+        selectedAddress: null,
+        selectedPaymentMethod: null,
         notifications: [],
       };
 
@@ -124,10 +124,11 @@ export const loginWithGoogleThunk = createAsyncThunk(
           shippingAddresses: [],
           avatar: IMAGES.DEFAULT_AVATAR,
           favourite: [],
-          selectedAddress: undefined,
-          selectedPaymentMethod: undefined,
+          selectedAddress: null,
+          selectedPaymentMethod: null,
           notifications: [],
         };
+
         await createUserWithUid(userUid, user);
       }
       return {userUid, user};
@@ -152,7 +153,6 @@ export const loginWithFacebookThunk = createAsyncThunk(
       }
       const userRes = await getUserByUid(userUid);
       const userData = userRes.data() as UserType;
-      console.log('userData: ', userData);
       let user: UserType;
       if (userData) {
         user = userData;
@@ -173,8 +173,8 @@ export const loginWithFacebookThunk = createAsyncThunk(
           shippingAddresses: [],
           avatar: IMAGES.DEFAULT_AVATAR,
           favourite: [],
-          selectedAddress: undefined,
-          selectedPaymentMethod: undefined,
+          selectedAddress: null,
+          selectedPaymentMethod: null,
           notifications: [],
         };
         await createUserWithUid(userUid, user);
