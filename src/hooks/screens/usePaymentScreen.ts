@@ -12,18 +12,19 @@ import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 const usePaymentScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<PaymentNavigationProp>();
-  const user = useRoute<PaymentRouteProp>().params?.user;
+  const user = useRoute<PaymentRouteProp>().params.user;
+  console.log('user' + user);
   const [selectedPaymentMethod, setselectedPaymentMethod] =
-    useState<PaymentCardType | null>(user?.selectedPaymentMethod);
+    useState<PaymentCardType | null>(user.selectedPaymentMethod);
   const [paymentState, setpaymentState] = useState<PaymentCardType[]>(
     user?.paymentMethods,
   );
   useEffect(() => {
     return navigation.addListener('focus', () => {
-      setselectedPaymentMethod(user?.selectedPaymentMethod);
-      setpaymentState(user?.paymentMethods);
+      setselectedPaymentMethod(user.selectedPaymentMethod);
+      setpaymentState(user.paymentMethods);
     });
-  }, [navigation, user?.selectedPaymentMethod, user?.paymentMethods]);
+  }, [navigation, user.selectedPaymentMethod, user.paymentMethods]);
 
   const onSelectCard = (paymentCard: PaymentCardType) => {
     if (!user) {
@@ -39,15 +40,17 @@ const usePaymentScreen = () => {
   const onGotoAddPaymentScreen = () => {
     navigation.navigate('AddPayment');
   };
+
   const onDeleteCard = (PaymentCard: PaymentCardType) => {
+    console.log('PaymentCard' + PaymentCard);
     if (!user) {
       return;
     }
-    if (user.paymentMethods.length === 0) {
+    if (user?.paymentMethods.length === 0) {
       return;
     }
     const currentselectedPaymentMethod = selectedPaymentMethod;
-    const newPaymentMethod = paymentState.filter(
+    const newPaymentMethod = paymentState?.filter(
       payment => payment.id !== PaymentCard.id,
     );
     if (
@@ -58,7 +61,7 @@ const usePaymentScreen = () => {
         payment => payment.id === currentselectedPaymentMethod.id,
       );
       let newSelectPaymentMethod: PaymentCardType | null;
-      if (paymentState.length === 1) {
+      if (paymentState?.length === 1) {
         newSelectPaymentMethod = null;
       } else if (selectedPaymentMethodIndex === paymentState.length - 1) {
         newSelectPaymentMethod = paymentState[selectedPaymentMethodIndex - 1];
@@ -81,9 +84,12 @@ const usePaymentScreen = () => {
     }
     setpaymentState(newPaymentMethod);
   };
+  console.log('paymentState' + paymentState);
+
   return {
     user,
     selectedPaymentMethod,
+    paymentState,
     onSelectCard,
     onGotoAddPaymentScreen,
     onDeleteCard,

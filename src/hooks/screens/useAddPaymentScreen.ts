@@ -1,6 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
+import {v4 as uuidv4} from 'uuid';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
-import {AddPaymentField, PaymentNavigationProp, UserType} from '../../types';
+import {
+  AddPaymentField,
+  PaymentCardType,
+  PaymentNavigationProp,
+  UserType,
+} from '../../types';
 import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 
 const useAddPaymentScreen = () => {
@@ -12,12 +18,17 @@ const useAddPaymentScreen = () => {
     if (!user) {
       return;
     }
+    const newPayment: PaymentCardType = {
+      ...data,
+      id: uuidv4(),
+    };
     const newUser: UserType = {
       ...user,
       paymentMethods: [...user.paymentMethods, data],
+      selectedPaymentMethod: newPayment,
     };
     dispatch(updateUserThunk(newUser));
-    navigation.navigate('PaymentMethod');
+    navigation.navigate('PaymentMethod', {user: newUser});
   };
 
   return {

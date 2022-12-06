@@ -1,7 +1,6 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {PaymentCardType, PaymentNavigationProp} from '../../../types';
-import {useNavigation} from '@react-navigation/native';
+import {PaymentCardType} from '../../../types';
 import CheckBox from '@react-native-community/checkbox';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -29,25 +28,23 @@ const PaymentItem = ({
   onToggleCheckBox,
   onDeleteCard,
 }: Props) => {
-  const navigation = useNavigation<PaymentNavigationProp>();
-
   return (
     <View style={styles.container}>
       <Pressable style={styles.deleteBtn} onPress={() => onDeleteCard(Payment)}>
-        <Feather name="x-circle" color={COLORS.MAIN} size={24} />
+        <Feather name="x-circle" color={COLORS.WHITE} size={24} />
       </Pressable>
       <Card extraStyle={styles.card}>
         <View style={styles.infoView}>
           <Image source={ICON.MASTERCARD} style={styles.mastercard} />
-          <Text style={styles.cardnum}>* * * * * * * * * * * * 3947</Text>
+          <Text style={styles.cardnum}>{Payment.cardNumber}</Text>
           <View style={styles.detail}>
             <View style={styles.username}>
               <Text style={styles.smalltitle}>Card Holder Name</Text>
-              <Text style={styles.labeltitle}>Jennyfer Doe</Text>
+              <Text style={styles.labeltitle}>{Payment.cardHolderName}</Text>
             </View>
             <View style={styles.username}>
               <Text style={styles.smalltitle}>Expiry Date</Text>
-              <Text style={styles.labeltitle}>05/23</Text>
+              <Text style={styles.labeltitle}>{Payment.expirationDate}</Text>
             </View>
           </View>
         </View>
@@ -64,7 +61,6 @@ const PaymentItem = ({
           Use as default payment method
         </Text>
       </View>
-      <Text>PaymentItem</Text>
     </View>
   );
 };
@@ -78,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   option: {
-    fontSize: FONT_SIZE.BODY_18,
+    fontSize: FONT_SIZE.BODY,
     lineHeight: LINE_HEIGHT.BODY,
     color: COLORS.MAIN,
     fontFamily: FONTS.POPPINS,
@@ -99,6 +95,7 @@ const styles = StyleSheet.create({
     top: scaleUI(16, true),
     right: 0,
     zIndex: 10,
+    marginBottom: 30,
   },
   infoView: {
     marginHorizontal: 20,
@@ -138,5 +135,24 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT.LABEL,
     fontFamily: FONTS.POPPINS,
     fontWeight: FONT_WEIGHT.REGULAR,
+  },
+  buttonCard: {
+    padding: 18,
+  },
+  fullName: {
+    fontSize: FONT_SIZE.BODY_18,
+    lineHeight: LINE_HEIGHT.BODY,
+    fontFamily: FONTS.POPPINS_BOLD,
+    color: COLORS.MAIN,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.SECONDARY,
+  },
+  address: {
+    marginTop: 12,
+    fontFamily: FONTS.POPPINS,
+    fontSize: FONT_SIZE.LABEL,
+    lineHeight: LINE_HEIGHT.LABEL,
+    color: COLORS.SUB,
   },
 });

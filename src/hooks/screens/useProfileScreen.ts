@@ -34,7 +34,13 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGoToPaymentMethod = () => {
-    navigation.navigate('PaymentNavigator', {screen: 'PaymentMethod'});
+    if (!user) {
+      return;
+    }
+    navigation.navigate('PaymentNavigator', {
+      screen: 'PaymentMethod',
+      params: {user},
+    });
   };
 
   const onGoToOrders = () => {
