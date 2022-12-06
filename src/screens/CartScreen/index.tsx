@@ -13,6 +13,7 @@ import {BigCustomButton, CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
 import {useAppSelector, useCartScreen, useUpdateCartScreen} from '../../hooks';
 import {CartScreenProps, ProductType} from '../../types';
+import {scaleUI} from '../../utils';
 
 const CartScreen = ({navigation}: CartScreenProps) => {
   const {user} = useAppSelector(state => state.auth);
@@ -138,8 +139,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.POPPINS_BOLD,
   },
   image: {
-    height: 120,
-    width: 120,
+    height: scaleUI(120, true),
+    width: scaleUI(120, true),
     borderRadius: 16,
     marginRight: 24,
     marginBottom: 20,
