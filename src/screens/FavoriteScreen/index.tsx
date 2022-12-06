@@ -1,4 +1,5 @@
 import React from 'react';
+import Toast from 'react-native-toast-message';
 import {
   FlatList,
   Image,
@@ -9,7 +10,7 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {CustomScreenContainer} from '../../components';
-import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
+import {COLORS, FONTS, FONT_SIZE, ICON, IMAGES} from '../../constants';
 import {
   useAddCartScreen,
   useAddFavouriteScreen,
@@ -17,6 +18,8 @@ import {
 } from '../../hooks';
 import {ProductType} from '../../types';
 import {scaleUI} from '../../utils';
+import EmptyStateScreen from '../EmptyStateScreen';
+import LoadingScreen from '../LoadingScreen';
 
 const FavoriteScreen = () => {
   const {user} = useAppSelector(state => state.auth);
@@ -31,29 +34,62 @@ const FavoriteScreen = () => {
 
   const addToCartHandler = (item: ProductType) => {
     onAddCart(item, 1);
+    Toast.show({
+      type: 'success',
+      text1: 'Done',
+      text2: 'Add to cart successfully !',
+    });
   };
-  const renderFavourite = ({item}: {item: ProductType}) => (
-    <View style={styles.container}>
-      <Image source={{uri: item.image}} style={styles.image} />
-      <View style={styles.innerContainer}>
-        <View>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.price}>$ {item.price}.00</Text>
-        </View>
-      </View>
-      <TouchableOpacity
-        style={styles.featherIconContainer}
-        onPress={() => deleteFromFavouriteHandler(item)}>
-        <Feather name="x-circle" style={styles.featherIcon} />
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.addToCartIconContainer}
-        onPress={() => addToCartHandler(item)}>
-        <Image source={ICON.SHOPPING_BAG} style={styles.addToCartIcon} />
-      </TouchableOpacity>
-    </View>
-  );
+  if (!user) {
+    return <LoadingScreen />;
+  }
+
+  console.log('Favourite length: ', user.favourite.length);
+
+  if (user.favourite.length === 0) {
+    return (
+      <EmptyStateScreen
+        title="no favorite items"
+        content="You haven't had any favorite items yet."
+        source={IMAGES.NO_ORDERS}
+        buttonText="Go Shopping"
+        hasButton={false}
+      />
+    );
+  }
+
+  const renderFavourite = ({item}: {item: ProductType}) => {
+    const isCart = user?.cart.products.some(
+      cartItem => cartItem.id === item.id,
+    );
+
+    return (
+      <View style={styles.container}>
+        <Image source={{uri: item.image}} style={styles.image} />
+        <View style={styles.innerContainer}>
+          <View>
+            <Text style={styles.title}>{item.name}</Text>
+            <Text style={styles.price}>$ {item.price}.00</Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          style={styles.featherIconContainer}
+          onPress={() => deleteFromFavouriteHandler(item)}>
+          <Feather name="x-circle" style={styles.featherIcon} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.addToCartIconContainer}
+          onPress={() => addToCartHandler(item)}>
+          <Image
+            source={isCart ? ICON.SHOPPING_BAG : ICON.SHOPPING_BAG_DISABLE}
+            style={styles.addToCartIcon}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <CustomScreenContainer smallPadding>
@@ -115,7 +151,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 0,
     padding: 5,
-    backgroundColor: COLORS.SUB,
+    backgroundColor: COLORS.SECONDARY,
     borderRadius: 6,
   },
   addToCartIcon: {

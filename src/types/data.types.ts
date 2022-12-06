@@ -23,15 +23,25 @@ export type PaymentCardType = {
 };
 
 export type ShippingAddressType = {
+  id: string;
   fullName: string;
   address: string;
-  zipcode: string;
+  zipcode: number;
   country: string;
   city: string;
   district: string;
 };
 
 export type OrderType = {
+  id: string;
+  orderCode: number;
+  totalQty: number;
+  totalPrice: number;
+  status: OrderTabType;
+  date: string;
+};
+
+export type OrderItemProps = {
   id: string;
   orderCode: number;
   totalQty: number;
@@ -55,6 +65,10 @@ export type CartType = {
   totalPrice: number;
 };
 
+export type NotiType = {
+  content: string;
+};
+
 export type UserType = {
   id: string;
   name: string;
@@ -63,10 +77,13 @@ export type UserType = {
   paymentMethods: PaymentCardType[];
   orders: OrderType[];
   reviews: ReviewType[];
-  shippingAddress: ShippingAddressType[];
+  shippingAddresses: ShippingAddressType[];
   avatar: string;
   type: AccountType;
   favourite: ProductType[];
+  selectedAddress: ShippingAddressType | undefined;
+  selectedPaymentMethod: PaymentCardType | undefined;
+  notifications: NotiType[];
 };
 
 export type AccountType = 'normal' | 'social';

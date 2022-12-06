@@ -16,6 +16,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
@@ -37,6 +38,7 @@ const App = () => {
       />
       <Provider store={store}>
         <RootNavigator />
+        <Toast />
       </Provider>
     </SafeAreaView>
   );

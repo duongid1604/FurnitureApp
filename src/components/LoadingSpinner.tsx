@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import React from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {COLORS} from '../constants';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   size?: 'large' | 'small';
 };
 
-const LoadingSpinner = ({size = 'large', color = COLORS.SUCCESS}: Props) => {
+const LoadingSpinner = ({size = 'large', color = COLORS.MAIN}: Props) => {
   return (
     <View style={styles.container}>
       <ActivityIndicator size={size} color={color} />

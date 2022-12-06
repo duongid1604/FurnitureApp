@@ -71,6 +71,8 @@ const ProductScreen = () => {
     });
   };
 
+  const isMarked = user?.favourite.some(item => item.id === data.id);
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -126,7 +128,10 @@ const ProductScreen = () => {
         <TouchableOpacity
           style={styles.markerContainer}
           onPress={addToFavouriteHandler}>
-          <Image source={ICON.MARKER_DISABLE} style={styles.marker} />
+          <Image
+            source={isMarked ? ICON.MARKER : ICON.MARKER_DISABLE}
+            style={styles.marker}
+          />
         </TouchableOpacity>
         <Pressable style={styles.buttonContainer}>
           <BigCustomButton onPress={addToCartHandler}>

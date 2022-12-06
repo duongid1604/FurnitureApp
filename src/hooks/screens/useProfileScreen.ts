@@ -7,7 +7,7 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   const {user, avatarLoading, isLoading} = useAppSelector(state => state.auth);
 
   const orderQty = user?.orders.length;
-  const addressQty = user?.shippingAddress.length;
+  const addressQty = user?.shippingAddresses.length;
   const paymentQty = user?.paymentMethods.length;
   const reviewQty = user?.reviews.length;
 
@@ -16,7 +16,13 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   };
 
   const onGotoShippingAddress = () => {
-    navigation.navigate('ShippingNavigator', {screen: 'ShippingAddress'});
+    if (!user) {
+      return;
+    }
+    navigation.navigate('ShippingNavigator', {
+      screen: 'ShippingAddress',
+      params: {user},
+    });
   };
 
   const onGotoMyReviews = () => {

@@ -1,18 +1,19 @@
+import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
-import {useForm} from 'react-hook-form';
 import {ScrollView, StyleSheet} from 'react-native';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {useForm} from 'react-hook-form';
 
 import {
   BigCustomButton,
   CustomInput,
   CustomScreenContainer,
 } from '../../components';
-import {ShippingAddressFormFields} from '../../types';
-import {useAddShippingAddressScreen} from '../../hooks';
-
-type Props = {};
+import {
+  EditShippingAddressScreenProps,
+  ShippingAddressFormFields,
+} from '../../types';
+import {useEditShippingAddress} from '../../hooks';
 
 const schema = yup
   .object({
@@ -65,16 +66,19 @@ const schema = yup
   })
   .required();
 
-const AddShippingAddressScreen = ({}: Props) => {
+const EditShippingAddress = ({route}: EditShippingAddressScreenProps) => {
+  const {address} = route.params;
+
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<ShippingAddressFormFields>({
     resolver: yupResolver(schema),
+    defaultValues: address,
   });
 
-  const {onAddNewAddress} = useAddShippingAddressScreen();
+  const {onEditAddress} = useEditShippingAddress(address);
 
   return (
     <CustomScreenContainer smallPadding>
@@ -144,14 +148,14 @@ const AddShippingAddressScreen = ({}: Props) => {
 
       <BigCustomButton
         extraStyle={styles.button}
-        onPress={handleSubmit(onAddNewAddress)}>
+        onPress={handleSubmit(onEditAddress)}>
         Save address
       </BigCustomButton>
     </CustomScreenContainer>
   );
 };
 
-export default AddShippingAddressScreen;
+export default EditShippingAddress;
 
 const styles = StyleSheet.create({
   form: {
