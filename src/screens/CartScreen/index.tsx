@@ -41,7 +41,13 @@ const CartScreen = ({navigation}: CartScreenProps) => {
     navigation.navigate('HomeNavigator', {screen: 'Home'});
   };
 
+  const hasCheckout = user?.cart.products.length === 0;
+
   const moveToCheckoutScreen = () => {
+    if (hasCheckout) {
+      return;
+    }
+
     navigation.navigate('Checkout', {
       data: user?.cart.products,
     });
@@ -101,7 +107,9 @@ const CartScreen = ({navigation}: CartScreenProps) => {
             <Image source={ICON.CLARITY_HOME_SOLID} style={styles.homeIcon} />
           </TouchableOpacity>
           <View style={styles.buttonContainer}>
-            <BigCustomButton onPress={moveToCheckoutScreen}>
+            <BigCustomButton
+              extraStyle={hasCheckout ? styles.disable : undefined}
+              onPress={moveToCheckoutScreen}>
               Check out
             </BigCustomButton>
           </View>
@@ -211,5 +219,8 @@ const styles = StyleSheet.create({
   homeIcon: {
     width: 24,
     height: 24,
+  },
+  disable: {
+    backgroundColor: COLORS.DISABLE,
   },
 });
