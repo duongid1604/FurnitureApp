@@ -1,13 +1,11 @@
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
-// import ActiveCreditCard from '../../components/ActiveCreditCard';
+import React from 'react';
 import {
   COLORS,
   FONTS,
@@ -18,42 +16,41 @@ import {
 } from '../../constants';
 import {PaymentCardType, PaymentScreenProps} from '../../types';
 import {scaleUI} from '../../utils';
-import {useAppSelector} from '../../hooks';
 import {CustomScreenContainer} from '../../components';
 import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
 import EmptyStateScreen from '../EmptyStateScreen';
 import LoadingScreen from '../LoadingScreen';
-import { PaymentItem } from './components';
+import {PaymentItem} from './components';
 
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  const {user, onGotoAddPaymentScreen, onSelectCard, selectedPaymentMethod} =
+  const {user, selectedPaymentMethod, onGotoAddPaymentScreen, onSelectCard} =
     usePaymentScreen();
-
   if (!user) {
     return <LoadingScreen />;
   }
-  if (user.paymentMethods.length === 0) {
+  if (user?.paymentMethods.length === 0) {
     return (
       <EmptyStateScreen
         title="No PaymentMethod yet"
         content="You dont have any PaymentMethod yet"
-        buttonText=""
+        buttonText="Add Payment"
+        onButtonPress={onGotoAddPaymentScreen}
       />
     );
   }
 
-  const renderItem =({item}:{item: PaymentCardType})=>(
-    <PaymentItem 
+  const renderItem = ({item}: {item: PaymentCardType}) => (
+    <PaymentItem
       onToggleCheckBox={onSelectCard}
       Payment={item}
-      isActive={item.id === selectedPaymentMethod?id}
+      isActive={item.id === selectedPaymentMethod?.id}
     />
-  )
+  );
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.container}>
         <FlatList
-          data={[...user.paymentMethod].reverse()}
+          data={[...user?.paymentMethods].reverse()}
           keyExtractor={item => item.id}
           renderItem={renderItem}
           // ListFooterComponent={renderBottom()}
