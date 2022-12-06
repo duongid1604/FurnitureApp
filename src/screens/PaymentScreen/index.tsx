@@ -1,34 +1,33 @@
-import {
-  StyleSheet,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {
   COLORS,
   FONTS,
   FONT_SIZE,
   FONT_WEIGHT,
-  ICON,
   LINE_HEIGHT,
 } from '../../constants';
-import {PaymentCardType, PaymentScreenProps} from '../../types';
+import {PaymentCardType} from '../../types';
 import {scaleUI} from '../../utils';
-import {CustomScreenContainer} from '../../components';
+import {AddButton, CustomScreenContainer} from '../../components';
 import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
 import EmptyStateScreen from '../EmptyStateScreen';
 import LoadingScreen from '../LoadingScreen';
 import {PaymentItem} from './components';
 
-const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  const {user, selectedPaymentMethod, onGotoAddPaymentScreen, onSelectCard} =
-    usePaymentScreen();
+const PaymentScreen = () => {
+  const {
+    user,
+    selectedPaymentMethod,
+    paymentState,
+    onGotoAddPaymentScreen,
+    onDeleteCard,
+    onSelectCard,
+  } = usePaymentScreen();
   if (!user) {
     return <LoadingScreen />;
   }
-  if (user?.paymentMethods.length === 0) {
+  if (user.paymentMethods.length === 0) {
     return (
       <EmptyStateScreen
         title="No PaymentMethod yet"
@@ -44,25 +43,19 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
       onToggleCheckBox={onSelectCard}
       Payment={item}
       isActive={item.id === selectedPaymentMethod?.id}
+      onDeleteCard={onDeleteCard}
     />
   );
   return (
     <CustomScreenContainer smallPadding>
-      <View style={styles.container}>
-        <FlatList
-          data={[...user?.paymentMethods].reverse()}
-          keyExtractor={item => item.id}
-          renderItem={renderItem}
-          // ListFooterComponent={renderBottom()}
-        />
-      </View>
-      <View style={styles.add}>
-        <TouchableOpacity
-          style={styles.addbutton}
-          onPress={() => navigation.navigate('AddPayment')}>
-          <Image source={ICON.PLUS} style={styles.plus} />
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        style={styles.flatList}
+        contentContainerStyle={styles.flatListContainer}
+        data={[...paymentState].reverse()}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+      />
+      <AddButton onPress={onGotoAddPaymentScreen} />
     </CustomScreenContainer>
   );
 };
@@ -72,6 +65,12 @@ export default PaymentScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  flatList: {
+    margin: -20,
+  },
+  flatListContainer: {
+    padding: 20,
   },
   checkDefault: {
     alignItems: 'center',

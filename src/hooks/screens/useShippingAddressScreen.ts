@@ -13,6 +13,8 @@ import {useAppDispatch} from '../redux/useRedux';
 const useShippingAddressScreen = () => {
   const navigation = useNavigation<ShippingAddressNavigationProp>();
   const user = useRoute<ShippingAddressRouteProp>().params.user;
+  console.log('user' + user);
+
   const [selectedAddress, setSelectedAddress] =
     useState<ShippingAddressType | null>(user.selectedAddress);
   const [addressesState, setAddressesState] = useState<ShippingAddressType[]>(
@@ -85,6 +87,7 @@ const useShippingAddressScreen = () => {
 
     setAddressesState(newShippingAddresses);
   };
+  console.log('addressesState' + addressesState);
 
   return {
     user,
