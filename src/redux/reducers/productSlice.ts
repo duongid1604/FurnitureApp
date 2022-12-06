@@ -9,7 +9,7 @@ const initialState: ProductStateProps = {
   error: '',
   nextPage: 1,
   field: 'popular',
-  type: 0,
+  type: 3,
   condition: '>',
 };
 
@@ -66,7 +66,7 @@ const productSlice = createSlice({
           state.products = [];
           state.field = 'popular';
           state.condition = '>';
-          state.type = 0;
+          state.type = 3;
           break;
         case 1:
           state.products = [];
