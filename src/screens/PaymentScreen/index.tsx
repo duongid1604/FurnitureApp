@@ -17,31 +17,17 @@ import {
   LINE_HEIGHT,
 } from '../../constants';
 import CheckBox from '@react-native-community/checkbox';
-
-// import DefaultCard from '../../components/DefaultCard';
 import {PaymentCardType, PaymentScreenProps} from '../../types';
 import {scaleUI} from '../../utils';
-import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../../hooks';
-import GotoAddScreen from '../../components/GotoAddScreen';
 import {CustomScreenContainer} from '../../components';
-const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  const [isActive, setActive] = useState(false);
-  const {paymentMethods} = useAppSelector(state => state.auth.user);
-  console.log(paymentMethods);
+import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
+import EmptyStateScreen from '../EmptyStateScreen';
 
-  const onChangeValue = (item, newValue) => {
-    const isActive = paymentMethods.map(newItem => {
-      if (newItem.id == item.id) {
-        return {
-          ...newItem,
-          selected: newValue,
-        };
-      }
-      return newItem;
-    });
-    setActive(isActive);
-  };
+const PaymentScreen = ({navigation}: PaymentScreenProps) => {
+  const {user, onGotoAddPaymentScreen, onSelectCard, paymentMethod} =
+    usePaymentScreen();
+  const {paymentMethods} = useAppSelector(state => state.auth.user);
   const renderProducts = ({item}: {item: PaymentCardType}) => {
     return (
       <View>
@@ -62,20 +48,20 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
           </View>
         </View>
         <View style={styles.checkDefault}>
-          <CheckBox
-            disabled={false}
-            value={isActive}
-            onAnimationType="fill"
-            offAnimationType="fade"
-            boxType="square"
-            onValueChange={newValue => onChangeValue(item, newValue)}
-          />
-
           <Text style={styles.titleUncheck}>Use as default payment method</Text>
         </View>
       </View>
     );
   };
+  if (user.paymentMethods.length === 0) {
+    return (
+      <EmptyStateScreen
+        title="No PaymentMethod yet"
+        content="You dont have any PaymentMethod yet"
+        buttonText=""
+      />
+    );
+  }
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.container}>
