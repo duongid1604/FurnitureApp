@@ -16,43 +16,22 @@ import {
   ICON,
   LINE_HEIGHT,
 } from '../../constants';
-import CheckBox from '@react-native-community/checkbox';
 import {PaymentCardType, PaymentScreenProps} from '../../types';
 import {scaleUI} from '../../utils';
 import {useAppSelector} from '../../hooks';
 import {CustomScreenContainer} from '../../components';
 import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
 import EmptyStateScreen from '../EmptyStateScreen';
+import LoadingScreen from '../LoadingScreen';
+import { PaymentItem } from './components';
 
 const PaymentScreen = ({navigation}: PaymentScreenProps) => {
-  const {user, onGotoAddPaymentScreen, onSelectCard, paymentMethod} =
+  const {user, onGotoAddPaymentScreen, onSelectCard, selectedPaymentMethod} =
     usePaymentScreen();
-  const {paymentMethods} = useAppSelector(state => state.auth.user);
-  const renderProducts = ({item}: {item: PaymentCardType}) => {
-    return (
-      <View>
-        <View style={styles.active}>
-          <View style={styles.infoView}>
-            <Image source={ICON.MASTERCARD} style={styles.mastercard} />
-            <Text style={styles.cardnum}>{item.cardNumber}</Text>
-            <View style={styles.detail}>
-              <View style={styles.username}>
-                <Text style={styles.smalltitle}>Card Holder Name</Text>
-                <Text style={styles.labeltitle}>{item.cardHolderName}</Text>
-              </View>
-              <View style={styles.username}>
-                <Text style={styles.smalltitle}>Expiry Date</Text>
-                <Text style={styles.labeltitle}>{item.expirationDate}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.checkDefault}>
-          <Text style={styles.titleUncheck}>Use as default payment method</Text>
-        </View>
-      </View>
-    );
-  };
+
+  if (!user) {
+    return <LoadingScreen />;
+  }
   if (user.paymentMethods.length === 0) {
     return (
       <EmptyStateScreen
@@ -62,13 +41,21 @@ const PaymentScreen = ({navigation}: PaymentScreenProps) => {
       />
     );
   }
+
+  const renderItem =({item}:{item: PaymentCardType})=>(
+    <PaymentItem 
+      onToggleCheckBox={onSelectCard}
+      Payment={item}
+      isActive={item.id === selectedPaymentMethod?id}
+    />
+  )
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.container}>
         <FlatList
-          data={paymentMethods}
+          data={[...user.paymentMethod].reverse()}
           keyExtractor={item => item.id}
-          renderItem={renderProducts}
+          renderItem={renderItem}
           // ListFooterComponent={renderBottom()}
         />
       </View>

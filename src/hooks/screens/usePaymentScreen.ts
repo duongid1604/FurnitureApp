@@ -13,14 +13,14 @@ const usePaymentScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<PaymentNavigationProp>();
   const user = useRoute<PaymentRouteProp>().params.user;
-  const [paymentMethod, setpaymentMethod] = useState<
+  const [selectedPaymentMethod, setpaymentMethod] = useState<
     PaymentCardType | undefined
-  >(user.paymentMethod);
+  >(user.selectedPaymentMethod);
   useEffect(() => {
     return navigation.addListener('focus', () => {
-      setpaymentMethod(user.paymentMethod);
+      setpaymentMethod(user.selectedPaymentMethod);
     });
-  }, [navigation, user.paymentMethod]);
+  }, [navigation, user.selectedPaymentMethod]);
 
   const onSelectCard = (paymentCard: PaymentCardType) => {
     if (!user) {
@@ -29,7 +29,7 @@ const usePaymentScreen = () => {
     setpaymentMethod(paymentCard);
     const newUser: UserType = {
       ...user,
-      paymentMethods: paymentCard,
+      selectedPaymentMethod: paymentCard,
     };
     dispatch(updateUserThunk(newUser));
   };
@@ -38,7 +38,7 @@ const usePaymentScreen = () => {
   };
   return {
     user,
-    paymentMethod,
+    selectedPaymentMethod,
     onSelectCard,
     onGotoAddPaymentScreen,
   };

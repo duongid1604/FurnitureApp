@@ -16,12 +16,6 @@ import {
   useAddFavouriteScreen,
   useAppSelector,
 } from '../../hooks';
-import {
-  ProductNavigationProp,
-  ProductRouteProp,
-  ProductType,
-} from '../../types';
-import {scaleUI} from '../../utils';
 import {ProductNavigationProp, ProductRouteProp} from '../../types';
 
 const ProductScreen = () => {
@@ -38,8 +32,6 @@ const ProductScreen = () => {
   const route = useRoute<ProductRouteProp>();
 
   const {data} = route.params;
-
-  // const favouriteIndex = user?.favourite.findIndex(item => item.id === data.id);
 
   const increaseHandler = () => {
     setQty(localQty + 1);
@@ -64,11 +56,9 @@ const ProductScreen = () => {
   const addToFavouriteHandler = () => {
     onAddFavourite(data);
   };
+
   const moveToReviewScreen = () => {
-    navigation.navigate('ReviewNavigator', {
-      screen: 'Review',
-      params: {item: data},
-    });
+    navigation.navigate('ReviewNavigator', {screen: 'Review'});
   };
 
   const isMarked = user?.favourite.some(item => item.id === data.id);

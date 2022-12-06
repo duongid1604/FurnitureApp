@@ -45,7 +45,7 @@ export type SettingStackParamList = {
 };
 
 export type PaymentMethodStackParamList = {
-  PaymentMethod: undefined;
+  PaymentMethod: {user: UserType};
   AddPayment: undefined;
 };
 
