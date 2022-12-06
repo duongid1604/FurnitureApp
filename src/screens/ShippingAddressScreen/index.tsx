@@ -21,7 +21,7 @@ const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
     return <LoadingScreen />;
   }
 
-  if (user.shippingAddress.length === 0) {
+  if (user.shippingAddresses.length === 0) {
     return (
       <EmptyStateScreen
         title="no addresses yet"
@@ -45,7 +45,7 @@ const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
       <FlatList
         style={styles.flatList}
         contentContainerStyle={styles.flatListContainer}
-        data={user.shippingAddress}
+        data={[...user.shippingAddresses].reverse()}
         renderItem={renderShippingAddressItem}
         keyExtractor={item => item.id}
       />

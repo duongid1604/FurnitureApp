@@ -16,3 +16,4 @@ export {default as useShippingAddressScreen} from './screens/useShippingAddressS
 export {default as useCartScreen} from './screens/useCartScreen';
 export {default as useCheckoutScreen} from './screens/useCheckoutScreen';
 export {default as useAddShippingAddressScreen} from './screens/useAddShippingAddressScreen';
+export {default as useEditShippingAddress} from './screens/useEditShippingAddress';

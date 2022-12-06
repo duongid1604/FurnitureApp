@@ -7,7 +7,7 @@ const useProfileScreen = (navigation: ProfileNavigationProp) => {
   const {user, avatarLoading, isLoading} = useAppSelector(state => state.auth);
 
   const orderQty = user?.orders.length;
-  const addressQty = user?.shippingAddress.length;
+  const addressQty = user?.shippingAddresses.length;
   const paymentQty = user?.paymentMethods.length;
   const reviewQty = user?.reviews.length;
 

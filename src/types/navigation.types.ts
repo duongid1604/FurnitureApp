@@ -169,3 +169,6 @@ export type EditShippingAddressScreenProps = StackScreenProps<
   ShippingAddressStackParamList,
   'EditShippingAddress'
 >;
+
+export type EditShippingAddressNavigationProp =
+  EditShippingAddressScreenProps['navigation'];
