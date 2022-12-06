@@ -19,7 +19,13 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
 
   const {data} = route.params;
 
+  const hasAddress = user?.shippingAddresses.length === 0;
+
   const submitOrderHandler = () => {
+    if (hasAddress) {
+      return;
+    }
+
     onCheckout(data);
     navigation.navigate('Congrats');
   };
@@ -30,7 +36,10 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
     }
 
     if (user.shippingAddresses.length === 0) {
-      navigation.navigate('ShippingNavigator', {screen: 'AddShippingAddress'});
+      navigation.navigate('ShippingNavigator', {
+        screen: 'AddShippingAddress',
+        params: {from: 'checkout'},
+      });
     } else {
       navigation.navigate('ShippingNavigator', {
         screen: 'ShippingAddress',
@@ -65,16 +74,29 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
             </TouchableOpacity>
           </View>
           <View style={styles.innerContainer}>
-            <Text style={styles.name}>{user?.selectedAddress?.fullName}</Text>
-            <Text style={styles.address}>
-              {user?.selectedAddress?.address},{' '}
-              {user?.selectedAddress?.district}, {user?.selectedAddress?.city},{' '}
-              {user?.selectedAddress?.country}
-            </Text>
+            {hasAddress ? (
+              <Text style={styles.address}>
+                You need at lest 1 shipping address!
+              </Text>
+            ) : (
+              <View>
+                <Text style={styles.name}>
+                  {user?.selectedAddress?.fullName}
+                </Text>
+                <Text style={styles.address}>
+                  {user?.selectedAddress?.address},{' '}
+                  {user?.selectedAddress?.district},{' '}
+                  {user?.selectedAddress?.city},{' '}
+                  {user?.selectedAddress?.country}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
         <View style={styles.cart}>
           <FlatList
+            style={styles.flatlist}
+            contentContainerStyle={styles.content}
             data={user?.cart.products}
             keyExtractor={item => item.id}
             renderItem={renderCart}
@@ -88,7 +110,9 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
           <Text style={styles.text}>Total</Text>
           <Text style={styles.totalPrice}>$ {user?.cart.totalPrice}.00</Text>
         </View>
-        <BigCustomButton onPress={submitOrderHandler}>
+        <BigCustomButton
+          onPress={submitOrderHandler}
+          extraStyle={hasAddress ? styles.disable : undefined}>
           Submit order
         </BigCustomButton>
       </View>
@@ -177,6 +201,12 @@ const styles = StyleSheet.create({
   },
   cart: {
     height: '70%',
+  },
+  container: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: COLORS.SECONDARY,
+    marginBottom: 16,
 
     backgroundColor: COLORS.WHITE,
     borderRadius: 6,
@@ -190,12 +220,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
 
     elevation: 6,
-  },
-  container: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: COLORS.SECONDARY,
-    marginBottom: 16,
   },
   innerCartContainer: {
     flexDirection: 'column',
@@ -217,12 +241,21 @@ const styles = StyleSheet.create({
     marginRight: 24,
     marginBottom: 16,
   },
-
   number: {
     color: COLORS.MAIN,
     fontSize: FONT_SIZE.BODY,
     position: 'absolute',
-    right: 0,
+    right: 10,
+    top: 10,
     fontFamily: FONTS.POPPINS,
+  },
+  disable: {
+    backgroundColor: COLORS.DISABLE,
+  },
+  flatlist: {
+    margin: -20,
+  },
+  content: {
+    padding: 20,
   },
 });

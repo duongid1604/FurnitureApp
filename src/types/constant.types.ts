@@ -24,3 +24,5 @@ export type OrderTabType =
   | OrderTabEnum.delivered
   | OrderTabEnum.processing
   | OrderTabEnum.canceled;
+
+export type NavigateToAddAddressScreen = 'shippingAddress' | 'checkout';
