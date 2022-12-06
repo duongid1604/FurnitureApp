@@ -16,7 +16,22 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
     navigation.navigate('Congrats');
   };
 
-  const moveToMyAddress = () => {};
+  const moveToMyAddress = () => {
+    if (!user) {
+      return;
+    }
+
+    if (user.shippingAddresses.length === 0) {
+      navigation.navigate('ShippingNavigator', {screen: 'AddShippingAddress'});
+    } else {
+      navigation.navigate('ShippingNavigator', {
+        screen: 'ShippingAddress',
+        params: {
+          user,
+        },
+      });
+    }
+  };
 
   return (
     <CustomScreenContainer smallPadding>
