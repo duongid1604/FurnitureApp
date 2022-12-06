@@ -1,17 +1,68 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import React from 'react';
+import {RouteProp} from '@react-navigation/native';
+import Lottie from 'lottie-react-native';
+import React, {useRef} from 'react';
 import {StyleSheet} from 'react-native';
-import {ImageCustomButton} from '../components';
-import {FONTS, ICON} from '../constants';
+import {HomeTabParamList} from '../types/';
+
+import {FONTS} from '../constants';
 import {
   FavoriteScreen,
   HomeScreen,
   NotificationScreen,
   ProfileScreen,
 } from '../screens';
-import {HomeTabParamList} from '../types';
+import {scaleUI} from '../utils';
 
 const HomeTab = createBottomTabNavigator<HomeTabParamList>();
+
+const CustomTab = ({
+  focused,
+  route,
+}: {
+  focused: boolean;
+  route: RouteProp<HomeTabParamList, keyof HomeTabParamList>;
+}) => {
+  const ref = useRef<Lottie>(null);
+  let path;
+  let iconStyle = styles.icon;
+
+  if (route.name === 'Home') {
+    path = require('../assets/LottieAnimation/home.json');
+    iconStyle = styles.home;
+    if (focused) {
+      ref.current?.play();
+    }
+  } else if (route.name === 'Favorite') {
+    path = require('../assets/LottieAnimation/bookmark.json');
+    if (focused) {
+      ref.current?.play();
+    }
+  } else if (route.name === 'Notification') {
+    path = require('../assets/LottieAnimation/bell.json');
+    iconStyle = styles.bell;
+    if (focused) {
+      ref.current?.play();
+    }
+  } else if (route.name === 'Profile') {
+    path = require('../assets/LottieAnimation/user.json');
+    iconStyle = styles.user;
+    if (focused) {
+      ref.current?.play();
+    }
+  }
+
+  return (
+    <Lottie
+      ref={ref}
+      autoPlay={false}
+      loop={false}
+      source={path}
+      style={iconStyle}
+      imageAssetsFolder="../assets/LottieAnimation"
+    />
+  );
+};
 
 const HomeNavigator = () => {
   return (
@@ -19,19 +70,7 @@ const HomeNavigator = () => {
       initialRouteName="Home"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused}) => {
-          let icon;
-          if (route.name === 'Home') {
-            icon = focused
-              ? ICON.CLARITY_HOME_SOLID
-              : ICON.CLARITY_HOME_SOLID_DISABLE;
-          } else if (route.name === 'Favorite') {
-            icon = focused ? ICON.MARKER : ICON.MARKER_DISABLE;
-          } else if (route.name === 'Notification') {
-            icon = focused ? ICON.BELL : ICON.BELL_DISABLE;
-          } else if (route.name === 'Profile') {
-            icon = focused ? ICON.BI_PERSON : ICON.BI_PERSON_DISABLE;
-          }
-          return <ImageCustomButton source={icon} />;
+          return <CustomTab focused={focused} route={route} />;
         },
         tabBarShowLabel: false,
         headerTitleAlign: 'center',
@@ -54,5 +93,21 @@ export default HomeNavigator;
 const styles = StyleSheet.create({
   headerTitle: {
     fontFamily: FONTS.POPPINS_BOLD,
+  },
+  icon: {
+    width: scaleUI(24, true),
+    height: scaleUI(24, true),
+  },
+  home: {
+    width: scaleUI(60, true),
+    height: scaleUI(60, true),
+  },
+  user: {
+    width: scaleUI(20, true),
+    height: scaleUI(20, true),
+  },
+  bell: {
+    width: scaleUI(100, true),
+    height: scaleUI(100, true),
   },
 });

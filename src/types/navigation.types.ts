@@ -53,6 +53,7 @@ export type PaymentMethodStackParamList = {
 export type ReviewStackParamList = {
   MyReview: undefined;
   Review: undefined;
+  WriteReview: undefined;
 };
 
 export type ReviewNavigatorProps = StackScreenProps<

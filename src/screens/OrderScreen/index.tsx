@@ -14,7 +14,8 @@ import LoadingScreen from '../LoadingScreen';
 import {OrderItem, TabButton} from './components';
 
 const OrderScreen = ({}: OrderScreenProps) => {
-  const {user, tabIsSelected, onSetSelectedTab, onBackHome} = useOrderScreen();
+  const {user, tabIsSelected, onSetSelectedTab, onBackHome, onBtnPress} =
+    useOrderScreen();
 
   if (!user) {
     return <LoadingScreen />;
@@ -34,15 +35,7 @@ const OrderScreen = ({}: OrderScreenProps) => {
 
   const renderOrder = (item: OrderType, tab: OrderTabType) => {
     return (
-      <OrderItem
-        id={item.id}
-        orderCode={item.orderCode}
-        date={item.date}
-        status={item.status}
-        totalQty={item.totalQty}
-        totalPrice={item.totalPrice}
-        currentTab={tab}
-      />
+      <OrderItem orderItem={item} currentTab={tab} onBtnPress={onBtnPress} />
     );
   };
 
@@ -69,9 +62,9 @@ const OrderScreen = ({}: OrderScreenProps) => {
       {/* order list */}
       <View style={styles.ordersContainer}>
         <FlatList
-          data={user.orders}
+          data={[...user.orders].reverse()}
           renderItem={({item}) => renderOrder(item, tabIsSelected)}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           style={styles.flatList}
           contentContainerStyle={styles.flatListContainer}
         />
