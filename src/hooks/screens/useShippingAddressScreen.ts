@@ -41,7 +41,7 @@ const useShippingAddressScreen = () => {
   };
 
   const onGotoAddShippingAddressScreen = () => {
-    navigation.navigate('AddShippingAddress');
+    navigation.navigate('AddShippingAddress', {from: 'shippingAddress'});
   };
 
   const onDeleteAddress = (shippingAddress: ShippingAddressType) => {
