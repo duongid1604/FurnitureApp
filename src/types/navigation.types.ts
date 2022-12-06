@@ -4,7 +4,7 @@ import {
   NavigatorScreenParams,
 } from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {EditFieldType} from './constant.types';
+import {EditFieldType, NavigateToAddAddressScreen} from './constant.types';
 import {ProductType, ShippingAddressType, UserType} from './data.types';
 
 export type RootStackParamList = {
@@ -35,7 +35,7 @@ export type HomeTabParamList = {
 
 export type ShippingAddressStackParamList = {
   ShippingAddress: {user: UserType};
-  AddShippingAddress: undefined;
+  AddShippingAddress: {from: NavigateToAddAddressScreen};
   EditShippingAddress: {address: ShippingAddressType};
 };
 
@@ -164,6 +164,9 @@ export type AddShippingAddressScreenProps = StackScreenProps<
 
 export type AddShippingAddressNavigationProp =
   AddShippingAddressScreenProps['navigation'];
+
+export type AddShippingAddressRouteProp =
+  AddShippingAddressScreenProps['route'];
 
 export type EditShippingAddressScreenProps = StackScreenProps<
   ShippingAddressStackParamList,

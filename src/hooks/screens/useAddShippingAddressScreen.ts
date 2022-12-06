@@ -1,9 +1,10 @@
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   AddShippingAddressNavigationProp,
+  AddShippingAddressRouteProp,
   ShippingAddressFormFields,
   ShippingAddressType,
   UserType,
@@ -14,6 +15,9 @@ import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 const useAddShippingAddressScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<AddShippingAddressNavigationProp>();
+  const screenIsNavigated =
+    useRoute<AddShippingAddressRouteProp>().params?.from;
+
   const {user} = useAppSelector(state => state.auth);
 
   const onAddNewAddress = (data: ShippingAddressFormFields) => {
@@ -34,7 +38,11 @@ const useAddShippingAddressScreen = () => {
 
     dispatch(updateUserThunk(newUser));
 
-    navigation.navigate('ShippingAddress', {user: newUser});
+    if (screenIsNavigated === 'shippingAddress') {
+      navigation.navigate('ShippingAddress', {user: newUser});
+    } else if (screenIsNavigated === 'checkout') {
+      navigation.goBack();
+    }
   };
 
   return {onAddNewAddress};

@@ -30,7 +30,10 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
     }
 
     if (user.shippingAddresses.length === 0) {
-      navigation.navigate('ShippingNavigator', {screen: 'AddShippingAddress'});
+      navigation.navigate('ShippingNavigator', {
+        screen: 'AddShippingAddress',
+        params: {from: 'checkout'},
+      });
     } else {
       navigation.navigate('ShippingNavigator', {
         screen: 'ShippingAddress',
