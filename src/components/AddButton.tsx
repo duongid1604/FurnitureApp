@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
     borderRadius: scaleUI(90, true),
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.BLACK_O2,
   },
   icon: {
     width: 24,

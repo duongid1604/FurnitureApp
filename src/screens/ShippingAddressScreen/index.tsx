@@ -13,15 +13,17 @@ const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
   const {
     user,
     selectedAddress,
+    addressesState,
     onSelectAddress,
     onGotoAddShippingAddressScreen,
+    onDeleteAddress,
   } = useShippingAddressScreen();
 
   if (!user) {
     return <LoadingScreen />;
   }
 
-  if (user.shippingAddresses.length === 0) {
+  if (addressesState.length === 0) {
     return (
       <EmptyStateScreen
         title="no addresses yet"
@@ -37,6 +39,7 @@ const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
       onToggleCheckBox={onSelectAddress}
       shippingAddress={item}
       isActive={item.id === selectedAddress?.id}
+      onDelete={onDeleteAddress}
     />
   );
 
@@ -45,7 +48,7 @@ const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
       <FlatList
         style={styles.flatList}
         contentContainerStyle={styles.flatListContainer}
-        data={[...user.shippingAddresses].reverse()}
+        data={[...addressesState]?.reverse()}
         renderItem={renderShippingAddressItem}
         keyExtractor={item => item.id}
       />

@@ -2,6 +2,7 @@ import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
 import {StyleSheet, Text, View, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
@@ -9,17 +10,20 @@ import {
   ShippingAddressType,
   ShippingAddressNavigationProp,
 } from '../../../types';
+import {scaleUI} from '../../../utils';
 
 type Props = {
   shippingAddress: ShippingAddressType;
   isActive: boolean;
   onToggleCheckBox: (shippingAddress: ShippingAddressType) => void;
+  onDelete: (shippingAddress: ShippingAddressType) => void;
 };
 
 const ShippingAddressItem = ({
   shippingAddress,
   isActive,
   onToggleCheckBox,
+  onDelete,
 }: Props) => {
   const navigation = useNavigation<ShippingAddressNavigationProp>();
 
@@ -36,6 +40,11 @@ const ShippingAddressItem = ({
           Use as the shipping address
         </Text>
       </View>
+      <Pressable
+        style={styles.deleteBtn}
+        onPress={() => onDelete(shippingAddress)}>
+        <Feather name="x-circle" color={COLORS.MAIN} size={24} />
+      </Pressable>
       <Card extraStyle={styles.card}>
         <Pressable
           android_ripple={{color: COLORS.BLACK_O2}}
@@ -98,5 +107,11 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.LABEL,
     lineHeight: LINE_HEIGHT.LABEL,
     color: COLORS.SUB,
+  },
+  deleteBtn: {
+    position: 'absolute',
+    top: scaleUI(16, true),
+    right: 0,
+    zIndex: 10,
   },
 });
