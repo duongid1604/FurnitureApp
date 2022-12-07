@@ -56,12 +56,9 @@ const ShippingAddressItem = ({
             })
           }>
           <Text style={styles.fullName}>{shippingAddress.fullName}</Text>
-          <Text
-            numberOfLines={3}
-            ellipsizeMode="tail"
-            style={
-              styles.address
-            }>{`${shippingAddress.address} ${shippingAddress.zipcode} ${shippingAddress.district} ${shippingAddress.city} ${shippingAddress.country}`}</Text>
+          <Text numberOfLines={3} ellipsizeMode="tail" style={styles.address}>
+            {shippingAddress.address}
+          </Text>
         </Pressable>
       </Swipeable>
     </View>
