@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {Swipeable} from 'react-native-gesture-handler';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {DeleteButton} from '../../../components';
 
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
 import {
@@ -26,17 +26,9 @@ const ShippingAddressItem = ({
 }: Props) => {
   const navigation = useNavigation<ShippingAddressNavigationProp>();
 
-  const renderRightActions = () => {
-    return (
-      <View style={styles.deleteBtnContainer}>
-        <Pressable
-          style={styles.deleteBtn}
-          onPress={() => onDelete(shippingAddress)}>
-          <MaterialCommunityIcons name="delete" color={COLORS.MAIN} size={30} />
-        </Pressable>
-      </View>
-    );
-  };
+  const renderRightActions = () => (
+    <DeleteButton onDelete={() => onDelete(shippingAddress)} />
+  );
 
   return (
     <View style={styles.container}>
@@ -139,14 +131,5 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.LABEL,
     lineHeight: LINE_HEIGHT.LABEL,
     color: COLORS.SUB,
-  },
-  deleteBtnContainer: {
-    marginTop: -20,
-    alignContent: 'center',
-    justifyContent: 'center',
-    width: 70,
-  },
-  deleteBtn: {
-    marginLeft: 10,
   },
 });

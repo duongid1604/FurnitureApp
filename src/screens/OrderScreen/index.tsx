@@ -14,8 +14,14 @@ import LoadingScreen from '../LoadingScreen';
 import {OrderItem, TabButton} from './components';
 
 const OrderScreen = ({}: OrderScreenProps) => {
-  const {user, tabIsSelected, onSetSelectedTab, onBackHome, onBtnPress} =
-    useOrderScreen();
+  const {
+    user,
+    tabIsSelected,
+    onSetSelectedTab,
+    onBackHome,
+    onBtnPress,
+    onDeleteOrder,
+  } = useOrderScreen();
 
   if (!user) {
     return <LoadingScreen />;
@@ -35,7 +41,12 @@ const OrderScreen = ({}: OrderScreenProps) => {
 
   const renderOrder = (item: OrderType, tab: OrderTabType) => {
     return (
-      <OrderItem orderItem={item} currentTab={tab} onBtnPress={onBtnPress} />
+      <OrderItem
+        orderItem={item}
+        currentTab={tab}
+        onBtnPress={onBtnPress}
+        onDeleteOrder={onDeleteOrder}
+      />
     );
   };
 

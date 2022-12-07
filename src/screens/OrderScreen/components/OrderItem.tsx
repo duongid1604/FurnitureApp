@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Card} from '../../../components';
+import {Swipeable} from 'react-native-gesture-handler';
+import {DeleteButton} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
 import {OrderTabEnum, OrderTabType, OrderType} from '../../../types';
 import leadingZeroLessTwoDigits from '../../../utils/leadingZeroLessTwoDigits';
@@ -9,9 +10,15 @@ type OrderItemProps = {
   orderItem: OrderType;
   currentTab: OrderTabType;
   onBtnPress: (currentOrder: OrderType) => void;
+  onDeleteOrder: (order: OrderType) => void;
 };
 
-const OrderItem = ({orderItem, currentTab, onBtnPress}: OrderItemProps) => {
+const OrderItem = ({
+  orderItem,
+  currentTab,
+  onBtnPress,
+  onDeleteOrder,
+}: OrderItemProps) => {
   if (currentTab !== orderItem.status) {
     return <></>;
   }
@@ -29,8 +36,15 @@ const OrderItem = ({orderItem, currentTab, onBtnPress}: OrderItemProps) => {
     orderStyle = styles.canceled;
   }
 
+  const renderRightActions = () => (
+    <DeleteButton onDelete={() => onDeleteOrder(orderItem)} />
+  );
+
   return (
-    <Card extraStyle={styles.card}>
+    <Swipeable
+      containerStyle={styles.swipeableContainer}
+      childrenContainerStyle={styles.swipeableChildren}
+      renderRightActions={() => renderRightActions()}>
       {/* Title */}
       <View style={styles.title}>
         <Text style={styles.orderText}>Order No.{orderItem.orderCode}</Text>
@@ -57,17 +71,37 @@ const OrderItem = ({orderItem, currentTab, onBtnPress}: OrderItemProps) => {
         </TouchableOpacity>
         <Text style={[styles.status, orderStyle]}>{orderStatus}</Text>
       </View>
-    </Card>
+    </Swipeable>
   );
 };
 
 export default OrderItem;
 
 const styles = StyleSheet.create({
-  card: {
-    paddingHorizontal: 0,
-    paddingVertical: 16,
+  swipeableContainer: {
+    paddingHorizontal: 20,
+    marginHorizontal: -20,
+    marginBottom: -20,
+    paddingBottom: 20,
+    paddingTop: 10,
+    marginTop: -10,
   },
+  swipeableChildren: {
+    borderRadius: 8,
+    marginBottom: 20,
+    backgroundColor: COLORS.WHITE,
+    shadowColor: COLORS.SHADOW,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 4,
+    paddingVertical: 16,
+    overflow: 'hidden',
+  },
+
   title: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.SECONDARY,
