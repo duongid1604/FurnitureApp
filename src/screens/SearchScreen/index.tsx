@@ -10,10 +10,11 @@ import {
   View,
 } from 'react-native';
 import {CustomScreenContainer} from '../../components';
-import {COLORS, FONTS, FONT_SIZE} from '../../constants';
+import {COLORS, FONTS, FONT_SIZE, IMAGES} from '../../constants';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchSearchProducts} from '../../redux/reducers/searchSlice';
 import {HomeScreenNavigationProps, ProductType} from '../../types';
+import EmptyStateScreen from '../EmptyStateScreen';
 
 const SearchScreen = () => {
   const [filteredDataSource, setFilteredDataSource] = useState<ProductType[]>(
@@ -26,6 +27,8 @@ const SearchScreen = () => {
   const dispatch = useAppDispatch();
 
   const {searchProducts} = useAppSelector(state => state.searchProducts);
+
+  const isNull = filteredDataSource.length === 0;
 
   useEffect(() => {
     dispatch(fetchSearchProducts());
@@ -74,15 +77,23 @@ const SearchScreen = () => {
           placeholder="Search something..."
         />
       </View>
-
-      <FlatList
-        data={filteredDataSource}
-        keyExtractor={item => item.id}
-        renderItem={renderProducts}
-        horizontal={false}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-      />
+      {isNull ? (
+        <EmptyStateScreen
+          title="no items match"
+          content="Please check your keywords!"
+          source={IMAGES.NO_ORDERS}
+          hasButton={false}
+        />
+      ) : (
+        <FlatList
+          data={filteredDataSource}
+          keyExtractor={item => item.id}
+          renderItem={renderProducts}
+          horizontal={false}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </CustomScreenContainer>
   );
 };

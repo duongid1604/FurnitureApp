@@ -10,10 +10,11 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
-import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
+import {COLORS, FONTS, FONT_SIZE, ICON, IMAGES} from '../../constants';
 import {useAppSelector, useCartScreen, useUpdateCartScreen} from '../../hooks';
 import {CartScreenProps, ProductType} from '../../types';
 import {scaleUI} from '../../utils';
+import EmptyStateScreen from '../EmptyStateScreen';
 
 const CartScreen = ({navigation}: CartScreenProps) => {
   const {user} = useAppSelector(state => state.auth);
@@ -41,10 +42,10 @@ const CartScreen = ({navigation}: CartScreenProps) => {
     navigation.navigate('HomeNavigator', {screen: 'Home'});
   };
 
-  const hasCheckout = user?.cart.products.length === 0;
+  const hasCart = user?.cart.products.length === 0;
 
   const moveToCheckoutScreen = () => {
-    if (hasCheckout) {
+    if (hasCart) {
       return;
     }
 
@@ -86,12 +87,21 @@ const CartScreen = ({navigation}: CartScreenProps) => {
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.flatListContainer}>
-        <FlatList
-          data={user?.cart.products}
-          keyExtractor={item => item.id}
-          renderItem={renderCart}
-          showsVerticalScrollIndicator={false}
-        />
+        {hasCart ? (
+          <EmptyStateScreen
+            title="no items in your cart"
+            content="Let go shopping!"
+            source={IMAGES.NO_ORDERS}
+            hasButton={false}
+          />
+        ) : (
+          <FlatList
+            data={user?.cart.products}
+            keyExtractor={item => item.id}
+            renderItem={renderCart}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </View>
 
       <View style={styles.footerContainer}>
@@ -108,7 +118,7 @@ const CartScreen = ({navigation}: CartScreenProps) => {
           </TouchableOpacity>
           <View style={styles.buttonContainer}>
             <BigCustomButton
-              extraStyle={hasCheckout ? styles.disable : undefined}
+              extraStyle={hasCart ? styles.disable : undefined}
               onPress={moveToCheckoutScreen}>
               Check out
             </BigCustomButton>
