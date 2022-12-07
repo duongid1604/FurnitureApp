@@ -63,31 +63,26 @@ const productSlice = createSlice({
     chooseCategory: (state, action) => {
       switch (action.payload) {
         case 0:
-          state.products = [];
           state.field = 'popular';
           state.condition = '>';
           state.type = 3;
           break;
         case 1:
-          state.products = [];
           state.field = 'category';
           state.condition = '==';
           state.type = 'chair';
           break;
         case 2:
-          state.products = [];
           state.field = 'category';
           state.condition = '==';
           state.type = 'table';
           break;
         case 3:
-          state.products = [];
           state.field = 'category';
           state.condition = '==';
           state.type = 'armchair';
           break;
         case 4:
-          state.products = [];
           state.field = 'category';
           state.condition = '==';
           state.type = 'bed';

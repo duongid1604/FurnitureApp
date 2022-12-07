@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {
-  ActivityIndicator,
+  Dimensions,
   FlatList,
   Image,
   Pressable,
@@ -9,10 +9,14 @@ import {
   Text,
   View,
 } from 'react-native';
+import {LoadingSpinner} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE} from '../../../constants';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {fetchProducts} from '../../../redux/reducers/productSlice';
 import {HomeScreenNavigationProps, ProductType} from '../../../types';
+import {scaleUI} from '../../../utils';
+
+const windowHeight = Dimensions.get('window').height;
 
 const ProductList = () => {
   const navigation = useNavigation<HomeScreenNavigationProps>();
@@ -30,15 +34,13 @@ const ProductList = () => {
     navigation.navigate('Product', {data: item});
   };
 
-  const renderBottom = () => {
-    if (loading) {
-      return (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color="#333" />
-        </View>
-      );
-    }
-  };
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <LoadingSpinner />
+      </View>
+    );
+  }
 
   const renderProducts = ({item}: {item: ProductType}) => (
     <Pressable
@@ -59,7 +61,6 @@ const ProductList = () => {
       numColumns={2}
       showsVerticalScrollIndicator={false}
       columnWrapperStyle={styles.container}
-      ListFooterComponent={renderBottom()}
     />
   );
 };
@@ -91,8 +92,7 @@ const styles = StyleSheet.create({
     color: COLORS.MAIN,
   },
   loading: {
-    width: '100%',
-    height: 100,
+    height: windowHeight - scaleUI(300, true),
     justifyContent: 'center',
     alignItems: 'center',
   },
