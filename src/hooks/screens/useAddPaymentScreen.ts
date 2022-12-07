@@ -24,7 +24,7 @@ const useAddPaymentScreen = () => {
     };
     const newUser: UserType = {
       ...user,
-      paymentMethods: [...user.paymentMethods, data],
+      paymentMethods: [...user.paymentMethods, newPayment],
       selectedPaymentMethod: newPayment,
     };
     dispatch(updateUserThunk(newUser));
