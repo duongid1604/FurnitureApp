@@ -43,7 +43,7 @@ const NotificationScreen = ({}: Props) => {
       <FlatList
         data={deepCopy(ordersInNoti).reverse()}
         renderItem={renderNotiItem}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={item => item.id}
       />
     </CustomScreenContainer>
   );
