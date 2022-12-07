@@ -1,20 +1,28 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
+
+import {CustomScreenContainer} from '../../components';
 import {IMAGES} from '../../constants';
 import useNotificationScreen from '../../hooks/screens/useNotificationScreen';
+import {OrderType} from '../../types';
+import deepCopy from '../../utils/deepCopy';
 import EmptyStateScreen from '../EmptyStateScreen';
 import LoadingScreen from '../LoadingScreen';
+import {NotiItem} from './components';
 
 type Props = {};
 
 const NotificationScreen = ({}: Props) => {
-  const {user} = useNotificationScreen();
+  const {user, onDelete} = useNotificationScreen();
 
   if (!user) {
     return <LoadingScreen />;
   }
 
-  if (!user.notifications || user.notifications?.length === 0) {
+  const notification = user.notification;
+  const ordersInNoti = notification.orders;
+
+  if (notification && ordersInNoti.length === 0) {
     return (
       <EmptyStateScreen
         hasButton={false}
@@ -25,13 +33,25 @@ const NotificationScreen = ({}: Props) => {
     );
   }
 
+  const renderNotiItem = ({item}: {item: OrderType}) => (
+    <NotiItem orderItem={item} onDelete={onDelete} />
+  );
+
   return (
-    <View>
-      <Text>NotificationScreen</Text>
-    </View>
+    <CustomScreenContainer smallPadding style={styles.screen}>
+      <FlatList
+        data={deepCopy(ordersInNoti).reverse()}
+        renderItem={renderNotiItem}
+        keyExtractor={item => item.id}
+      />
+    </CustomScreenContainer>
   );
 };
 
 export default NotificationScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    paddingTop: 0,
+  },
+});
