@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
-import {v4 as uuidv4} from 'uuid';
 
 import {CustomScreenContainer} from '../../components';
 import {IMAGES} from '../../constants';
@@ -39,7 +38,7 @@ const NotificationScreen = ({}: Props) => {
   );
 
   return (
-    <CustomScreenContainer smallPadding style={styles.screen} key={uuidv4()}>
+    <CustomScreenContainer smallPadding style={styles.screen}>
       <FlatList
         data={deepCopy(ordersInNoti).reverse()}
         renderItem={renderNotiItem}
