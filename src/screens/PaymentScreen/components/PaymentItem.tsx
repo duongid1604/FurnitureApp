@@ -1,8 +1,9 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {PaymentCardType} from '../../../types';
+import {PaymentCardType, PaymentNavigationProp} from '../../../types';
 import CheckBox from '@react-native-community/checkbox';
 import Feather from 'react-native-vector-icons/Feather';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   COLORS,
@@ -28,12 +29,14 @@ const PaymentItem = ({
   onToggleCheckBox,
   onDeleteCard,
 }: Props) => {
+  const navigation = useNavigation<PaymentNavigationProp>();
+
   return (
     <View style={styles.container}>
       <Pressable style={styles.deleteBtn} onPress={() => onDeleteCard(Payment)}>
         <Feather name="x-circle" color={COLORS.WHITE} size={24} />
       </Pressable>
-      <Card extraStyle={styles.card}>
+      <Card extraStyle={isActive ? styles.card : styles.defaultcard}>
         <View style={styles.infoView}>
           <Image source={ICON.MASTERCARD} style={styles.mastercard} />
           <Text style={styles.cardnum}>{Payment.cardNumber}</Text>
@@ -90,12 +93,21 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.MAIN,
     borderRadius: 10,
   },
+  defaultcard: {
+    padding: 0,
+    marginVertical: 20,
+    width: scaleUI(333, false),
+    height: scaleUI(180, false),
+    backgroundColor: COLORS.DEFAULT,
+    borderRadius: 10,
+  },
   deleteBtn: {
     position: 'absolute',
     top: scaleUI(16, true),
     right: 0,
     zIndex: 10,
-    marginBottom: 30,
+    marginHorizontal: 10,
+    marginVertical: 20,
   },
   infoView: {
     marginHorizontal: 20,
