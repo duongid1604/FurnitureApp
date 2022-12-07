@@ -35,16 +35,15 @@ const NotificationScreen = ({}: Props) => {
   }
 
   const renderNotiItem = ({item}: {item: OrderType}) => (
-    <NotiItem key={item.id} orderItem={item} onDelete={onDelete} />
+    <NotiItem orderItem={item} onDelete={onDelete} />
   );
 
   return (
-    <CustomScreenContainer smallPadding style={styles.screen}>
+    <CustomScreenContainer smallPadding style={styles.screen} key={uuidv4()}>
       <FlatList
-        listKey={uuidv4()}
         data={deepCopy(ordersInNoti).reverse()}
         renderItem={renderNotiItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index.toString()}
       />
     </CustomScreenContainer>
   );
