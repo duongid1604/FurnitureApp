@@ -33,7 +33,7 @@ export type ShippingAddressType = {
 };
 
 export type OrderType = {
-  id: number;
+  id: string;
   products: ProductType[];
   orderCode: number;
   totalQty: number;
@@ -57,7 +57,10 @@ export type CartType = {
 };
 
 export type NotiType = {
-  content: string;
+  orders: OrderType[];
+  hasDeliveryNoti: boolean;
+  hasSalesNoti: boolean;
+  hasNewArrivalsNoti: boolean;
 };
 
 export type UserType = {
@@ -74,7 +77,7 @@ export type UserType = {
   favourite: ProductType[];
   selectedAddress: ShippingAddressType | null;
   selectedPaymentMethod: PaymentCardType | null;
-  notifications: NotiType[];
+  notification: NotiType;
 };
 
 export type AccountType = 'normal' | 'social';

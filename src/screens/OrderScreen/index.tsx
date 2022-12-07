@@ -75,7 +75,7 @@ const OrderScreen = ({}: OrderScreenProps) => {
         <FlatList
           data={[...user.orders].reverse()}
           renderItem={({item}) => renderOrder(item, tabIsSelected)}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.id}
           style={styles.flatList}
           contentContainerStyle={styles.flatListContainer}
         />

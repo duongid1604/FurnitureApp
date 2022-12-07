@@ -48,7 +48,9 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
           )}
         </View>
         <View style={styles.info}>
-          <Text style={styles.name}>{user.name ? user.name : 'No name'}</Text>
+          <Text style={styles.name} numberOfLines={1}>
+            {user.name ? user.name : 'No name'}
+          </Text>
           <Text numberOfLines={2} style={styles.email}>
             {user.email ? user.email : 'No email'}
           </Text>

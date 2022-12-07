@@ -11,7 +11,7 @@ const DeleteButton = ({onDelete}: Props) => {
   return (
     <View style={styles.deleteBtnContainer}>
       <Pressable style={styles.deleteBtn} onPress={onDelete}>
-        <MaterialCommunityIcons name="delete" color={COLORS.MAIN} size={30} />
+        <MaterialCommunityIcons name="delete" color={COLORS.DANGER} size={30} />
       </Pressable>
     </View>
   );

@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
+import {v4 as uuidv4} from 'uuid';
+
 import {updateProducts} from '../../redux/reducers/productSlice';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
-import {UserType, OrderTabEnum, OrderType, ProductType} from '../../types';
+import {OrderTabEnum, OrderType, ProductType, UserType} from '../../types';
+import deepCopy from '../../utils/deepCopy';
 import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 
 const useCheckoutScreen = () => {
@@ -17,6 +20,8 @@ const useCheckoutScreen = () => {
       return;
     }
 
+    const newUser: UserType = deepCopy(user);
+
     data?.map(item => {
       console.log(item.id, item.popular);
       dispatch(updateProducts({id: item.id, popular: item.popular + 1}));
@@ -25,7 +30,7 @@ const useCheckoutScreen = () => {
     const randomNumber = Math.floor(Math.random() * 10000);
 
     const newOrder: OrderType = {
-      id: randomNumber,
+      id: uuidv4(),
       products: data,
       orderCode: randomNumber,
       status: OrderTabEnum.processing,
@@ -34,15 +39,11 @@ const useCheckoutScreen = () => {
       totalQty: user.cart.totalQty,
     };
 
-    const newUser: UserType = {
-      ...user,
-      orders: [...user.orders, newOrder],
-      cart: {
-        products: [],
-        totalQty: 0,
-        totalPrice: 0,
-      },
-    };
+    const newOrderInNoti: OrderType = deepCopy(newOrder);
+    newOrderInNoti.id = uuidv4();
+
+    newUser.orders.push(newOrder);
+    newUser.notification.orders.push(newOrderInNoti);
 
     dispatch(updateUserThunk(newUser));
   };

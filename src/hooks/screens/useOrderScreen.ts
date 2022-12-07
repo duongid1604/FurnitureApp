@@ -1,5 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
+
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 import {
   CartType,
@@ -39,12 +41,16 @@ const useOrderScreen = () => {
     if (currentOrder.status === OrderTabEnum.processing) {
       const newOrders: OrderType[] = deepCopy(user.orders);
       const updatedOrder: OrderType = {
-        ...currentOrder,
+        ...deepCopy(currentOrder),
         status: OrderTabEnum.canceled,
       };
       const orderIndex = newOrders.findIndex(
         order => order.id === updatedOrder.id,
       );
+      newUser.notification.orders.push({
+        ...deepCopy(updatedOrder),
+        id: uuidv4(),
+      });
       newOrders[orderIndex] = updatedOrder;
       newUser.orders = newOrders;
       dispatch(updateUserThunk(newUser));
