@@ -331,6 +331,6 @@ const styles = StyleSheet.create({
     fontWeight: FONT_WEIGHT.REGULAR,
   },
   flatListContainer: {
-    height: '100%',
+    height: 510,
   },
 });
