@@ -5,7 +5,7 @@ import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import ReviewBox from '../../components/ReviewBox';
 import {COLORS, FONT_SIZE, FONT_WEIGHT} from '../../constants';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {
   BigCustomButton,
   CustomInput,
@@ -22,6 +22,32 @@ const Review = ({}: Props) => {
   const route = useRoute<ProductRouteProp>();
   const {item} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
+  const [defaultRate, setdefaultRate] = useState(0);
+  const [maxRate, setmaxRate] = useState([1, 2, 3, 4, 5]);
+  const starFill =
+    'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png';
+  const starconer =
+    'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png';
+  const CustomRatingBar = () => {
+    return (
+      <View style={styles.customrate}>
+        {maxRate.map((itemstar, key) => {
+          return (
+            <TouchableOpacity
+              key={itemstar}
+              onPress={() => setdefaultRate(itemstar)}>
+              <Image
+                style={styles.star}
+                source={
+                  itemstar <= defaultRate ? {uri: starFill} : {uri: starconer}
+                }
+              />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  };
   const schema = yup
     .object({
       comment: yup
@@ -75,6 +101,7 @@ const Review = ({}: Props) => {
             <Text style={styles.modalText}>
               Let's us know how you feel product
             </Text>
+            <CustomRatingBar />
             <View style={styles.viewReview}>
               <CustomInput<AddReviewField>
                 label="Your Review"
@@ -203,5 +230,12 @@ const styles = StyleSheet.create({
     width: scaleUI(333, false),
     marginVertical: 18,
   },
-  option: {flexDirection: 'row', justifyContent: 'space-between'},
+  option: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  customrate: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
 });

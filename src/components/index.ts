@@ -15,3 +15,4 @@ export {default as TouchableCard} from './TouchableCard';
 export {default as Card} from './Card';
 export {default as AddButton} from './AddButton';
 export {default as Loading5Point} from './Loading5Point';
+export {default as DeleteButton} from './DeleteButton';
