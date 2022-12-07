@@ -64,7 +64,29 @@ const useOrderScreen = () => {
     }
   };
 
-  return {user, tabIsSelected, onSetSelectedTab, onBackHome, onBtnPress};
+  const onDeleteOrder = (currentOrder: OrderType) => {
+    if (!user) {
+      return;
+    }
+
+    if (user.orders.length === 0) {
+      return;
+    }
+    const newUser: UserType = deepCopy(user);
+
+    const newOrders = user.orders.filter(order => order.id !== currentOrder.id);
+    newUser.orders = newOrders;
+    dispatch(updateUserThunk(newUser));
+  };
+
+  return {
+    user,
+    tabIsSelected,
+    onSetSelectedTab,
+    onBackHome,
+    onBtnPress,
+    onDeleteOrder,
+  };
 };
 
 export default useOrderScreen;
