@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, StyleSheet} from 'react-native';
+
 import {AddButton, CustomScreenContainer} from '../../components';
 import {IMAGES} from '../../constants';
 import {useShippingAddressScreen} from '../../hooks';
@@ -34,14 +34,16 @@ const ShippingAddressScreen = ({}: ShippingAddressScreenProps) => {
       />
     );
   }
-  const renderShippingAddressItem = ({item}: {item: ShippingAddressType}) => (
-    <ShippingAddressItem
-      onToggleCheckBox={onSelectAddress}
-      shippingAddress={item}
-      isActive={item.id === selectedAddress?.id}
-      onDelete={onDeleteAddress}
-    />
-  );
+  const renderShippingAddressItem = ({item}: {item: ShippingAddressType}) => {
+    return (
+      <ShippingAddressItem
+        onToggleCheckBox={onSelectAddress}
+        shippingAddress={item}
+        isActive={item.id === selectedAddress?.id}
+        onDelete={onDeleteAddress}
+      />
+    );
+  };
 
   return (
     <CustomScreenContainer smallPadding>

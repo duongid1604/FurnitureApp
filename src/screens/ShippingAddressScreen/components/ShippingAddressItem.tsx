@@ -1,14 +1,14 @@
 import CheckBox from '@react-native-community/checkbox';
-import React from 'react';
-import {StyleSheet, Text, View, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Feather from 'react-native-vector-icons/Feather';
+import React from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Swipeable} from 'react-native-gesture-handler';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
 import {
-  ShippingAddressType,
   ShippingAddressNavigationProp,
+  ShippingAddressType,
 } from '../../../types';
 import {scaleUI} from '../../../utils';
 
@@ -27,6 +27,18 @@ const ShippingAddressItem = ({
 }: Props) => {
   const navigation = useNavigation<ShippingAddressNavigationProp>();
 
+  const renderRightActions = () => {
+    return (
+      <View style={styles.deleteBtnContainer}>
+        <Pressable
+          style={styles.deleteBtn}
+          onPress={() => onDelete(shippingAddress)}>
+          <MaterialCommunityIcons name="delete" color={COLORS.MAIN} size={30} />
+        </Pressable>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -40,12 +52,10 @@ const ShippingAddressItem = ({
           Use as the shipping address
         </Text>
       </View>
-      <Pressable
-        style={styles.deleteBtn}
-        onPress={() => onDelete(shippingAddress)}>
-        <Feather name="x-circle" color={COLORS.MAIN} size={24} />
-      </Pressable>
-      <Card extraStyle={styles.card}>
+      <Swipeable
+        renderRightActions={() => renderRightActions()}
+        containerStyle={styles.swipeableContainer}
+        childrenContainerStyle={styles.swipeableChildren}>
         <Pressable
           android_ripple={{color: COLORS.BLACK_O2}}
           style={styles.buttonCard}
@@ -62,7 +72,7 @@ const ShippingAddressItem = ({
               styles.address
             }>{`${shippingAddress.address} ${shippingAddress.zipcode} ${shippingAddress.district} ${shippingAddress.city} ${shippingAddress.country}`}</Text>
         </Pressable>
-      </Card>
+      </Swipeable>
     </View>
   );
 };
@@ -70,12 +80,35 @@ const ShippingAddressItem = ({
 export default ShippingAddressItem;
 
 const styles = StyleSheet.create({
+  swipeableContainer: {
+    paddingHorizontal: 20,
+    marginHorizontal: -20,
+    marginBottom: -20,
+    paddingBottom: 20,
+    paddingTop: 10,
+    marginTop: -10,
+  },
+  swipeableChildren: {
+    borderRadius: 8,
+    marginBottom: 20,
+    backgroundColor: COLORS.WHITE,
+    shadowColor: COLORS.MAIN,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+    overflow: 'hidden',
+  },
   container: {
     marginBottom: 24,
   },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 10,
   },
   card: {
     padding: 0,
@@ -108,10 +141,13 @@ const styles = StyleSheet.create({
     lineHeight: LINE_HEIGHT.LABEL,
     color: COLORS.SUB,
   },
+  deleteBtnContainer: {
+    marginTop: -20,
+    alignContent: 'center',
+    justifyContent: 'center',
+    width: 70,
+  },
   deleteBtn: {
-    position: 'absolute',
-    top: scaleUI(16, true),
-    right: 0,
-    zIndex: 10,
+    marginLeft: 10,
   },
 });
