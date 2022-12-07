@@ -77,7 +77,12 @@ export const signupThunk = createAsyncThunk(
         favourite: [],
         selectedAddress: null,
         selectedPaymentMethod: null,
-        notifications: [],
+        notification: {
+          hasDeliveryNoti: true,
+          hasSalesNoti: false,
+          hasNewArrivalsNoti: false,
+          orders: [],
+        },
       };
 
       await createUserWithUid(userUid, newUser);
@@ -126,7 +131,12 @@ export const loginWithGoogleThunk = createAsyncThunk(
           favourite: [],
           selectedAddress: null,
           selectedPaymentMethod: null,
-          notifications: [],
+          notification: {
+            hasDeliveryNoti: true,
+            hasSalesNoti: false,
+            hasNewArrivalsNoti: false,
+            orders: [],
+          },
         };
 
         await createUserWithUid(userUid, user);
@@ -175,7 +185,12 @@ export const loginWithFacebookThunk = createAsyncThunk(
           favourite: [],
           selectedAddress: null,
           selectedPaymentMethod: null,
-          notifications: [],
+          notification: {
+            hasDeliveryNoti: true,
+            hasSalesNoti: false,
+            hasNewArrivalsNoti: false,
+            orders: [],
+          },
         };
         await createUserWithUid(userUid, user);
       }
