@@ -39,6 +39,7 @@ export type AddPaymentField = {
   expirationDate: string;
 };
 export type AddReviewField = {
+  image: string;
   comment: string;
 };
 export type ForgotPasswordFormFields = {

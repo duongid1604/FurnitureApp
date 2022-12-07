@@ -174,3 +174,12 @@ export type EditShippingAddressScreenProps = StackScreenProps<
 
 export type EditShippingAddressNavigationProp =
   EditShippingAddressScreenProps['navigation'];
+
+export type ReviewScreenProps = StackScreenProps<
+  ReviewStackParamList,
+  'Review'
+>;
+
+export type ReviewScreenNavigationProp = ReviewScreenProps['navigation'];
+
+export type ReviewScreenRouteProp = ReviewScreenProps['route'];

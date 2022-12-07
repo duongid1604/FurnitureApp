@@ -12,15 +12,21 @@ import {
   NormalCustomButton,
 } from '../../components';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {AddPaymentField, AddReviewField, ProductRouteProp} from '../../types';
+import {
+  AddPaymentField,
+  AddReviewField,
+  ProductRouteProp,
+  ReviewScreenRouteProp,
+} from '../../types';
 import {yupResolver} from '@hookform/resolvers/yup';
 import useAddReviewScreen from '../../hooks/screens/useAddReviewScreen';
 
 type Props = {};
 
 const Review = ({}: Props) => {
-  const route = useRoute<ProductRouteProp>();
+  const route = useRoute<ReviewScreenRouteProp>();
   const {item} = route.params;
+  console.log('data' + item);
   const [modalVisible, setModalVisible] = useState(false);
   const [defaultRate, setdefaultRate] = useState(0);
   const [maxRate, setmaxRate] = useState([1, 2, 3, 4, 5]);
@@ -66,10 +72,7 @@ const Review = ({}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.productbox}>
-        <Image
-          style={styles.img}
-          source={require('../../assets/images/product1.jpg')}
-        />
+        <Image style={styles.img} source={{uri: item.image}} />
         <View style={styles.info}>
           <Text style={styles.name}>{item.name}</Text>
           <View style={styles.rate}>
@@ -101,7 +104,15 @@ const Review = ({}: Props) => {
             <Text style={styles.modalText}>
               Let's us know how you feel product
             </Text>
+            <View style={styles.incontainer}>
+              <Image style={styles.img} source={{uri: item.image}} />
+              <View style={styles.info}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.mark}>$ {item.price}</Text>
+              </View>
+            </View>
             <CustomRatingBar />
+
             <View style={styles.viewReview}>
               <CustomInput<AddReviewField>
                 label="Your Review"
@@ -236,6 +247,9 @@ const styles = StyleSheet.create({
   },
   customrate: {
     justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  incontainer: {
     flexDirection: 'row',
   },
 });
