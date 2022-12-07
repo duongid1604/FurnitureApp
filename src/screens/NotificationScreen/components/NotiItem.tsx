@@ -42,7 +42,7 @@ const NotiItem = ({orderItem, onDelete}: Props) => {
           {orderItem.products.map((product, index, products) => {
             if (index === products.length - 1) {
               return (
-                <Text>
+                <Text key={product.id}>
                   {product.name} x {product.qty}.
                 </Text>
               );
