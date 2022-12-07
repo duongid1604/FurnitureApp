@@ -44,6 +44,11 @@ const useCheckoutScreen = () => {
 
     newUser.orders.push(newOrder);
     newUser.notification.orders.push(newOrderInNoti);
+    newUser.cart = {
+      products: [],
+      totalPrice: 0,
+      totalQty: 0,
+    };
 
     dispatch(updateUserThunk(newUser));
   };
