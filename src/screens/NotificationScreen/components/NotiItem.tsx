@@ -48,7 +48,7 @@ const NotiItem = ({orderItem, onDelete}: Props) => {
               );
             }
             return (
-              <Text>
+              <Text key={product.id}>
                 {product.name} x {product.qty},{' '}
               </Text>
             );
