@@ -10,22 +10,27 @@ const Category = () => {
 
   const categories = [
     {
+      id: 0,
       name: 'star-outline',
       title: 'Popular',
     },
     {
+      id: 1,
       name: 'chair-rolling',
       title: 'Chair',
     },
     {
+      id: 2,
       name: 'table-furniture',
       title: 'Table',
     },
     {
+      id: 3,
       name: 'sofa-single-outline',
       title: 'Armchair',
     },
     {
+      id: 4,
       name: 'bed-queen-outline',
       title: 'Bed',
     },
@@ -33,26 +38,26 @@ const Category = () => {
 
   const [isActive, setActive] = useState<Number>(0);
 
-  const pressHandler = (index: Number) => {
-    setActive(index);
-    dispatch(chooseCategory(index));
+  const pressHandler = (id: Number) => {
+    setActive(id);
+    dispatch(chooseCategory(id));
   };
 
   return (
     <View style={styles.category}>
-      {categories.map((category, index) => (
-        <View style={styles.innerContainer} key={index}>
+      {categories.map(category => (
+        <View style={styles.innerContainer} key={category.id}>
           <Pressable
-            onPress={() => pressHandler(index)}
+            onPress={() => pressHandler(category.id)}
             style={
-              index === isActive
+              category.id === isActive
                 ? [styles.backgroundCategory, styles.active]
                 : styles.backgroundCategory
             }>
             <MaterialCommunityIcons
               name={category.name}
               style={
-                index === isActive
+                category.id === isActive
                   ? [styles.categoryItem, styles.active]
                   : styles.categoryItem
               }
@@ -62,7 +67,7 @@ const Category = () => {
           <View style={styles.titleContainer}>
             <Text
               style={
-                index === isActive
+                category.id === isActive
                   ? [styles.title, styles.titleActive]
                   : styles.title
               }>

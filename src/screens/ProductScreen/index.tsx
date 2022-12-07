@@ -107,7 +107,7 @@ const ProductScreen = () => {
             onPress={moveToReviewScreen}>
             <Icon name="star" color="#f0db25" style={styles.star} />
             <Text style={styles.mark}>{data.rate}</Text>
-            <Text style={styles.review}>({data.review} reviews)</Text>
+            {/* <Text style={styles.review}>({data.review} reviews)</Text> */}
           </TouchableOpacity>
 
           <Text style={styles.description} numberOfLines={5}>

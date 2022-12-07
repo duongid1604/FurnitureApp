@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE} from '../../constants';
 import {CongratsScreenProps} from '../../types';

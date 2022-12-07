@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import {v4 as uuidv4} from 'uuid';
 
-import {updateProducts} from '../../redux/reducers/productSlice';
+import {updateProducts} from '../../redux/thunks/product.thunk';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 import {OrderTabEnum, OrderType, ProductType, UserType} from '../../types';
 import deepCopy from '../../utils/deepCopy';

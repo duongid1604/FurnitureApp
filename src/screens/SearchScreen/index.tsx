@@ -12,7 +12,7 @@ import {
 import {CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, IMAGES} from '../../constants';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {fetchSearchProducts} from '../../redux/reducers/searchSlice';
+import {fetchSearchProducts} from '../../redux/thunks/search.thunk';
 import {HomeScreenNavigationProps, ProductType} from '../../types';
 import EmptyStateScreen from '../EmptyStateScreen';
 

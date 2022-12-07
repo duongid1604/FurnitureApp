@@ -14,6 +14,7 @@ import usePaymentScreen from '../../hooks/screens/usePaymentScreen';
 import EmptyStateScreen from '../EmptyStateScreen';
 import LoadingScreen from '../LoadingScreen';
 import {PaymentItem} from './components';
+import {useAppSelector} from '../../hooks';
 
 const PaymentScreen = () => {
   const {
@@ -27,7 +28,7 @@ const PaymentScreen = () => {
   if (!user) {
     return <LoadingScreen />;
   }
-  if (user.paymentMethods.length === 0) {
+  if (paymentState.length === 0) {
     return (
       <EmptyStateScreen
         title="No PaymentMethod yet"
@@ -51,8 +52,10 @@ const PaymentScreen = () => {
       <FlatList
         style={styles.flatList}
         contentContainerStyle={styles.flatListContainer}
-        data={[...paymentState].reverse()}
-        keyExtractor={item => item.id}
+        data={[...paymentState]?.reverse()}
+        keyExtractor={item => {
+          return item.id;
+        }}
         renderItem={renderItem}
       />
       <AddButton onPress={onGotoAddPaymentScreen} />
