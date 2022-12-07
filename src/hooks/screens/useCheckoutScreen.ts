@@ -13,6 +13,10 @@ const useCheckoutScreen = () => {
       return;
     }
 
+    if (!data) {
+      return;
+    }
+
     data?.map(item => {
       console.log(item.id, item.popular);
       dispatch(updateProducts({id: item.id, popular: item.popular + 1}));
@@ -22,6 +26,7 @@ const useCheckoutScreen = () => {
 
     const newOrder: OrderType = {
       id: randomNumber,
+      products: data,
       orderCode: randomNumber,
       status: OrderTabEnum.processing,
       date: dayjs().format('DD/MM/YYYY'),

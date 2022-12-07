@@ -2,27 +2,29 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE, LINE_HEIGHT} from '../../../constants';
-import {OrderItemProps, OrderTabEnum} from '../../../types';
+import {OrderTabEnum, OrderTabType, OrderType} from '../../../types';
 import leadingZeroLessTwoDigits from '../../../utils/leadingZeroLessTwoDigits';
 
-const OrderItem = ({
-  orderCode,
-  totalQty,
-  totalPrice,
-  status,
-  date,
-  currentTab,
-}: OrderItemProps) => {
-  if (currentTab !== status) {
+type OrderItemProps = {
+  orderItem: OrderType;
+  currentTab: OrderTabType;
+  onBtnPress: (currentOrder: OrderType) => void;
+};
+
+const OrderItem = ({orderItem, currentTab, onBtnPress}: OrderItemProps) => {
+  if (currentTab !== orderItem.status) {
     return <></>;
   }
   let orderStatus = 'Processing';
   let orderStyle = styles.processing;
-  if (status === OrderTabEnum.delivered) {
+  let btnText = 'Cancel';
+  if (orderItem.status === OrderTabEnum.delivered) {
+    btnText = 'Buy again';
     orderStatus = 'Delivered';
     orderStyle = styles.delivered;
   }
-  if (status === OrderTabEnum.canceled) {
+  if (orderItem.status === OrderTabEnum.canceled) {
+    btnText = 'Buy again';
     orderStatus = 'Canceled';
     orderStyle = styles.canceled;
   }
@@ -31,23 +33,27 @@ const OrderItem = ({
     <Card extraStyle={styles.card}>
       {/* Title */}
       <View style={styles.title}>
-        <Text style={styles.orderText}>Order No{orderCode}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.orderText}>Order No.{orderItem.orderCode}</Text>
+        <Text style={styles.date}>{orderItem.date}</Text>
       </View>
       {/* Content */}
       <View style={styles.content}>
         <Text style={styles.label}>
           Quantity:{' '}
-          <Text style={styles.bold}>{leadingZeroLessTwoDigits(totalQty)}</Text>
+          <Text style={styles.bold}>
+            {leadingZeroLessTwoDigits(orderItem.totalQty)}
+          </Text>
         </Text>
         <Text style={styles.label}>
-          Total Amount: <Text style={styles.bold}>${totalPrice}</Text>
+          Total Amount: <Text style={styles.bold}>${orderItem.totalPrice}</Text>
         </Text>
       </View>
       {/* Footer */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.textBtn}>Detail</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onBtnPress(orderItem)}>
+          <Text style={styles.textBtn}>{btnText}</Text>
         </TouchableOpacity>
         <Text style={[styles.status, orderStyle]}>{orderStatus}</Text>
       </View>
@@ -123,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.BODY,
     lineHeight: LINE_HEIGHT.BODY,
     fontFamily: FONTS.POPPINS,
+    textAlign: 'right',
   },
   canceled: {
     color: COLORS.DANGER,

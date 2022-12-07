@@ -26,3 +26,4 @@ export type OrderTabType =
   | OrderTabEnum.canceled;
 
 export type NavigateToAddAddressScreen = 'shippingAddress' | 'checkout';
+export type NavigateToAddPaymentScreen = 'paymentMethods';
