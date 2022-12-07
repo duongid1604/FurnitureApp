@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ProductType, WhereFilterOp} from '../../types';
+import {ProductType, ReviewType, WhereFilterOp} from '../../types';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
@@ -33,6 +33,18 @@ export const updateProducts = createAsyncThunk(
       .collection('products')
       .doc(id)
       .update({popular: popular});
+
+    return response;
+  },
+);
+
+export const updateReview = createAsyncThunk(
+  'products/updateReview',
+  async ({id, review}: {id: string; review: ReviewType}) => {
+    const response = await firestore()
+      .collection('products')
+      .doc(id)
+      .update({review: review});
 
     return response;
   },

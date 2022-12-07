@@ -1,11 +1,11 @@
 import React from 'react';
 import {
+  FlatList,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  FlatList,
 } from 'react-native';
 import {BigCustomButton, CustomScreenContainer} from '../../components';
 import {COLORS, FONTS, FONT_SIZE, ICON} from '../../constants';
@@ -20,6 +20,7 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
   const {data} = route.params;
 
   const hasAddress = user?.shippingAddresses.length === 0;
+  const hasPaymentMethod = user?.paymentMethods.length === 0;
 
   const submitOrderHandler = () => {
     if (hasAddress) {
@@ -43,6 +44,25 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
     } else {
       navigation.navigate('ShippingNavigator', {
         screen: 'ShippingAddress',
+        params: {
+          user,
+        },
+      });
+    }
+  };
+
+  const moveToPayment = () => {
+    if (!user) {
+      return;
+    }
+
+    if (user.paymentMethods.length === 0) {
+      navigation.navigate('PaymentNavigator', {
+        screen: 'AddPayment',
+      });
+    } else {
+      navigation.navigate('PaymentNavigator', {
+        screen: 'PaymentMethod',
         params: {
           user,
         },
@@ -106,13 +126,39 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
       </View>
 
       <View style={styles.buttonContainer}>
+        <View style={styles.shippingAddress}>
+          <View style={styles.label}>
+            <Text style={styles.heading}>Payment method</Text>
+            <TouchableOpacity onPress={moveToPayment}>
+              <Image source={ICON.EDIT} style={styles.editIcon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.innerContainer}>
+            {hasPaymentMethod ? (
+              <Text style={styles.address}>
+                You need at lest 1 payment method!
+              </Text>
+            ) : (
+              <View>
+                <Text style={styles.name}>
+                  {user?.selectedPaymentMethod?.cardNumber}
+                </Text>
+                <Text style={styles.address}>
+                  {user?.selectedPaymentMethod?.cardHolderName}
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
         <View style={styles.footer}>
           <Text style={styles.text}>Total</Text>
           <Text style={styles.totalPrice}>$ {user?.cart.totalPrice}.00</Text>
         </View>
         <BigCustomButton
           onPress={submitOrderHandler}
-          extraStyle={hasAddress ? styles.disable : undefined}>
+          extraStyle={
+            hasAddress || hasPaymentMethod ? styles.disable : undefined
+          }>
           Submit order
         </BigCustomButton>
       </View>
@@ -200,7 +246,8 @@ const styles = StyleSheet.create({
     marginVertical: 24,
   },
   cart: {
-    height: '70%',
+    height: '60%',
+    marginTop: 16,
   },
   container: {
     flexDirection: 'row',
