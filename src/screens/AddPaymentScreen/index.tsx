@@ -1,13 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
 import {BigCustomButton, CustomInput} from '../../components';
 import NewCreditCard from '../../components/NewCreditCard';
@@ -21,20 +15,21 @@ const schema = yup
     cardHolderName: yup.string().required('Card Holder Name is required!'),
     cardNumber: yup
       .string()
-      .min(16, 'Your password must be at least 16 characters.')
+      .min(16, 'Your card number must be at least 16 characters.')
       .required('Card number is required!'),
     cvv: yup
       .string()
-      .min(3, 'Your password must be at least 8 characters.')
+      .min(3, 'Your cvv must be at least 3 characters.')
       .required('Cvv is required!'),
     expirationDate: yup
       .string()
+      .matches(/^(0?[1-9]|1[012])[\/\-]\d{2}$/)
       .min(5, 'Validate Date')
       .required('Expiration Date is required!'),
   })
   .required();
 
-const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
+const AddPaymentScreen = () => {
   const {onUpdate} = useAddPaymentScreen();
 
   const {
@@ -43,29 +38,8 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
     formState: {errors},
   } = useForm<AddPaymentField>({resolver: yupResolver(schema)});
 
-  // const {userUid, user} = useAppSelector(state => state.auth);
-
-  // const updatePayment = (data: PaymentCardType) => {
-  //   if (!user) {
-  //     return;
-  //   }
-
-  //   firestore()
-  //     .collection('users')
-  //     .doc(userUid)
-  //     .update({
-  //       paymentMethods: [...user.paymentMethods, data],
-  //     })
-  //     .then(() => {
-  //       console.log('Payment Method Update');
-  //     });
-  // };
   return (
     <View style={styles.container}>
-      {/* <TestButton
-        name="back to payment method"
-        onPress={() => navigation.navigate('PaymentMethod')}
-      /> */}
       <NewCreditCard />
       <ScrollView>
         <View style={styles.viewText}>
@@ -75,7 +49,7 @@ const AddPaymentScreen = ({navigation}: AddPaymentProps) => {
             control={control}
             error={errors}
             textInputProps={{
-              maxLength: 16,
+              maxLength: 50,
               placeholder: 'EX: Bruno Pham',
             }}
           />

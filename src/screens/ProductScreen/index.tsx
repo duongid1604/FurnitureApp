@@ -58,7 +58,10 @@ const ProductScreen = () => {
   };
 
   const moveToReviewScreen = () => {
-    navigation.navigate('ReviewNavigator', {screen: 'Review'});
+    navigation.navigate('ReviewNavigator', {
+      screen: 'Review',
+      params: {item: data},
+    });
   };
 
   const isMarked = user?.favourite.some(item => item.id === data.id);
