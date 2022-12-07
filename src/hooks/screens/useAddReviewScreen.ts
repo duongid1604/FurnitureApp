@@ -1,8 +1,6 @@
 import {
   AddReviewField,
-  ProductRouteProp,
   ProductType,
-  ReviewNavigatorProps,
   ReviewScreenNavigationProp,
   ReviewScreenRouteProp,
   ReviewType,
@@ -14,6 +12,7 @@ import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
 import {useRoute} from '@react-navigation/native';
 import {updateProducts} from '../../redux/reducers/productSlice';
+import {updateReview} from '../../redux/thunks/product.thunk';
 
 const useAddReviewScreen = () => {
   const dispatch = useAppDispatch();
@@ -25,13 +24,16 @@ const useAddReviewScreen = () => {
   const route = useRoute<ReviewScreenRouteProp>();
   const {item} = route.params;
   console.log('data Product' + item.image);
-  const onUpdate = (data: AddReviewField, data2: ReviewType) => {
+  const onUpdate = (data: AddReviewField) => {
     if (!user) {
       return;
     }
     const newReview: ReviewType = {
       ...data,
+      id: item.id,
       image: item.image,
+      name: item.name,
+      price: item.price,
     };
     const newUser: UserType = {
       ...user,
@@ -41,11 +43,12 @@ const useAddReviewScreen = () => {
       ...item,
       review: [...item.review, newReview],
     };
-    console.log('review' + newUser.reviews);
     dispatch(updateUserThunk(newUser));
-    // dispatch(updateReview(newProduct));
+    dispatch(updateReview(item.id, newReview));
+    navigation.navigate('MyReview');
   };
   return {
+    user,
     onUpdate,
     products,
   };

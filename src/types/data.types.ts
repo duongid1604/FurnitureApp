@@ -45,7 +45,11 @@ export type OrderType = {
 export type ReviewType = {
   comment: string;
   // product: ProductType[];
+  name: string;
+  rate: number;
   image: string;
+  price: number;
+  id: string;
   // rating: number;
   // date: string;
 };

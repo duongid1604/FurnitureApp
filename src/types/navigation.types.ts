@@ -75,6 +75,7 @@ export type CheckoutScreenProps = StackScreenProps<
 >;
 
 export type ProfileNavigationProp = ProfileScreenProps['navigation'];
+export type ProfileRouteProp = ProfileScreenProps['route'];
 
 export type ProductScreenProps = StackScreenProps<
   RootStackParamList,
