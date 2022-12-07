@@ -43,4 +43,5 @@ export default {
   VISA: require('../assets/icons/visa.png'),
   GOOGLE: require('../assets/icons/google-icon.png'),
   FACEBOOK: require('../assets/icons/facebook-icon.png'),
+  MASTERCARD_DISABLE: require('../assets/icons/mastercard_disable.png'),
 };
