@@ -45,8 +45,6 @@ const FavoriteScreen = () => {
     return <LoadingScreen />;
   }
 
-  console.log('Favourite length: ', user.favourite.length);
-
   if (user.favourite.length === 0) {
     return (
       <EmptyStateScreen
