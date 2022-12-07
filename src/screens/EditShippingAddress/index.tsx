@@ -38,7 +38,7 @@ const schema = yup
     address: yup
       .string()
       .matches(
-        /^[a-zA-ZÀ-ÖÙ-öù-ÿĀ-žḀ-ỿ0-9\s\-\/.]+$/,
+        /^[a-zA-ZÀ-ÖÙ-öù-ÿĀ-žḀ-ỿ0-9\s\-\/.,]+$/,
         'Please enter valid address',
       )
       .max(40)
@@ -74,6 +74,7 @@ const EditShippingAddressScreen = ({route}: EditShippingAddressScreenProps) => {
     if (item.type === 'city' && item.address.state) {
       mainText += ', ' + item.address.state;
     }
+    mainText += ', ' + item.address.country;
 
     return (
       <Pressable
@@ -118,18 +119,15 @@ const EditShippingAddressScreen = ({route}: EditShippingAddressScreenProps) => {
           <Controller
             name="address"
             control={control}
-            render={({field: {onChange, value}}) => {
-              console.log(value);
-              return (
-                <TextInput
-                  onFocus={() => setIsSearchListShown(true)}
-                  style={styles.searchTextInput}
-                  onChangeText={text => onSearch(text, onChange)}
-                  value={searchText}
-                  placeholder="Find a Location"
-                />
-              );
-            }}
+            render={({field: {onChange}}) => (
+              <TextInput
+                onFocus={() => setIsSearchListShown(true)}
+                style={styles.searchTextInput}
+                onChangeText={text => onSearch(text, onChange)}
+                value={searchText}
+                placeholder="Find a Location"
+              />
+            )}
           />
         </View>
 
