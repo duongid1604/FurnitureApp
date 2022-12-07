@@ -1,33 +1,32 @@
 import {Image, StyleSheet, View, Text, FlatList} from 'react-native';
 import React from 'react';
-import MyReviewBox from '../../components/MyReviewBox';
 import {useAppSelector} from '../../hooks';
-import useAddReviewScreen from '../../hooks/screens/useAddReviewScreen';
 import LoadingScreen from '../LoadingScreen';
 import {COLORS, FONTS, FONT_SIZE} from '../../constants';
-import Feather from 'react-native-vector-icons/Feather';
-import {ProductType} from '../../types';
+import {ReviewScreenRouteProp, ReviewType} from '../../types';
+import {useRoute} from '@react-navigation/native';
 
 type Props = {};
 
 const MyReviewsScreen = (props: Props) => {
   const {reviews} = useAppSelector(state => state.auth.user);
+  const route = useRoute<ReviewScreenRouteProp>();
   const {user} = useAppSelector(state => state.auth);
-  const {onUpdate} = useAddReviewScreen();
   console.log(reviews);
   if (!user) {
     return <LoadingScreen />;
   }
-  const renderFavourite = ({item}: {item: ProductType}) => {
+  const renderFavourite = ({item}: {item: ReviewType}) => {
     return (
-      <View style={styles.container}>
-        <Image source={{uri: item.image}} style={styles.image} />
-        <View style={styles.innerContainer}>
-          <View>
-            <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.price}>$ {item.price}.00</Text>
+      <View style={styles.incontainer}>
+        <View style={styles.product}>
+          <Image source={{uri: item.image}} style={styles.image} />
+          <View style={styles.info}>
+            <Text style={styles.title}></Text>
+            <Text style={styles.price}>$ .00</Text>
           </View>
         </View>
+        <Text>{item.comment}</Text>
       </View>
     );
   };
@@ -36,7 +35,7 @@ const MyReviewsScreen = (props: Props) => {
     <View style={styles.container}>
       <View style={styles.flatListContainer}>
         <FlatList
-          data={user?.favourite}
+          data={reviews}
           keyExtractor={item => item.id}
           renderItem={renderFavourite}
           showsVerticalScrollIndicator={false}
@@ -80,5 +79,15 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.H5,
     color: COLORS.MAIN,
     fontFamily: FONTS.POPPINS_BOLD,
+  },
+  incontainer: {
+    flex: 1,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderColor: COLORS.SECONDARY,
+    marginBottom: 20,
+  },
+  product: {
+    flexDirection: 'row',
   },
 });
