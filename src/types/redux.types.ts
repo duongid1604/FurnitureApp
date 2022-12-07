@@ -21,7 +21,6 @@ export type AuthStateProps = {
 export type ProductStateProps = {
   loading: boolean;
   products: ProductType[];
-  isFavourite: boolean;
   error?: string;
   nextPage: number;
   field: string;

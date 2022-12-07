@@ -30,8 +30,6 @@ const useAddCartScreen = () => {
         product => product.id === data.id,
       );
       if (productIndex === -1) {
-        console.log('case different');
-
         const newData = {...data, qty: localQty};
 
         const newUser: UserType = {
