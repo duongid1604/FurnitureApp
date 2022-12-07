@@ -22,6 +22,10 @@ const Review = ({}: Props) => {
   const route = useRoute<ProductRouteProp>();
   const {item} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
+  const [defaultRate, setdefaultRate] = useState();
+  const [maxRate, setmaxRate] = useState([1, 2, 3, 4, 5]);
+  const starFill = '';
+
   const schema = yup
     .object({
       comment: yup
