@@ -43,7 +43,6 @@ export type OrderType = {
 };
 
 export type ReviewType = {
-  id: string;
   comment: string;
   product: ProductType[];
   image: string;

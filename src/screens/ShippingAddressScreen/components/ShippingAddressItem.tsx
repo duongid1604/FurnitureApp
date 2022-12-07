@@ -10,7 +10,6 @@ import {
   ShippingAddressNavigationProp,
   ShippingAddressType,
 } from '../../../types';
-import {scaleUI} from '../../../utils';
 
 type Props = {
   shippingAddress: ShippingAddressType;
