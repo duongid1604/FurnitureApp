@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
-import {v4 as uuidv4} from 'uuid';
 
 import {CustomScreenContainer} from '../../components';
 import {IMAGES} from '../../constants';
@@ -35,13 +34,12 @@ const NotificationScreen = ({}: Props) => {
   }
 
   const renderNotiItem = ({item}: {item: OrderType}) => (
-    <NotiItem key={item.id} orderItem={item} onDelete={onDelete} />
+    <NotiItem orderItem={item} onDelete={onDelete} />
   );
 
   return (
     <CustomScreenContainer smallPadding style={styles.screen}>
       <FlatList
-        listKey={uuidv4()}
         data={deepCopy(ordersInNoti).reverse()}
         renderItem={renderNotiItem}
         keyExtractor={item => item.id}
