@@ -12,7 +12,7 @@ import {
 import {LoadingSpinner} from '../../../components';
 import {COLORS, FONTS, FONT_SIZE} from '../../../constants';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {fetchProducts} from '../../../redux/reducers/productSlice';
+import {fetchProducts} from '../../../redux/thunks/product.thunk';
 import {HomeScreenNavigationProps, ProductType} from '../../../types';
 import {scaleUI} from '../../../utils';
 

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import {updateProducts} from '../../redux/reducers/productSlice';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
+import {updateProducts} from '../../redux/thunks/product.thunk';
 import {UserType, OrderTabEnum, OrderType, ProductType} from '../../types';
 import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 

@@ -1,29 +1,12 @@
-import firestore from '@react-native-firebase/firestore';
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {ProductType, SearchProductStateProps} from '../../types';
+import {createSlice} from '@reduxjs/toolkit';
+import {SearchProductStateProps} from '../../types';
+import {fetchSearchProducts} from '../thunks/search.thunk';
 
 const initialState: SearchProductStateProps = {
   loading: false,
   searchProducts: [],
   error: '',
 };
-
-export const fetchSearchProducts = createAsyncThunk(
-  'searchProducts/fetchSearchProducts',
-  async () => {
-    const data: ProductType[] = [];
-
-    const response = await firestore().collection('products').get();
-
-    response.forEach(querySnapshot =>
-      data.push({
-        ...(querySnapshot.data() as ProductType),
-        id: querySnapshot.id,
-      }),
-    );
-    return data;
-  },
-);
 
 const searchProductSlice = createSlice({
   name: 'searchProducts',
