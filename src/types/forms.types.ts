@@ -40,7 +40,12 @@ export type AddPaymentField = {
   expirationDate: string;
 };
 export type AddReviewField = {
+  id: string;
+  image: string;
   comment: string;
+  name: string;
+  rate: number;
+  price: number;
 };
 export type ForgotPasswordFormFields = {
   email: string;

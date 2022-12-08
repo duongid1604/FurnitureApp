@@ -1,40 +1,56 @@
-import {AddReviewField, ProductType, ReviewType, UserType} from '../../types';
+import {
+  AddReviewField,
+  ProductType,
+  ReviewScreenNavigationProp,
+  ReviewScreenRouteProp,
+  ReviewType,
+  UserType,
+} from '../../types';
+import {useNavigation} from '@react-navigation/native';
+
 import {useAppDispatch, useAppSelector} from '../redux/useRedux';
 import {updateUserThunk} from '../../redux/thunks/auth.thunks';
+import {useRoute} from '@react-navigation/native';
+import {updateProducts} from '../../redux/reducers/productSlice';
+import {updateReview} from '../../redux/thunks/product.thunk';
 
 const useAddReviewScreen = () => {
   const dispatch = useAppDispatch();
   const {user} = useAppSelector(state => state.auth);
+  const {products} = useAppSelector(state => state.products);
+  const {reviews} = useAppSelector(state => state.auth.user);
 
-  const onUpdate = (data: AddReviewField, data2: ProductType) => {
+  const navigation = useNavigation<ReviewScreenNavigationProp>();
+  const route = useRoute<ReviewScreenRouteProp>();
+  const {item} = route.params;
+  console.log('data Product' + item.image);
+  const onUpdate = (data: AddReviewField) => {
     if (!user) {
       return;
     }
-    if (user.reviews.length === 0) {
-      const newUser: UserType = {
-        ...user,
-        reviews: [...user.reviews, data],
-      };
-      dispatch(updateUserThunk(newUser));
-    } else {
-      const productIndex = user.reviews.findIndex(item => item.id === data2.id);
-      if (productIndex === -1) {
-        const newUser: UserType = {
-          ...user,
-          reviews: [...user.reviews, data],
-        };
-        dispatch(updateUserThunk(newUser));
-      } else {
-        const newUser: UserType = {
-          ...user,
-          reviews: [...user.reviews, data],
-        };
-        dispatch(updateUserThunk(newUser));
-      }
-    }
+    const newReview: ReviewType = {
+      ...data,
+      id: item.id,
+      image: item.image,
+      name: item.name,
+      price: item.price,
+    };
+    const newUser: UserType = {
+      ...user,
+      reviews: [...user.reviews, newReview],
+    };
+    const newProduct: ProductType = {
+      ...item,
+      review: [...item.review, newReview],
+    };
+    dispatch(updateUserThunk(newUser));
+    dispatch(updateReview(item.id, newReview));
+    navigation.navigate('MyReview');
   };
   return {
+    user,
     onUpdate,
+    products,
   };
 };
 

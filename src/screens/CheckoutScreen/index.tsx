@@ -23,7 +23,7 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
   const hasPaymentMethod = user?.paymentMethods.length === 0;
 
   const submitOrderHandler = () => {
-    if (hasAddress) {
+    if (hasAddress || hasPaymentMethod) {
       return;
     }
 
@@ -70,6 +70,9 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
     }
   };
 
+  const placeholder = user?.selectedPaymentMethod?.cardNumber.toString();
+  const result = placeholder?.slice(-4);
+
   const renderCart = ({item}: {item: ProductType}) => (
     <View style={styles.container}>
       <Image source={{uri: item.image}} style={styles.image} />
@@ -86,37 +89,64 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
   return (
     <CustomScreenContainer smallPadding>
       <View style={styles.flexContainer}>
-        <View style={styles.shippingAddress}>
-          <View style={styles.label}>
-            <Text style={styles.heading}>Shipping address</Text>
+        <View style={styles.label}>
+          <Text style={styles.heading}>Shipping address</Text>
+          <TouchableOpacity onPress={moveToMyAddress}>
+            <Image source={ICON.EDIT} style={styles.editIcon} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.boxShadow}>
+          {hasAddress ? (
             <TouchableOpacity onPress={moveToMyAddress}>
-              <Image source={ICON.EDIT} style={styles.editIcon} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.innerContainer}>
-            {hasAddress ? (
               <Text style={styles.address}>
                 You need at lest 1 shipping address!
               </Text>
-            ) : (
-              <View>
-                <Text style={styles.name}>
-                  {user?.selectedAddress?.fullName}
-                </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={moveToMyAddress}>
+              <Text style={styles.name}>{user?.selectedAddress?.fullName}</Text>
+              <Text style={styles.address}>
+                {user?.selectedAddress?.address},{' '}
+                {user?.selectedAddress?.district}, {user?.selectedAddress?.city}
+                , {user?.selectedAddress?.country}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        <View>
+          <View style={styles.label}>
+            <Text style={styles.heading}>Payment</Text>
+            <TouchableOpacity onPress={moveToPayment}>
+              <Image source={ICON.EDIT} style={styles.editIcon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.boxShadow}>
+            {hasPaymentMethod ? (
+              <TouchableOpacity onPress={moveToPayment}>
                 <Text style={styles.address}>
-                  {user?.selectedAddress?.address},{' '}
-                  {user?.selectedAddress?.district},{' '}
-                  {user?.selectedAddress?.city},{' '}
-                  {user?.selectedAddress?.country}
+                  You need at lest 1 payment method!
                 </Text>
-              </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.paymentContainer}
+                onPress={moveToPayment}>
+                <View style={styles.mastercardContainer}>
+                  <Image
+                    source={ICON.MASTERCARD_DISABLE}
+                    style={styles.mastercard}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.name}>**** **** **** </Text>
+                  <Text style={styles.name}>{result}</Text>
+                </View>
+              </TouchableOpacity>
             )}
           </View>
         </View>
-        <View style={styles.cart}>
+        <View style={[styles.cart, styles.boxShadow]}>
           <FlatList
-            style={styles.flatlist}
-            contentContainerStyle={styles.content}
             data={user?.cart.products}
             keyExtractor={item => item.id}
             renderItem={renderCart}
@@ -126,31 +156,7 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <View style={styles.shippingAddress}>
-          <View style={styles.label}>
-            <Text style={styles.heading}>Payment method</Text>
-            <TouchableOpacity onPress={moveToPayment}>
-              <Image source={ICON.EDIT} style={styles.editIcon} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.innerContainer}>
-            {hasPaymentMethod ? (
-              <Text style={styles.address}>
-                You need at lest 1 payment method!
-              </Text>
-            ) : (
-              <View>
-                <Text style={styles.name}>
-                  {user?.selectedPaymentMethod?.cardNumber}
-                </Text>
-                <Text style={styles.address}>
-                  {user?.selectedPaymentMethod?.cardHolderName}
-                </Text>
-              </View>
-            )}
-          </View>
-        </View>
-        <View style={styles.footer}>
+        <View style={[styles.footer, styles.boxShadow]}>
           <Text style={styles.text}>Total</Text>
           <Text style={styles.totalPrice}>$ {user?.cart.totalPrice}.00</Text>
         </View>
@@ -169,10 +175,25 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
 export default Checkout;
 
 const styles = StyleSheet.create({
+  boxShadow: {
+    backgroundColor: COLORS.WHITE,
+    padding: 10,
+    borderRadius: 6,
+    marginBottom: 16,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
   flexContainer: {
     flex: 1,
   },
-  shippingAddress: {},
   label: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -181,56 +202,26 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: FONTS.POPPINS,
-    fontSize: FONT_SIZE.BODY,
+    fontSize: FONT_SIZE.BODY_18,
     color: COLORS.SUB,
   },
   editIcon: {
     width: 24,
     height: 24,
   },
-  innerContainer: {
-    backgroundColor: COLORS.WHITE,
-    padding: 10,
-    borderRadius: 6,
-    marginBottom: 20,
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
-  },
   name: {
     fontFamily: FONTS.POPPINS_BOLD,
-    fontSize: FONT_SIZE.BODY_18,
+    fontSize: FONT_SIZE.BODY,
     color: COLORS.MAIN,
   },
   address: {
     fontFamily: FONTS.POPPINS,
-    fontSize: FONT_SIZE.LABEL,
+    fontSize: FONT_SIZE.BODY,
     color: COLORS.SUB,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
-    borderRadius: 6,
-    marginBottom: 16,
-
-    backgroundColor: COLORS.WHITE,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
   },
   text: {
     fontFamily: FONTS.POPPINS,
@@ -246,27 +237,13 @@ const styles = StyleSheet.create({
     marginVertical: 24,
   },
   cart: {
-    height: '60%',
-    marginTop: 16,
+    flex: 1,
   },
   container: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: COLORS.SECONDARY,
-    marginBottom: 16,
 
-    backgroundColor: COLORS.WHITE,
-    borderRadius: 6,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
+    marginBottom: 10,
+    marginTop: 10,
   },
   innerCartContainer: {
     flexDirection: 'column',
@@ -286,7 +263,6 @@ const styles = StyleSheet.create({
     width: scaleUI(80, true),
     borderRadius: 16,
     marginRight: 24,
-    marginBottom: 16,
   },
   number: {
     color: COLORS.MAIN,
@@ -299,10 +275,28 @@ const styles = StyleSheet.create({
   disable: {
     backgroundColor: COLORS.DISABLE,
   },
-  flatlist: {
-    margin: -20,
+
+  paymentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  content: {
-    padding: 20,
+  mastercardContainer: {
+    backgroundColor: COLORS.WHITE,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 1,
+    padding: 6,
+    marginHorizontal: 16,
+  },
+  mastercard: {
+    width: scaleUI(24),
+    height: scaleUI(24),
+    marginHorizontal: 10,
   },
 });

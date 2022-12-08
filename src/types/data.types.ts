@@ -10,7 +10,7 @@ export type ProductType = {
   isFavourite: boolean;
   popular: number;
   rate: number;
-  review: number;
+  review: ReviewType[];
   qty: number;
 };
 
@@ -40,10 +40,14 @@ export type OrderType = {
 
 export type ReviewType = {
   comment: string;
-  product: ProductType[];
+  // product: ProductType[];
+  name: string;
+  rate: number;
   image: string;
-  rating: number;
-  date: string;
+  price: number;
+  id: string;
+  // rating: number;
+  // date: string;
 };
 
 export type CartType = {

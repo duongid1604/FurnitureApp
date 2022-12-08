@@ -75,6 +75,7 @@ export type CheckoutScreenProps = StackScreenProps<
 >;
 
 export type ProfileNavigationProp = ProfileScreenProps['navigation'];
+export type ProfileRouteProp = ProfileScreenProps['route'];
 
 export type ProductScreenProps = StackScreenProps<
   RootStackParamList,
@@ -174,3 +175,12 @@ export type EditShippingAddressScreenProps = StackScreenProps<
 
 export type EditShippingAddressNavigationProp =
   EditShippingAddressScreenProps['navigation'];
+
+export type ReviewScreenProps = StackScreenProps<
+  ReviewStackParamList,
+  'Review'
+>;
+
+export type ReviewScreenNavigationProp = ReviewScreenProps['navigation'];
+
+export type ReviewScreenRouteProp = ReviewScreenProps['route'];
