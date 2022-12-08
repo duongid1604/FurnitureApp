@@ -106,9 +106,7 @@ const Checkout = ({navigation, route}: CheckoutScreenProps) => {
             <TouchableOpacity onPress={moveToMyAddress}>
               <Text style={styles.name}>{user?.selectedAddress?.fullName}</Text>
               <Text style={styles.address}>
-                {user?.selectedAddress?.address},{' '}
-                {user?.selectedAddress?.district}, {user?.selectedAddress?.city}
-                , {user?.selectedAddress?.country}
+                {user?.selectedAddress?.address}
               </Text>
             </TouchableOpacity>
           )}

@@ -19,6 +19,7 @@ export type CustomInputProps<TFormValues extends FieldValues> = {
   control: Control<TFormValues>;
   error?: Partial<FieldErrorsImpl<TFormValues>>;
   rules?: RegisterOptions;
+  isSelectInput?: boolean;
 };
 
 export type LoginFormFields = {
@@ -59,8 +60,4 @@ export type ChangePasswordFormFields = {
 export type ShippingAddressFormFields = {
   fullName: string;
   address: string;
-  zipcode: number;
-  country: string;
-  city: string;
-  district: string;
 };

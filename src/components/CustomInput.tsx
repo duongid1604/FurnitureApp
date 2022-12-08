@@ -35,14 +35,16 @@ const CustomInput = <TFormValues extends Record<string, unknown>>({
             name={field}
             control={control}
             rules={rules}
-            render={({field: {onChange, value}}) => (
-              <TextInput
-                style={styles.textInput}
-                {...textInputProps}
-                onChangeText={onChange}
-                value={value?.toString()}
-              />
-            )}
+            render={({field: {onChange, value}}) => {
+              return (
+                <TextInput
+                  style={styles.textInput}
+                  {...textInputProps}
+                  onChangeText={onChange}
+                  value={value?.toString()}
+                />
+              );
+            }}
           />
           {hasIcon && (
             <CustomIconButton
