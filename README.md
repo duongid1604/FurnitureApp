@@ -1,4 +1,4 @@
-# F-Mock-Project
+# Duong Furniture App
 
 Lệnh install node modules:
 npm install
